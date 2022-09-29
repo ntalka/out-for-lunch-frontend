@@ -1,6 +1,5 @@
 import React from 'react';
 import './Main.css'
-import Map from "../Maps/Map";
 import {
     Box,
     Container,
@@ -44,14 +43,9 @@ export default function Main() {
 
             <iframe
                 src={embedLink}
-                width="400" height="400" frameBorder="0" style={{border: 0}}
+                width="300" height="300" frameBorder="0" style={{border: 0}}
                 allowFullScreen="" aria-hidden="false" tabIndex="0"/>
             </Box>
-              <Box sx={{
-                  marginTop: 5}}
-                  height="400" width="400">
-                  <Map />
-              </Box>
             </Container>
         </ThemeProvider>
             );
