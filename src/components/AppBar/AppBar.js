@@ -14,10 +14,10 @@ App bar for the top of the web app, contains app name and burgermenu
 TODO: Better positioning, styling, burgermenu component functions
 -AK
  */
-export default function TopAppBar() {
+const TopAppBar = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     <BurgerMenu>
                     </BurgerMenu>
@@ -29,5 +29,6 @@ export default function TopAppBar() {
         </Box>
     );
 }
+export default TopAppBar;
 
 
