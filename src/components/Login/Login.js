@@ -22,7 +22,7 @@ TODO: Consistent styling, currently a lot of is hard coded like textbox borders
 
 -AK
  */
-export default function Login() {
+const Login = () => {
     // TODO: working login event -AK
     const submit = (event) => {
         event.preventDefault();
@@ -129,3 +129,5 @@ export default function Login() {
         </ThemeProvider>
     );
 }
+
+export default Login;

@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 
@@ -17,7 +18,7 @@ TODO: Possibly admin link
 TODO: positioning, styling
 -AK
  */
-export default function BurgerMenu() {
+const BurgerMenu=()=> {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -26,6 +27,7 @@ export default function BurgerMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
 
     return (
         <div>
@@ -54,24 +56,30 @@ export default function BurgerMenu() {
                 }}
             >
                 <MenuItem
-                    component='a'
-                    href="/Main"
+                    component={Link}
+                    onClick ={handleClose}
+                    to="/main"
                     >Main page
                 </MenuItem>
 
                 <MenuItem
-                    component='a'
-                    href="/profile"
-                    >Profile
+                    component={Link}
+                    onClick ={handleClose}
+                    to="/profile"> Profile
                 </MenuItem>
 
                 {/*TODO: LOGOUT FUNCTION*/}
+
                 <MenuItem
-                    component='a'
-                    href="/Login"
-                    >Log out
+                    component={Link}
+                    onClick ={handleClose}
+                    to="/login"> Logout
                 </MenuItem>
+
+
             </Menu>
         </div>
     );
 }
+
+export default BurgerMenu
