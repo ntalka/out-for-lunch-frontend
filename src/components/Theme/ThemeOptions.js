@@ -19,30 +19,7 @@ import {ThemeOptions} from "@mui/material";
 
 export const themeOptions: ThemeOptions = {
     palette: {
-        expert:{
-            main:'#00173a',
-        },
-        intelligent:{
-            main:'#0047f2',
-        },
-        humane:{
-            main:'#e3dbd0',
-        },
-        objective:{
-            main:'#ffffff',
-        },
-        bold:{
-            main:'#ff5e89',
-        },
-        add1:{
-            main:'#80a4ff',
-        },
-        add2:{
-            main:'#c2d1fa',
-        },
-
-
-        type: 'light',
+        type: 'dark',
         primary: {
             main: '#80a4ff',
             light: '#e3dbd0',
@@ -57,18 +34,13 @@ export const themeOptions: ThemeOptions = {
         text: {
             primary: '#fff6f6',
             secondary: '#fff6f6',
-            disabled: '#fff6f6',
+            disabled: '#000000',
             Hint: '#fff6f6',
         },
         background: {
             default: '#00173a',
-            paper: '#00173a',
+            paper: '#e3dbd0',
         },
         divider: '#ffffff',
-
-
-
-
-
     },
 };
