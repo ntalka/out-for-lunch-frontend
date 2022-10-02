@@ -9,6 +9,7 @@ import {
     Typography
 } from "@mui/material";
 import {themeOptions} from "../Theme/ThemeOptions";
+import {Link as Link2} from "react-router-dom";
 
 
 const theme = createTheme(themeOptions);
@@ -110,7 +111,8 @@ const Login = () => {
                                 <Button style={{minWidth:'120px'}}
                                     type="link"
                                     variant="contained"
-                                    sx={{ mt: 1, mb: 2 }}>
+                                    sx={{ mt: 1, mb: 2 }}
+                                    component={Link2} to="/register" >
                                     Register
                                 </Button>
                             </Grid>
