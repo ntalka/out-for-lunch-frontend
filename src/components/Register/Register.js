@@ -80,12 +80,12 @@ const Register = () => {
                 </Box>
             </form>
 
-            <Box sx={{ marginX: 110,  marginTop: 14 }}
+            <Box sx={{ marginX: 110,  marginTop: 10 }}
                  justifyContent={"center"}>
                 <Divider variant="middle" sx={{ borderBottomWidth: 3, maxWidth: 400 }}
                 />
             </Box>
-            <Box sx={{ marginX: 110,  marginTop: 1 }}
+            <Box sx={{ marginX: 110,  marginTop: 0 }}
                  maxWidth={200}
                  alignContent='center'>
 
