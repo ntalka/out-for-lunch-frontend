@@ -9,6 +9,7 @@ import Main from "../Main/Main";
 import Login from '../Login/Login';
 import Profile from "../Profile/Profile";
 import AppBar from "../AppBar/AppBar";
+import Register from "../Register/Register";
 
 
 
@@ -37,6 +38,7 @@ const App = () => {
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="*" element={<Login/>}/>
+                                    <Route path="/register" element={<Register/>}/>
                                 </Routes>
                         </header>
                 </BrowserRouter>
