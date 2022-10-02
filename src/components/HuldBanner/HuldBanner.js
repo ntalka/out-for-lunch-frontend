@@ -12,7 +12,7 @@ Aleksi Karelius
 
 export function HuldBanner(p) {
     return (
-        <Box sx={{ width: '100%', maxWidth: 600 }}>
+        <Box sx={{ width: '100%', maxWidth: 400 }}>
             <Box sx={{ my: 3, mx: 2 }}>
             </Box>
             <Divider variant="middle"
