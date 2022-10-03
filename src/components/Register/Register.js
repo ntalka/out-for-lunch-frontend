@@ -1,9 +1,10 @@
 import './Register.css';
-import logo_white from '../../Material/huld_logo_white.svg';
-import {Box, Button, createTheme, CssBaseline, Divider, TextField, ThemeProvider} from "@mui/material";
+import {HuldBanner} from "../HuldBanner/HuldBanner";
+import {Box, Button, createTheme, CssBaseline, TextField, ThemeProvider} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../Theme/ThemeOptions";
 const theme = createTheme(themeOptions);
+
 
 
 const Register = () => {
@@ -79,19 +80,9 @@ const Register = () => {
                     </Button>
                 </Box>
             </form>
-
-            <Box sx={{ marginX: 110,  marginTop: 10 }}
-                 justifyContent={"center"}>
-                <Divider variant="middle" sx={{ borderBottomWidth: 3, maxWidth: 400 }}
-                />
-            </Box>
-            <Box sx={{ marginX: 110,  marginTop: 0 }}
-                 maxWidth={200}
-                 alignContent='center'>
+            <HuldBanner sx={{ mt: 8, mb: 4 }}> </HuldBanner>
 
 
-                <img alt= "Huld logo" src={logo_white} align='center' />
-            </Box>
         </ThemeProvider>
 
     </div>
