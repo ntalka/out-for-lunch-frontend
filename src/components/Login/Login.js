@@ -1,6 +1,5 @@
 import React from 'react';
 import './Login.css'
-import {HuldBanner} from "../HuldBanner/HuldBanner";
 import {
     Box, Button,
     Container, createTheme,

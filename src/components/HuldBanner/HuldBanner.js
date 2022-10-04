@@ -1,4 +1,4 @@
-import { Box, Divider, Link} from "@mui/material";
+import { Box, Divider} from "@mui/material";
 import logo_white from '../../Material/huld_logo_white.svg';
 
 /*
@@ -8,7 +8,7 @@ Author:
 Aleksi Karelius
  */
 
-export function HuldBanner(p) {
+export function HuldBanner() {
     return (
         /* Centered banner, currently margined const 3 from top*/
         <Box margin="auto" justifyContent="center" sx={{ width: '100%', maxWidth: 400 }}>
@@ -21,7 +21,7 @@ export function HuldBanner(p) {
                         backgroundColor: "white"}}/>
             <Box alignContent='center'>
                 <a href="https://huld.io">
-                    <img src={logo_white} align='center' />
+                    <img alt="Huld company logo" src={logo_white} align='center' />
                 </a>
             </Box>
         </Box>

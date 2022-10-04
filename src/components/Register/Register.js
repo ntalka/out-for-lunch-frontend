@@ -1,5 +1,4 @@
 import './Register.css';
-import {HuldBanner} from "../HuldBanner/HuldBanner";
 import {
     Box,
     Button,
