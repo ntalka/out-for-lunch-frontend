@@ -1,6 +1,14 @@
 import './Register.css';
 import {HuldBanner} from "../HuldBanner/HuldBanner";
-import {Box, Button, createTheme, CssBaseline, TextField, ThemeProvider} from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    createTheme,
+    CssBaseline,
+    TextField,
+    ThemeProvider
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../Theme/ThemeOptions";
 const theme = createTheme(themeOptions);
@@ -24,8 +32,8 @@ const Register = () => {
 
 
     return (
-        <div>
         <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
             <CssBaseline />
             <form onSubmit={handleSubmit} >
                 <Box
@@ -34,7 +42,7 @@ const Register = () => {
                      flexDirection={"column"}
                      maxWidth={400}
                      alignItems="center"
-                     justifyContent={"center"}
+                     justifyContent="center"
                      margin={"auto"}
                      marginTop= {8}
                      padding={8}
@@ -76,16 +84,11 @@ const Register = () => {
                             style={{minWidth:'120px'}}
                             type={"submit"}
                             variant = "contained"> Register
-
                     </Button>
                 </Box>
             </form>
-            <HuldBanner sx={{ mt: 8, mb: 4 }}> </HuldBanner>
-
-
+            </Container>
         </ThemeProvider>
-
-    </div>
     );
 
 };

@@ -12,13 +12,14 @@ Aleksi Karelius
 
 export function HuldBanner(p) {
     return (
-        <Box sx={{ width: '100%', maxWidth: 400 }}>
+        <Box margin="auto" justifyContent="center" sx={{ width: '100%', maxWidth: 400 }}>
             <Box sx={{ my: 3, mx: 2 }}>
             </Box>
             <Divider variant="middle"
-                     sx={{ borderBottomWidth: 3 }}/>
+                     sx={{ borderBottomWidth: 3,
+                        backgroundColor: "white"}}/>
             <Box sx={{ m: 0 }} alignContent='center'>
-                <img src={logo_white} align='center' />
+                    <img src={logo_white} align='center' />
             </Box>
         </Box>
     );
