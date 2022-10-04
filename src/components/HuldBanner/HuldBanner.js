@@ -12,13 +12,16 @@ Aleksi Karelius
 
 export function HuldBanner(p) {
     return (
+        /* Centered banner, currently margined const 3 from top*/
         <Box margin="auto" justifyContent="center" sx={{ width: '100%', maxWidth: 400 }}>
-            <Box sx={{ my: 3, mx: 2 }}>
-            </Box>
+            {/* Divider is just white, might be changed later to suit HULD
+            colour scheme*/}
             <Divider variant="middle"
-                     sx={{ borderBottomWidth: 3,
+                     sx={{
+                         marginTop:3,
+                         borderBottomWidth: 3,
                         backgroundColor: "white"}}/>
-            <Box sx={{ m: 0 }} alignContent='center'>
+            <Box alignContent='center'>
                 <a href="https://huld.io">
                     <img src={logo_white} align='center' />
                 </a>
