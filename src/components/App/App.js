@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import Profile from "../Profile/Profile";
 import AppBar from "../AppBar/AppBar";
 import Register from "../Register/Register";
+import {HuldBanner} from "../HuldBanner/HuldBanner";
 
 
 
@@ -31,8 +32,9 @@ const App = () => {
         return (
             <div className="wrapper">
                 <BrowserRouter>
-                    <AppBar/>
                         <header className="App-header">
+                            <AppBar/>
+                        </header>
                                 <Routes>
                                     <Route path="/main" element={<Main />} />
                                     <Route path="/profile" element={<Profile />} />
@@ -40,7 +42,10 @@ const App = () => {
                                     <Route path="*" element={<Login/>}/>
                                     <Route path="/register" element={<Register/>}/>
                                 </Routes>
-                        </header>
+
+                    <footer>
+                        <HuldBanner/>
+                    </footer>
                 </BrowserRouter>
             </div>
         );

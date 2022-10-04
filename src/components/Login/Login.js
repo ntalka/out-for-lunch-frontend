@@ -101,7 +101,6 @@ const Login = () => {
                             <Grid item >
                                 <Button style={{minWidth:'200px'}}
                                     type="submit"
-
                                     variant="contained"
                                     >
                                     Log In
@@ -126,7 +125,6 @@ const Login = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <HuldBanner sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );
