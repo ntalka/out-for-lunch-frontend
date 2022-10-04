@@ -4,8 +4,6 @@ import logo_white from '../../Material/huld_logo_white.svg';
 /*
 Simple HULD-logo middle-aligned banner element w/ divider to use at the
 bottom of the site
-
-TODO Link logo to huld website
 Author:
 Aleksi Karelius
  */
