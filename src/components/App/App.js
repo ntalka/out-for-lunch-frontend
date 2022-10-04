@@ -23,7 +23,7 @@ import {HuldBanner} from "../HuldBanner/HuldBanner";
 const App = () => {
     /*
     TODO: Token handling
-    TODO: Move HuldBanner to app.js
+
      */
     //const [token, setToken] = useState();
     // if(!token) {
@@ -32,20 +32,23 @@ const App = () => {
         return (
             <div className="wrapper">
                 <BrowserRouter>
-                        <header className="App-header">
-                            <AppBar/>
-                        </header>
-                                <Routes>
-                                    <Route path="/main" element={<Main />} />
-                                    <Route path="/profile" element={<Profile />} />
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="*" element={<Login/>}/>
-                                    <Route path="/register" element={<Register/>}/>
-                                </Routes>
+
+                    <header className="App-header">
+                        <AppBar/>
+                    </header>
+
+                            <Routes>
+                                <Route path="/main" element={<Main />} />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="*" element={<Login/>}/>
+                                <Route path="/register" element={<Register/>}/>
+                            </Routes>
 
                     <footer>
                         <HuldBanner/>
                     </footer>
+
                 </BrowserRouter>
             </div>
         );
