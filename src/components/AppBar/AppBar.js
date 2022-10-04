@@ -13,15 +13,19 @@ import {createTheme, Grid, IconButton} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import {RestaurantInfoButton} from "../RestaurantInfoButton/RestaurantInfoButton"
 
 import {themeOptions} from "../Theme/ThemeOptions";
 
 const drawerWidth = 150;
 const huldTheme = createTheme(themeOptions);
 
+
+
+
 /*
 App bar for the top of the web app, contains app name and drawermenu component
-TODO: Better positioning, styling, burgermenu component functions
+TODO: burgermenu component functions
 -AK
  */
 const TopAppBar =() => {
@@ -67,7 +71,7 @@ const TopAppBar =() => {
             </AppBar>
             <Drawer
                 /*
-                Fixing drawer styleprops to fit ui-goals -AK
+                Fixing drawer styleprops to fit ux-goals -AK
                  */
                 PaperProps={{sx: {
                         backgroundColor: huldTheme.palette.background.paper,
@@ -77,24 +81,39 @@ const TopAppBar =() => {
                   const -AK
                  */
                 variant="temporary"
-                sx={{[`& .MuiDrawer-paper`]: { width: drawerWidth},}}
+                sx={{[`& .MuiDrawer-paper`]: { width: drawerWidth}}}
                 anchor='left' open={anchorEl} onClose={toggleDrawer}>
                 <Toolbar />
-                <Box>
+                <Box  >
                     <List
                         /* Listing menuitems, using router-dom to link
-                        TODO: restaurant and group info -AK
+                        TODO: More dynamic creation of list
                          */
                     >
-                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/main"
-                        >Main page
+                        <ListItemButton  component={Link} onClick ={toggleDrawer} to="/main">
+                            <Typography width={"100%"} textAlign={"center"}> Main page</Typography>
                         </ListItemButton>
 
-                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/profile"> Profile
+
+                        <Divider variant="middle"
+                                 sx={{borderBottomWidth: 2}}/>
+
+                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/profile">
+                            <Typography width={"100%"} textAlign={"center"}> Profile</Typography>
                         </ListItemButton>
+
+                        <Divider variant="middle"
+                                 sx={{borderBottomWidth: 2}}/>
+
+                        {/*TODO: currently nonfunctional / static proof of concept*/}
+                        <RestaurantInfoButton/>
+
+                        <Divider variant="middle"
+                                 sx={{borderBottomWidth: 2}}/>
 
                         {/*TODO: LOGOUT FUNCTION*/}
-                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/login"> Logout
+                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/login">
+                            <Typography width={"100%"} textAlign={"center"}> Log out</Typography>
                         </ListItemButton>
                     </List>
                     <Divider
