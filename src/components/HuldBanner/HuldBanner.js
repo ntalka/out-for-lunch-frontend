@@ -19,7 +19,9 @@ export function HuldBanner(p) {
                      sx={{ borderBottomWidth: 3,
                         backgroundColor: "white"}}/>
             <Box sx={{ m: 0 }} alignContent='center'>
+                <a href="https://huld.io">
                     <img src={logo_white} align='center' />
+                </a>
             </Box>
         </Box>
     );
