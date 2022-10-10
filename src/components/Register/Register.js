@@ -32,9 +32,11 @@ const Register = () => {
 
     return (
         <ThemeProvider theme={theme}>
+
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <form onSubmit={handleSubmit} >
+                <Typography variant="h2" textAlign={"center"} sx={{ fontSize: 30 }} marginBottom={-5} > Registeration</Typography>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
@@ -43,38 +45,62 @@ const Register = () => {
                      alignItems="center"
                      justifyContent="center"
                      margin={"auto"}
-                     marginTop= {8}
-                     padding={8}
+                     marginTop= {3}
+                     padding={5}
                      borderRadius={5}
                      borderColor={"white"}
                      border={1}
                 >
 
-                    <Typography variant="h2" padding={3} textAlign={"center"}> Register</Typography>
-
-                    <TextField sx={{ border: 1, borderRadius: 3}}
+                    <TextField label ="Email"
                                id ="email"
                                name={"email"}
                                type={"email"}
                                variant = "outlined"
                                placeholder={"Email"}
-                               margin ="normal" />
+                               margin ="normal"
+                               sx={{
+                                   "& .MuiOutlinedInput-root": {
+                                       "& > fieldset": {
+                                           borderColor: theme.palette.secondary.contrastText,
+                                           borderRadius : 3},
+                                   },
+                               }}/>
 
                     <TextField id={"password"}
                                name={"password"}
-                               sx={{ border: 1, borderRadius: 3}}
                                type={"password"}
+                               label="Password"
                                variant = "outlined"
                                placeholder = "Password"
-                               margin ="normal"/>
+                               margin ="normal"
+                               sx={{
+                                   "& .MuiOutlinedInput-root": {
+                                       "& > fieldset": {
+                                           borderColor: theme.palette.secondary.contrastText,
+                                           borderRadius : 3}
+                                       ,
+                                   },
+                               }}
+                    />
 
                     <TextField id={"passwordAgain"}
+                               border
+                               label = "Password again"
                                name={"passwordAgain"}
-                               sx={{ border: 1, borderRadius: 3}}
                                type={"password"}
                                variant = "outlined"
                                placeholder={"Password again"}
-                               margin ="normal" />
+                               margin ="normal"
+                               sx={{
+                                   "& .MuiOutlinedInput-root": {
+                                       "& > fieldset": {
+                                           borderColor: theme.palette.secondary.contrastText,
+                                           borderRadius : 3},
+                                   },
+                               }}
+
+                    />
 
                     <Typography maxWidth={170} textAlign={"center"} > {registerText} </Typography>
 
@@ -82,6 +108,7 @@ const Register = () => {
                             sx={{ marginTop: 2, borderRadius: 2 }}
                             style={{minWidth:'120px'}}
                             type={"submit"}
+                            fontColo
                             variant = "contained"> Register
                     </Button>
                 </Box>
