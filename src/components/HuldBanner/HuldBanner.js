@@ -11,7 +11,7 @@ Aleksi Karelius
 export function HuldBanner() {
     return (
         /* Centered banner, currently margined const 3 from top*/
-        <Box margin="auto" justifyContent="center" sx={{ width: '100%', maxWidth: 350 }}>
+        <Box margin="auto" marginTop= {18} justifyContent="center" sx={{ width: '100%', maxWidth: 360 } }>
             {/* Divider is just white, might be changed later to suit HULD
             colour scheme*/}
             <Divider variant="middle"
