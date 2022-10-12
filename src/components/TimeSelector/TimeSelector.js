@@ -71,9 +71,11 @@ function TimeSelector(){
 
     //Handling Slider connecting it to the timepickers using activeThumb
     const handleSliderChange = (event, newValue, activeThumb) => {
+        console.log(newValue);
         const index = activeThumb;
         let newDate = dayjs(new Date()).hour(0).minute(newValue[index]);
         setSliderValue(newValue);
+        if(event === null){return;}
         if (activeThumb === 0) {
             t1SetValue(newDate);
         } else {
@@ -81,8 +83,13 @@ function TimeSelector(){
         }
     };
     // TODO: IMPLEMENT TIMEPICKERS TO CHANGE SLIDER
-    const handleTimer1Change = (event, newValue)=>{
-        console.log(newValue);
+    const handleTimer1Change = (newValue)=>{
+        console.log(newValue.toString());
+        let newDate = dayjs(newValue);
+        const mins = newDate.minute()+newDate.hour()*60;
+        console.log(mins);
+        t1SetValue(newDate);
+        handleSliderChange(null, [mins, sliderValue[1]], 1);
         //handleSliderChange(event, newValue, 0);
     }
 
