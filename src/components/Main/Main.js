@@ -8,6 +8,7 @@ import {
     ThemeProvider
 } from "@mui/material";
 import {themeOptions} from "../Theme/ThemeOptions";
+import TimeSelector from "../TimeSelector/TimeSelector";
 
 const theme = createTheme(themeOptions);
 
@@ -39,7 +40,8 @@ export default function Main() {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-        <h2>'"Main Page - Restaurants'"</h2>
+        <h2>Main Page - Restaurants</h2>
+                    <TimeSelector></TimeSelector>
 
             <iframe
                 src={embedLink}

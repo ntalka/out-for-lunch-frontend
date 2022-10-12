@@ -1,0 +1,13 @@
+.timePicker fieldset.MuiOutlinedInput-notchedOutline {
+    border-color: white;
+}
+.timePicker fieldset.Mu
+
+.timePicker .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+    border-color: white;
+}
+
+.timePicker .MuiInputLabel {
+    color: white;
+}
+
