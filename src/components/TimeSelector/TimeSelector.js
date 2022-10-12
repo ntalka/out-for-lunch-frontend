@@ -45,14 +45,14 @@ const marks = [
 const theme = themeOptions;
 
 const pickerOptions={
-    // max time +1 min so no invalid input @ full-hour -AK
-    minTime:dayjs(new Date()).hour(10).minute(0),
+    // max/min time +1/-1 min so no invalid input @ full-hour -AK
+    minTime:dayjs(new Date()).hour(9).minute(59),
     maxTime:dayjs(new Date()).hour(14).minute(1),
     minStep:15,
 }
 
 const sliderOptions={
-    // Slider works in minutes
+    // Slider works in minutes, count starts from 00:00 -AK
     minTime: 600,
     maxTime: 840,
     minStep: 15,
@@ -75,6 +75,8 @@ function TimeSelector(){
         const index = activeThumb;
         let newDate = dayjs(new Date()).hour(0).minute(newValue[index]);
         setSliderValue(newValue);
+
+        // Null event indicates call from timepicker->no need to do twice -AK
         if(event === null){return;}
         if (activeThumb === 0) {
             t1SetValue(newDate);
@@ -82,7 +84,7 @@ function TimeSelector(){
             t2SetValue(newDate);
         }
     };
-    // TODO: IMPLEMENT TIMEPICKERS TO CHANGE SLIDER
+
     const handleTimer1Change = (newValue)=>{
         console.log(newValue.toString());
         let newDate = dayjs(newValue);
@@ -90,7 +92,15 @@ function TimeSelector(){
         console.log(mins);
         t1SetValue(newDate);
         handleSliderChange(null, [mins, sliderValue[1]], 1);
-        //handleSliderChange(event, newValue, 0);
+    }
+
+    const handleTimer2Change = (newValue)=>{
+        console.log(newValue.toString());
+        let newDate = dayjs(newValue);
+        const mins = newDate.minute()+newDate.hour()*60;
+        console.log(mins);
+        t2SetValue(newDate);
+        handleSliderChange(null, [sliderValue[0], mins], 0);
     }
 
 
@@ -131,7 +141,7 @@ function TimeSelector(){
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
                             value={t2Value}
-                            onChange={t2SetValue}
+                            onChange={handleTimer2Change}
                             renderInput={(params) => (
                                 <TextField {...params} className="timePicker"
                                            variant={"outlined"}
