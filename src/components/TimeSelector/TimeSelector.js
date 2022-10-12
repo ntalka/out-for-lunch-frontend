@@ -11,9 +11,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import {themeOptions} from "../Theme/ThemeOptions";
 import "./TimeSelector.css";
-import {
-    validateTime
-} from "@mui/x-date-pickers/internals/hooks/validation/useTimeValidation";
 
 
 
@@ -71,7 +68,6 @@ function TimeSelector(){
 
     //Handling Slider connecting it to the timepickers using activeThumb
     const handleSliderChange = (event, newValue, activeThumb) => {
-        console.log(newValue);
         const index = activeThumb;
         let newDate = dayjs(new Date()).hour(0).minute(newValue[index]);
         setSliderValue(newValue);
@@ -85,20 +81,19 @@ function TimeSelector(){
         }
     };
 
+    // Timer changes and slider linking
+    // calls slider changes with null event to distinguish
+    // TODO: remove duplicate code
     const handleTimer1Change = (newValue)=>{
-        console.log(newValue.toString());
         let newDate = dayjs(newValue);
         const mins = newDate.minute()+newDate.hour()*60;
-        console.log(mins);
         t1SetValue(newDate);
         handleSliderChange(null, [mins, sliderValue[1]], 1);
     }
 
     const handleTimer2Change = (newValue)=>{
-        console.log(newValue.toString());
         let newDate = dayjs(newValue);
         const mins = newDate.minute()+newDate.hour()*60;
-        console.log(mins);
         t2SetValue(newDate);
         handleSliderChange(null, [sliderValue[0], mins], 0);
     }
@@ -146,11 +141,13 @@ function TimeSelector(){
                                 <TextField {...params} className="timePicker"
                                            variant={"outlined"}
                                            label={"To"}
-                                                       sx={{
-                                                           svg: { color: '#ffffff' },
-                                                           input: {
-                                                               textAlign: "center",
-                                                               color: '#ffffff' }}}/>
+                                           sx={{
+                                               svg: {
+                                                   color: '#ffffff' },
+                                               input: {
+                                                   textAlign: "center",
+                                                   color: '#ffffff' },
+                                           }}/>
                             )}
                             minTime={pickerOptions.minTime}
                             maxTime={pickerOptions.maxTime}/>
