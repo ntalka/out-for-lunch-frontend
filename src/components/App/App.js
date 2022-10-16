@@ -41,7 +41,6 @@ const App = () => {
                         </header>
 
                                 <Routes>
-                                    <Route path="/main" element={<Main />} />
 
                                     <Route path="/login" element={<Login />} />
                                     <Route path="*" element={<Login/>}/>
@@ -49,6 +48,7 @@ const App = () => {
                                     <Route path="/nopermission" element={<NoPermission/>}/>
 
                                         <Route element={<Authenticate/>}>
+                                            <Route path="/main" element={<Main />} />
                                             <Route path="/profile" element={<Profile />} />
                                         </Route>
                                 </Routes>
