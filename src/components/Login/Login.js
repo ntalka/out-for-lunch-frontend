@@ -5,7 +5,7 @@ import {
     Container, createTheme,
     CssBaseline, FormControlLabel, Grid, Link, Switch, TextField,
     ThemeProvider,
-    Typography
+    FormLabel
 } from "@mui/material";
 import {themeOptions} from "../Theme/ThemeOptions";
 import {Link as Link2} from "react-router-dom";
@@ -37,33 +37,33 @@ const Login = () => {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
+                <FormLabel style={{marginLeft: "110px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "175px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Please log in</FormLabel>
                 <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}>
+                        id={"LoginBox"}
+                        display ="flex"
+                        flexDirection={"column"}
+                        marginTop= {3}
+                        maxWidth={400}
+                        alignItems={'center'}
+                        padding={5}
+                        borderRadius={4}
+                        borderColor={"white"}
+                        border={1}
+                    >
 
-
-                    <Typography component="h1" variant="h5">
-                        {/*TODO: Box around the header - AK*/}
-                        Please log in
-                    </Typography>
                     <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}
                          textAlign='center'>
                         <TextField
-                            // TODO: Fix hardcoded borders -AK
                             sx={{
                                 "& .MuiOutlinedInput-root": {
                                     "& > fieldset": {
-                                        borderColor: theme.palette.secondary.contrastText},
+                                        borderColor: theme.palette.secondary.contrastText,
+                                        borderRadius : 3},
                                 },
                             }}
                             variant='outlined'
                             margin="normal"
                             required
-                            fullWidth
                             id="email"
                             label="Email"
                             name="email"
@@ -71,16 +71,15 @@ const Login = () => {
                             autoFocus
                         />
                         <TextField
-                            // TODO: Fix hardcoded borders -AK
                             sx={{
                                 "& .MuiOutlinedInput-root": {
                                     "& > fieldset": {
-                                        borderColor: theme.palette.secondary.contrastText},
+                                        borderColor: theme.palette.secondary.contrastText,
+                                        borderRadius : 3},
                                 },
                             }}
                             margin="normal"
                             required
-                            fullWidth
                             name="password"
                             label="Password"
                             type="password"
@@ -90,15 +89,18 @@ const Login = () => {
                         <FormControlLabel
                             control={<Switch value="remember" defaultChecked
                                              />}
-
                             color='objective'
                             label="Remember me"
+                            labelPlacement={"start"}
+                            sx={{marginBottom: 2, marginTop: -1 }}
                         />
 
                         {/*Button grid starts here */}
                         <Grid >
                             <Grid item >
-                                <Button style={{minWidth:'200px'}}
+                                <Button
+                                    sx={{ borderRadius: 2 }}
+                                    style={{minWidth:'180px'}}
                                     type="submit"
                                     variant="contained"
                                     >
@@ -106,18 +108,19 @@ const Login = () => {
                                 </Button>
                             </Grid>
                             <Grid item >
-                                <Button style={{minWidth:'120px'}}
+                                <Button
+                                    sx={{mt: 1, mb: 2, borderRadius: 2 }}
+                                    style={{minWidth:'120px'}}
                                     type="link"
                                     variant="contained"
-                                    sx={{ mt: 1, mb: 2 }}
                                     component={Link2} to="/register" >
                                     Register
                                 </Button>
                             </Grid>
                         </Grid>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
+                        <Grid  container>
+                            <Grid item xs >
+                                <Link  href="#" variant="body2" >
                                     Forgot password?
                                 </Link>
                             </Grid>
