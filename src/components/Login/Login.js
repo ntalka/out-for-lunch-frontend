@@ -54,6 +54,8 @@ const Login = () => {
                     <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}
                          textAlign='center'>
                         <TextField
+
+                            // still hard coded borders
                             sx={{
                                 "& .MuiOutlinedInput-root": {
                                     "& > fieldset": {
@@ -70,7 +72,7 @@ const Login = () => {
                             autoComplete="email"
                             autoFocus
                         />
-                        <TextField
+                        <TextField // still hard coded borders
                             sx={{
                                 "& .MuiOutlinedInput-root": {
                                     "& > fieldset": {

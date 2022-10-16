@@ -59,6 +59,8 @@ const Register = () => {
                                variant = "outlined"
                                placeholder={"Email"}
                                margin ="normal"
+
+                               // still hard coded borders
                                sx={{
                                    "& .MuiOutlinedInput-root": {
                                        "& > fieldset": {
@@ -74,6 +76,8 @@ const Register = () => {
                                variant = "outlined"
                                placeholder = "Password"
                                margin ="normal"
+
+                               // still hard coded borders
                                sx={{
                                    "& .MuiOutlinedInput-root": {
                                        "& > fieldset": {
@@ -92,6 +96,8 @@ const Register = () => {
                                variant = "outlined"
                                placeholder={"Password again"}
                                margin ="normal"
+
+                               // still hard coded borders
                                sx={{
                                    "& .MuiOutlinedInput-root": {
                                        "& > fieldset": {
@@ -99,10 +105,8 @@ const Register = () => {
                                            borderRadius : 3},
                                    },
                                }}
-
                     />
                     <Typography sx={{fontFamily: 'Quicksand'}} maxWidth={170} textAlign={"center"} > {registerText} </Typography>
-
                     <Button id={"RegisterButton"}
                             sx={{ marginTop: 2, borderRadius: 2 }}
                             style={{fontFamily: 'Quicksand', fontStyle: 'bold', minWidth:'120px'}}
@@ -112,7 +116,6 @@ const Register = () => {
                 </Box>
             </form>
             </Container>
-
         </ThemeProvider>
     );
 
