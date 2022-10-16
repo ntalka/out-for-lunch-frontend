@@ -6,7 +6,8 @@ import {
     createTheme,
     CssBaseline,
     TextField,
-    ThemeProvider
+    ThemeProvider,
+    FormLabel
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../Theme/ThemeOptions";
@@ -32,11 +33,10 @@ const Register = () => {
 
     return (
         <ThemeProvider theme={theme}>
-
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <form onSubmit={handleSubmit} >
-                <Typography variant="h2" textAlign={"center"} sx={{ fontSize: 30 }} marginBottom={-5} > Registeration</Typography>
+                <FormLabel style={{marginLeft: "110px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
@@ -47,7 +47,7 @@ const Register = () => {
                      margin={"auto"}
                      marginTop= {3}
                      padding={5}
-                     borderRadius={5}
+                     borderRadius={4}
                      borderColor={"white"}
                      border={1}
                 >
@@ -101,19 +101,18 @@ const Register = () => {
                                }}
 
                     />
-
-                    <Typography maxWidth={170} textAlign={"center"} > {registerText} </Typography>
+                    <Typography sx={{fontFamily: 'Quicksand'}} maxWidth={170} textAlign={"center"} > {registerText} </Typography>
 
                     <Button id={"RegisterButton"}
                             sx={{ marginTop: 2, borderRadius: 2 }}
-                            style={{minWidth:'120px'}}
+                            style={{fontFamily: 'Quicksand', fontStyle: 'bold', minWidth:'120px'}}
                             type={"submit"}
-                            fontColo
                             variant = "contained"> Register
                     </Button>
                 </Box>
             </form>
             </Container>
+
         </ThemeProvider>
     );
 
