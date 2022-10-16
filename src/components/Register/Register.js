@@ -17,6 +17,7 @@ const theme = createTheme(themeOptions);
 Register for the website
 Button elements for submitting, forgetting password and registering
 TODO: actual register, currently just grabs data and logs on console,
+TODO: quicksand is not correct one, more styling
 
  */
 
