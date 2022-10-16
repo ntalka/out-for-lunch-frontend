@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import {themeOptions} from "../Theme/ThemeOptions";
+import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import "./TimeSelector.css";
 
 
@@ -68,7 +68,6 @@ function TimeSelector(){
 
     //Handling Slider connecting it to the timepickers using activeThumb
     const handleSliderChange = (event, newValue, activeThumb) => {
-        const index = activeThumb;
         let newDate = dayjs(new Date()).hour(0).minute(newValue[index]);
         setSliderValue(newValue);
 

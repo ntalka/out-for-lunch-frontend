@@ -1,5 +1,5 @@
 import { Box, Divider} from "@mui/material";
-import logo_white from '../../Material/huld_logo_white.svg';
+import logo_white from '../../material/huld_logo_white.svg';
 
 /*
 Simple HULD-logo middle-aligned banner element w/ divider to use at the

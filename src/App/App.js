@@ -6,17 +6,17 @@ import {
     Route,
     BrowserRouter
 } from 'react-router-dom';
-import Main from "../Main/Main";
-import Login from '../Login/Login';
-import Profile from "../Profile/Profile";
-import AppBar from "../AppBar/AppBar";
-import Register from "../Register/Register";
-import {HuldBanner} from "../HuldBanner/HuldBanner";
+import Main from "../pages/Main/Main";
+import Login from '../pages/Login/Login';
+import Profile from "../pages/Profile/Profile";
+import AppBar from "../components/AppBar/AppBar";
+import Register from "../pages/Register/Register";
+import {HuldBanner} from "../components/HuldBanner/HuldBanner";
 import {
     Authenticator,
     Authenticate,
-} from "../Authentication/Authenticate";
-import NoPermission from "../NoPermission/NoPermission";
+} from "../utils/Authentication/Authenticate";
+import NoPermission from "../pages/NoPermission/NoPermission";
 
 
 

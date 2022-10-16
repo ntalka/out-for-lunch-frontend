@@ -7,8 +7,8 @@ import {
     CssBaseline,
     ThemeProvider
 } from "@mui/material";
-import {themeOptions} from "../Theme/ThemeOptions";
-import TimeSelector from "../TimeSelector/TimeSelector";
+import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import TimeSelector from "../../components/TimeSelector/TimeSelector";
 
 const theme = createTheme(themeOptions);
 
@@ -41,7 +41,7 @@ export default function Main() {
                         alignItems: 'center',
                     }}>
         <h2>Main Page - Restaurants</h2>
-                    <TimeSelector></TimeSelector>
+                    <TimeSelector/>
 
             <iframe
                 src={embedLink}

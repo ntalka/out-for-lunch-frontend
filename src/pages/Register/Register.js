@@ -10,7 +10,7 @@ import {
     FormLabel
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {themeOptions} from "../Theme/ThemeOptions";
+import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import {useState} from "react";
 const theme = createTheme(themeOptions);
 

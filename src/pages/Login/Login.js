@@ -7,7 +7,7 @@ import {
     ThemeProvider,
     FormLabel
 } from "@mui/material";
-import {themeOptions} from "../Theme/ThemeOptions";
+import {themeOptions} from "../../utils/Theme/ThemeOptions";
 // noinspection ES6CheckImport
 import {
     Link as Link2,
@@ -15,7 +15,7 @@ import {
     useLocation,
     useNavigate
 } from "react-router-dom";
-import {useAuth} from "../Authentication/Authenticate";
+import {useAuth} from "../../utils/Authentication/Authenticate";
 
 
 const theme = createTheme(themeOptions);
