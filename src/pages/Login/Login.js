@@ -137,7 +137,7 @@ const Login = () => {
                             <Grid>
                                 <Grid item>
                                     <Button
-                                        sx={{borderRadius: 2}}
+                                        sx={{borderRadius: 2, fontWeight: "bold"}}
                                         style={{minWidth: '180px'}}
                                         type="submit"
                                         variant="contained"
@@ -147,7 +147,7 @@ const Login = () => {
                                 </Grid>
                                 <Grid item>
                                     <Button
-                                        sx={{mt: 1, mb: 2, borderRadius: 2}}
+                                        sx={{mt: 1, mb: 2, borderRadius: 2, fontWeight: "bold"}}
                                         style={{minWidth: '120px'}}
                                         type="link"
                                         variant="contained"
