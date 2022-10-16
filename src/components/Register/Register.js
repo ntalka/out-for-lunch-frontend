@@ -36,7 +36,7 @@ const Register = () => {
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <form onSubmit={handleSubmit} >
-                <FormLabel style={{marginLeft: "110px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
+                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
