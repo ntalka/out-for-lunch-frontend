@@ -11,11 +11,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import {createTheme, Grid, IconButton} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useCallback, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {RestaurantInfoButton} from "../RestaurantInfoButton/RestaurantInfoButton"
 
 import {themeOptions} from "../Theme/ThemeOptions";
+import {useAuth} from "../Authentication/Authenticate";
 
 const drawerWidth = 150;
 const huldTheme = createTheme(themeOptions);
@@ -30,13 +31,26 @@ TODO: burgermenu component functions
  */
 const TopAppBar =() => {
     /*
-    Anchors and toggles for the hamburgermenu-button
-    -AK
+    Anchors and toggles for the hamburgermenu-button -AK
      */
     const [anchorEl, setAnchorEl] = useState(false);
     const open = Boolean(anchorEl);
-    function toggleDrawer() {setAnchorEl(!open)
-    }
+    function toggleDrawer() {setAnchorEl(!open)}
+
+    const { setUser } = useAuth();
+    const navigate = useNavigate();
+
+    // Logout functionality -AK
+    const logout = useCallback(
+        (e) => {
+            e.preventDefault();
+            setUser(null);
+            setAnchorEl(false);
+            navigate("/login");
+        },
+        [setUser]
+    );
+
     return (
         <div>
             <AppBar
@@ -111,24 +125,13 @@ const TopAppBar =() => {
                         <Divider variant="middle"
                                  sx={{borderBottomWidth: 2}}/>
 
-                        {/*TODO: LOGOUT FUNCTION*/}
-                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/login">
+                        {/*TODO: Switching between login / log out*/}
+                        <ListItemButton onClick ={logout}>
                             <Typography width={"100%"} textAlign={"center"}> Log out</Typography>
                         </ListItemButton>
                     </List>
                     <Divider
-                        /* TODO: Make it clearer, maybe dividers between
-                     TODO: items, maybe dynamic list creation -> see below*/
                     />
-                    <List>
-                        {['Jotain', 'Muuta', 'Tarvittavaa'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
                 </Box>
             </Drawer>
             <Toolbar />
