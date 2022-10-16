@@ -11,6 +11,8 @@ import Profile from "../Profile/Profile";
 import AppBar from "../AppBar/AppBar";
 import Register from "../Register/Register";
 import {HuldBanner} from "../HuldBanner/HuldBanner";
+import {Authenticator, Authenticate} from "../Authentication/Authenticate";
+import NoPermission from "../NoPermission/NoPermission";
 
 
 
@@ -31,25 +33,32 @@ const App = () => {
     // }
         return (
             <div className="wrapper">
-                <BrowserRouter>
+                <Authenticator>
+                    <BrowserRouter>
 
-                    <header className="App-header">
-                        <AppBar/>
-                    </header>
+                        <header className="App-header">
+                            <AppBar/>
+                        </header>
 
-                            <Routes>
-                                <Route path="/main" element={<Main />} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="*" element={<Login/>}/>
-                                <Route path="/register" element={<Register/>}/>
-                            </Routes>
+                                <Routes>
+                                    <Route path="/main" element={<Main />} />
 
-                    <footer>
-                        <HuldBanner/>
-                    </footer>
+                                    <Route path="/login" element={<Login />} />
+                                    <Route path="*" element={<Login/>}/>
+                                    <Route path="/register" element={<Register/>}/>
+                                    <Route path="/nopermission" element={<NoPermission/>}/>
 
-                </BrowserRouter>
+                                        <Route element={<Authenticate/>}>
+                                            <Route path="/profile" element={<Profile />} />
+                                        </Route>
+                                </Routes>
+
+                        <footer>
+                            <HuldBanner/>
+                        </footer>
+
+                    </BrowserRouter>
+                </Authenticator>
             </div>
         );
 
