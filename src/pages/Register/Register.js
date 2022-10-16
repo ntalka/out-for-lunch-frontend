@@ -56,10 +56,12 @@ const Register = () => {
     };
 
     // email error
-    const emailError = !values.email.includes("@huld.io");
+    const emailError = (!values.email.includes("@huld.io") && values.email !== "");
 
     // password error
-    const passwordError = !(values.password === values.passwordAgain && values.passwordAgain !== "");
+    const passwordError = !(values.password === values.passwordAgain);
+
+    const emptyCheck = (values.email === "" && values.password === "" && values.passwordAgain === "");
 
     //register text
     const  registerText = " Check your email after registration to finalize the process!";
@@ -114,7 +116,7 @@ const Register = () => {
                                placeholder={"Email"}
                                margin ="normal"
                                onChange={handleChangeEmail("email")}
-                               helperText={emailError ? "Name needs to be '@huld.io'" : "Perfect!"}
+                               helperText={emailError ? "Email needs to be '@huld.io'" : ""}
                                error={emailError}
 
                                // still hard coded borders
@@ -136,7 +138,7 @@ const Register = () => {
                                placeholder = "Password"
                                margin ="normal"
                                onChange={handleChangePassword("password")}
-                               helperText={passwordError ? "Both passwords need to be same" : "Perfect!"}
+                               helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
 
                                // still hard coded borders
@@ -161,7 +163,7 @@ const Register = () => {
                                margin ="normal"
                                values={values.passwordAgain}
                                onChange={handleChangePasswordAgain("passwordAgain")}
-                               helperText={passwordError ? "Both passwords need to be same" : "Perfect!"}
+                               helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
 
                                // still hard coded borders
@@ -175,7 +177,7 @@ const Register = () => {
                     />
                     <Typography sx={{fontFamily: 'Quicksand'}} maxWidth={170} textAlign={"center"} > {registerText} </Typography>
                     <Button id={"RegisterButton"}
-                            disabled={emailError || passwordError}
+                            disabled={emailError || passwordError || emptyCheck}
                             disableElevation
                             sx={{ marginTop: 2, borderRadius: 2 }}
                             style={{fontFamily: 'Quicksand', fontStyle: 'bold', minWidth:'120px'}}
