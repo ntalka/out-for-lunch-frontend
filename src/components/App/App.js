@@ -1,5 +1,6 @@
 import './App.css';
-import React, {Component, useState} from 'react';
+import React from 'react';
+// noinspection ES6CheckImport
 import {
     Routes,
     Route,
@@ -11,6 +12,11 @@ import Profile from "../Profile/Profile";
 import AppBar from "../AppBar/AppBar";
 import Register from "../Register/Register";
 import {HuldBanner} from "../HuldBanner/HuldBanner";
+import {
+    Authenticator,
+    Authenticate,
+} from "../Authentication/Authenticate";
+import NoPermission from "../NoPermission/NoPermission";
 
 
 
@@ -25,31 +31,34 @@ const App = () => {
     TODO: Token handling
 
      */
-    //const [token, setToken] = useState();
-    // if(!token) {
-    //     return <Login setToken={setToken} />
-    // }
         return (
             <div className="wrapper">
-                <BrowserRouter>
+                <Authenticator>
+                    <BrowserRouter>
 
-                    <header className="App-header">
-                        <AppBar/>
-                    </header>
+                        <header className="App-header">
+                            <AppBar/>
+                        </header>
 
-                            <Routes>
-                                <Route path="/main" element={<Main />} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="*" element={<Login/>}/>
-                                <Route path="/register" element={<Register/>}/>
-                            </Routes>
+                                <Routes>
+                                    <Route path="/nopermission" element={<NoPermission/>}/>
 
-                    <footer>
-                        <HuldBanner/>
-                    </footer>
+                                    <Route path="*" element={<Login/>}/>
+                                    <Route path="/login" element={<Login />} />
+                                    <Route path="/register" element={<Register/>}/>
 
-                </BrowserRouter>
+                                    <Route element={<Authenticate/>}>
+                                        <Route path="/main" element={<Main />} />
+                                        <Route path="/profile" element={<Profile />} />
+                                    </Route>
+                                </Routes>
+
+                        <footer>
+                            <HuldBanner/>
+                        </footer>
+
+                    </BrowserRouter>
+                </Authenticator>
             </div>
         );
 

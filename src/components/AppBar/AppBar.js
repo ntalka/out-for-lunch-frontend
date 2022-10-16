@@ -6,16 +6,15 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import {createTheme, Grid, IconButton} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useCallback, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {RestaurantInfoButton} from "../RestaurantInfoButton/RestaurantInfoButton"
 
 import {themeOptions} from "../Theme/ThemeOptions";
+import {useAuth} from "../Authentication/Authenticate";
 
 const drawerWidth = 150;
 const huldTheme = createTheme(themeOptions);
@@ -30,13 +29,26 @@ TODO: burgermenu component functions
  */
 const TopAppBar =() => {
     /*
-    Anchors and toggles for the hamburgermenu-button
-    -AK
+    Anchors and toggles for the hamburgermenu-button -AK
      */
     const [anchorEl, setAnchorEl] = useState(false);
     const open = Boolean(anchorEl);
-    function toggleDrawer() {setAnchorEl(!open)
-    }
+    function toggleDrawer() {setAnchorEl(!open)}
+
+    const {user, setUser } = useAuth();
+    const navigate = useNavigate();
+
+    // Logout functionality -AK
+    const logout = useCallback(
+        (e) => {
+            e.preventDefault();
+            setUser(null);
+            setAnchorEl(false);
+            navigate("/login");
+        },
+        [setUser]
+    );
+
     return (
         <div>
             <AppBar
@@ -54,11 +66,13 @@ const TopAppBar =() => {
                         */
                         container alignItems="center" spacing={0}>
                         <Grid item xs={2}>
+                            {/*Show button only for logged users*/}
+                            {user &&
                             <IconButton
                                 id="icon-button"
                                 onClick={toggleDrawer}>
                                 <MenuIcon/>
-                            </IconButton>
+                            </IconButton>}
                         </Grid>
 
                         <Grid item xs={8}>
@@ -85,6 +99,7 @@ const TopAppBar =() => {
                 anchor='left' open={anchorEl} onClose={toggleDrawer}>
                 <Toolbar />
                 <Box  >
+
                     <List
                         /* Listing menuitems, using router-dom to link
                         TODO: More dynamic creation of list
@@ -111,24 +126,13 @@ const TopAppBar =() => {
                         <Divider variant="middle"
                                  sx={{borderBottomWidth: 2}}/>
 
-                        {/*TODO: LOGOUT FUNCTION*/}
-                        <ListItemButton component={Link} onClick ={toggleDrawer} to="/login">
+                        {/*TODO: Switching between login / log out*/}
+                        <ListItemButton onClick ={logout}>
                             <Typography width={"100%"} textAlign={"center"}> Log out</Typography>
                         </ListItemButton>
                     </List>
                     <Divider
-                        /* TODO: Make it clearer, maybe dividers between
-                     TODO: items, maybe dynamic list creation -> see below*/
                     />
-                    <List>
-                        {['Jotain', 'Muuta', 'Tarvittavaa'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
                 </Box>
             </Drawer>
             <Toolbar />
