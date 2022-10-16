@@ -24,10 +24,11 @@ TODO: actual register, currently just grabs data and logs on console,
 
 
 const Register = () => {
+    
     const  registerText = " Check your email after registration to finalize the process!";
 
 
-
+    // handle registration sumbit
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
