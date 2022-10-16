@@ -197,7 +197,7 @@ const Register = () => {
                     open={open}
                     onClose={() => setOpen(false)}>
                         <DialogContent sx={{backgroundColor: theme.palette.background.default}}>
-                        <DialogContentText> Confirmation link has been send to {values.email}
+                        <DialogContentText> Confirmation link has been sent to {values.email}
                         </DialogContentText>
                         </DialogContent >
                         <DialogActions sx={{backgroundColor: theme.palette.background.default}}>
