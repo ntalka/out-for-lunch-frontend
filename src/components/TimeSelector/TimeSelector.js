@@ -68,7 +68,7 @@ function TimeSelector(){
 
     //Handling Slider connecting it to the timepickers using activeThumb
     const handleSliderChange = (event, newValue, activeThumb) => {
-        let newDate = dayjs(new Date()).hour(0).minute(newValue[index]);
+        let newDate = dayjs(new Date()).hour(0).minute(newValue[activeThumb]);
         setSliderValue(newValue);
 
         // Null event indicates call from timepicker->no need to do twice -AK
