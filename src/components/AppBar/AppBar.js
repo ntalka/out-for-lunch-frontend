@@ -37,7 +37,7 @@ const TopAppBar =() => {
     const open = Boolean(anchorEl);
     function toggleDrawer() {setAnchorEl(!open)}
 
-    const { setUser } = useAuth();
+    const {user, setUser } = useAuth();
     const navigate = useNavigate();
 
     // Logout functionality -AK
@@ -68,11 +68,13 @@ const TopAppBar =() => {
                         */
                         container alignItems="center" spacing={0}>
                         <Grid item xs={2}>
+                            {/*Show button only for logged users*/}
+                            {user &&
                             <IconButton
                                 id="icon-button"
                                 onClick={toggleDrawer}>
                                 <MenuIcon/>
-                            </IconButton>
+                            </IconButton>}
                         </Grid>
 
                         <Grid item xs={8}>
@@ -99,6 +101,7 @@ const TopAppBar =() => {
                 anchor='left' open={anchorEl} onClose={toggleDrawer}>
                 <Toolbar />
                 <Box  >
+
                     <List
                         /* Listing menuitems, using router-dom to link
                         TODO: More dynamic creation of list
