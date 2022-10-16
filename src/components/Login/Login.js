@@ -18,9 +18,7 @@ const theme = createTheme(themeOptions);
 Login for the website. Contains elements for email and password submission
 Button elements for submitting, forgetting password and registering
 TODO: actual login, currently just grabs data and logs on console,
-TODO: Consistent styling, currently a lot of is hard coded like textbox borders
 
--AK
  */
 const Login = () => {
     // TODO: working login event -AK

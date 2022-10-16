@@ -13,6 +13,14 @@ import Typography from "@mui/material/Typography";
 import {themeOptions} from "../Theme/ThemeOptions";
 const theme = createTheme(themeOptions);
 
+/*
+Register for the website
+Button elements for submitting, forgetting password and registering
+TODO: actual register, currently just grabs data and logs on console,
+
+ */
+
+
 
 
 const Register = () => {
