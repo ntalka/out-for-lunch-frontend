@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useLocation, Navigate, Outlet, Link} from "react-router-dom";
+import { useLocation, Navigate, Outlet} from "react-router-dom";
 
 const AuthContext = createContext(null);
 
