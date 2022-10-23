@@ -18,7 +18,7 @@ TODO: functionality, currently static
 export function RestaurantInfoButton() {
     return(
         <div align={"center"}>
-            <ListItemText alignItems={"center"}>
+            <ListItemText >
                 <Typography variant={"body1"} width={"100%"} textAlign={"center"} >Your group:</Typography>
                 <Typography variant={"body2"} width={"100%"} textAlign={"center"} >{testRestaurantInfo.name}</Typography>
                 <div/>
