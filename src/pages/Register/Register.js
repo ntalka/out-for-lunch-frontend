@@ -7,7 +7,7 @@ import {
     CssBaseline,
     TextField,
     ThemeProvider,
-    FormLabel
+    FormLabel, Dialog, DialogActions, DialogContentText, DialogContent
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
@@ -33,6 +33,7 @@ TODO: quicksand is not correct one, more styling
 const Register = () => {
 
 
+
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -56,17 +57,19 @@ const Register = () => {
     };
 
     // email error
-    const emailError = !values.email.includes("@huld.io");
+    const emailError = (!values.email.includes("@huld.io") && values.email !== "");
 
     // password error
-    const passwordError = !(values.password === values.passwordAgain && values.passwordAgain !== "");
+    const passwordError = (!(values.password === values.passwordAgain ));
+
+    const emptyCheck = ( values.password === "" && values.passwordAgain === "");
 
     //register text
     const  registerText = " Check your email after registration to finalize the process!";
 
 
 
-    // handle registration sumbit
+    // handle registration submit
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -79,6 +82,7 @@ const Register = () => {
     };
 
 
+    const [open, setOpen] = useState(false)
 
 
 
@@ -88,6 +92,8 @@ const Register = () => {
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <form onSubmit={handleSubmit} >
+
+                {/* Placing text between borders */}
                 <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
                 <Box
                      id={"RegisterBox"}
@@ -114,7 +120,7 @@ const Register = () => {
                                placeholder={"Email"}
                                margin ="normal"
                                onChange={handleChangeEmail("email")}
-                               helperText={emailError ? "Name needs to be '@huld.io'" : "Perfect!"}
+                               helperText={emailError ? "Email needs to be '@huld.io'" : ""}
                                error={emailError}
 
                                // still hard coded borders
@@ -136,7 +142,7 @@ const Register = () => {
                                placeholder = "Password"
                                margin ="normal"
                                onChange={handleChangePassword("password")}
-                               helperText={passwordError ? "Both passwords need to be same" : "Perfect!"}
+                               helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
 
                                // still hard coded borders
@@ -161,7 +167,7 @@ const Register = () => {
                                margin ="normal"
                                values={values.passwordAgain}
                                onChange={handleChangePasswordAgain("passwordAgain")}
-                               helperText={passwordError ? "Both passwords need to be same" : "Perfect!"}
+                               helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
 
                                // still hard coded borders
@@ -174,15 +180,35 @@ const Register = () => {
                                }}
                     />
                     <Typography sx={{fontFamily: 'Quicksand'}} maxWidth={170} textAlign={"center"} > {registerText} </Typography>
-                    <Button id={"RegisterButton"}
-                            disabled={emailError || passwordError}
-                            disableElevation
-                            sx={{ marginTop: 2, borderRadius: 2 }}
-                            style={{fontFamily: 'Quicksand', fontStyle: 'bold', minWidth:'120px'}}
+                    <Button onClick={() => setOpen(true)} id={"RegisterButton"}
+                            disabled={emailError || passwordError || emptyCheck}
+                            sx={{
+                                marginTop: 2, borderRadius: 2
+                            }}
+                            style={{ fontStyle: "normal", minWidth:'120px', fontWeight: "bold"}}
                             type={"submit"}
+
                             variant = "contained"> Register
 
                     </Button>
+
+                    {/* Popup after sumbit */}
+                    <Dialog
+                    open={open}
+                    onClose={() => setOpen(false)}>
+                        <DialogContent sx={{backgroundColor: theme.palette.background.default}}>
+                        <DialogContentText> Confirmation link has been sent to {values.email}
+                        </DialogContentText>
+                        </DialogContent >
+                        <DialogActions sx={{backgroundColor: theme.palette.background.default}}>
+                            <Button onClick={() => setOpen(false)} sx={{ color: "black", fontWeight: "bold",
+                                backgroundColor: theme.palette.secondary.dark,
+                            '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                color: theme.palette.primary.contrastText,
+
+                            }}}>Ok</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Box>
             </form>
             </Container>
