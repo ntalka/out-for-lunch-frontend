@@ -1,9 +1,10 @@
 import React from 'react';
 import Typography from "@mui/material/Typography";
 import {
+    CssBaseline,
     Grid,
     Slider,
-    TextField,
+    TextField, ThemeProvider,
 } from "@mui/material";
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -41,6 +42,7 @@ const marks = [
 ]
 const theme = themeOptions;
 
+
 const pickerOptions={
     // max/min time +1/-1 min so no invalid input @ full-hour -AK
     minTime:dayjs(new Date()).hour(9).minute(59),
@@ -73,6 +75,13 @@ function TimeSelector(){
 
         // Null event indicates call from timepicker->no need to do twice -AK
         if(event === null){return;}
+
+        //fixing overlapping slider
+        if(newValue[1]===newValue[0]){
+            t1SetValue(newDate)
+            t2SetValue(newDate);
+            return;
+        }
         if (activeThumb === 0) {
             t1SetValue(newDate);
         } else {
@@ -108,6 +117,7 @@ function TimeSelector(){
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
 
                     <Grid item xs={4}>
+
                         <TimePicker
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
@@ -127,11 +137,12 @@ function TimeSelector(){
                                                    color: '#ffffff' },
                                            }}/>
                             )}
-                            />
+                            sx={{backgroundColor:"#0047f2"}}/>
+
                     </Grid>
 
                     <Grid item xs={4}>
-                        <TimePicker
+                        <TimePicker InputProps={{"background-colour":"black"}}
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
                             value={t2Value}
@@ -149,7 +160,18 @@ function TimeSelector(){
                                            }}/>
                             )}
                             minTime={pickerOptions.minTime}
-                            maxTime={pickerOptions.maxTime}/>
+                            maxTime={pickerOptions.maxTime}
+                            sx={{
+                                overrides: {
+                                    MuiClockPicker: {
+                                        root:{
+                                          color:"red"
+                                        },
+                                        clock:{
+                                            color:"red"},
+                                        } }
+                        }}
+                        />
                     </Grid>
 
                         <Grid item alignItems={"center"} xs={10} width={'max-content'}>
@@ -169,6 +191,7 @@ function TimeSelector(){
                 </LocalizationProvider>
             </Grid>
         </div>
+
 
     )}
 
