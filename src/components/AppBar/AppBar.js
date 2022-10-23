@@ -46,7 +46,7 @@ const TopAppBar =() => {
             setAnchorEl(false);
             navigate("/login");
         },
-        [setUser]
+        [setUser, navigate]
     );
 
     return (
