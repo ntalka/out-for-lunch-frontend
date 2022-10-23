@@ -17,6 +17,7 @@ import {
     Authenticate,
 } from "../utils/Authentication/Authenticate";
 import NoPermission from "../pages/NoPermission/NoPermission";
+import YourGroup from "../pages/YourGroup/YourGroup";
 
 
 
@@ -50,6 +51,7 @@ const App = () => {
                                     <Route element={<Authenticate/>}>
                                         <Route path="/main" element={<Main />} />
                                         <Route path="/profile" element={<Profile />} />
+                                        <Route path="/yourgroup" element={<YourGroup />} />
                                     </Route>
                                 </Routes>
 

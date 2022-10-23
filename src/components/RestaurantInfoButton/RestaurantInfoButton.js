@@ -4,6 +4,7 @@ import { Grid, ListItemText} from "@mui/material";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
+
 const testRestaurantInfo={
     name: "TestiRavintola pitkä nimi",
     time: "11:00",
@@ -17,14 +18,14 @@ TODO: functionality, currently static
 * */
 export function RestaurantInfoButton() {
     return(
-        <div align={"center"}>
-            <ListItemText >
+
+            <ListItemText>
                 <Typography variant={"body1"} width={"100%"} textAlign={"center"} >Your group:</Typography>
                 <Typography variant={"body2"} width={"100%"} textAlign={"center"} >{testRestaurantInfo.name}</Typography>
-                <div/>
+
                 {/*Using grid to easily fit icons and text, can be changed as
                 necessary*/}
-                <Grid paddingLeft={4} container>
+                <Grid marginTop={1} paddingLeft={2} container >
                     <Grid item xs={1}>
                         <AccessTimeIcon/>
                     </Grid>
@@ -39,7 +40,7 @@ export function RestaurantInfoButton() {
                     </Grid>
                 </Grid>
             </ListItemText>
-        </div>
+
 
 
 

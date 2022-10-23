@@ -121,7 +121,10 @@ const TopAppBar =() => {
                                  sx={{borderBottomWidth: 2}}/>
 
                         {/*TODO: currently nonfunctional / static proof of concept*/}
-                        <RestaurantInfoButton/>
+                        <ListItemButton  component={Link} onClick ={toggleDrawer} to="/yourGroup">
+                            <RestaurantInfoButton/>
+                        </ListItemButton>
+
 
                         <Divider variant="middle"
                                  sx={{borderBottomWidth: 2}}/>
