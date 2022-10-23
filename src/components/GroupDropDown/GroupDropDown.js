@@ -82,7 +82,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
         return () => {
             document.removeEventListener("mouseup", closeOpenDropDown);
         };
-    }, [open, closeOpenDropDown]);
+    }, );
 
 
         return(
