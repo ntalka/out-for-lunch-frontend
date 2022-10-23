@@ -13,17 +13,6 @@ import {AllGroupDropDown} from "../../components/GroupDropDown/GroupDropDown";
 
 const theme = createTheme(themeOptions);
 
-// Test location and embed links for proof of concept -AK
-const testLocation = {
-    lat: 61.49925378109671,
-    long: 23.776468082987602,
-    address: "Itsenäisyydenkatu 3, 33100 Tampere, Suomi",
-    placeid: "ChIJuy6UbDjfjkYRmI04K3dwVcs",
-}
-const APIKEY = "YOUR_KEY_HERE";
-const embedLink = "https://www.google.com/maps/embed/v1/place?" +
-"key=" + APIKEY +
-"&q=place_id:" + testLocation.placeid;
 
 
 // Main page for displaying the restaurants / locations
@@ -43,12 +32,8 @@ export default function Main() {
                     }}>
         <h2>Main Page - Restaurants</h2>
                     <TimeSelector/>
-                    <AllGroupDropDown></AllGroupDropDown>
+                    <AllGroupDropDown/>
 
-            <iframe
-                src={embedLink}
-                width="300" height="300" frameBorder="0" style={{border: 0}}
-                allowFullScreen="" aria-hidden="false" tabIndex="0"/>
             </Box>
             </Container>
         </ThemeProvider>
