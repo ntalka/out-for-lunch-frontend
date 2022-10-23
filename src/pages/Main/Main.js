@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
+import GroupDropDown from "../../components/GroupDropDown/GroupDropDown";
 
 const theme = createTheme(themeOptions);
 
@@ -42,6 +43,7 @@ export default function Main() {
                     }}>
         <h2>Main Page - Restaurants</h2>
                     <TimeSelector/>
+                    <GroupDropDown></GroupDropDown>
 
             <iframe
                 src={embedLink}

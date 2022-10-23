@@ -46,8 +46,9 @@ const Login = () => {
             event.preventDefault();
             setUser({username});
             navigate("/main");
+
         },
-        [setUser, username]
+        [setUser, username, navigate]
     );
 
     if (user) {
@@ -61,7 +62,7 @@ const Login = () => {
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
-                    <FormLabel style={{
+                    <FormLabel  style={{
                         marginLeft: "110px",
                         marginTop: "-20px",
                         paddingLeft: "5px",
