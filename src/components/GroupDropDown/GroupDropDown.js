@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import Typography from "@mui/material/Typography";
 import {Box, Button, Grid} from "@mui/material";
+import Divider from "@mui/material/Divider";
+
+//Icon imports
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import Divider from "@mui/material/Divider";
 
 
 const testMap =[
@@ -48,12 +50,9 @@ function MapIframe({placeId}){
     )
 }
 
-function JoinGroupSwitch({groupId}){
-    return (
-        <div/>
-    )
-}
 
+// Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
+// - AK
 export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false}){
     const [open, setOpen] = useState(defaultOpen);
     const [joined, setJoin] = useState(false);
@@ -65,48 +64,57 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                     <Button variant={"contained"}
                         fullWidth={true}
                         onClick={toggleOpen}
+
+                        //BG colour will depened on join status, currently nulled
                         sx={{
                         color: "black",
-                        backgroundColor: joined ? null : "#e3dbd0"}}
-                     >
+                        backgroundColor: joined ? null : "#e3dbd0"}}>
+
+                        {/*Gridded button info contents to assure easier time
+                        aligning via proportions -AK */}
                         <Grid container>
                             <Grid item xs={6} >
                                 <Typography align={"left"} color={"black"}>{groupId} </Typography>
                             </Grid>
+
                             <Grid item xs={1}>
                                 <AccessTimeIcon />
-
                             </Grid>
+
                             <Grid item xs={2}>
                                 <Typography color={"black"}>{time} </Typography>
-
                             </Grid>
+
                             <Grid item xs={1}>
                                 <PeopleAltIcon/>
                             </Grid>
+
                             <Grid item xs={1}>
                                 <Typography align={"left"} color={"black"}>3 </Typography>
-
                             </Grid>
+
                             <Grid item xs={1}>
                                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon/>}
                             </Grid>
-
-
-
                         </Grid>
+                    </Button>
 
-
-
-                            </Button>
-
-
+                {/*Contents of the dropdown menu, hidden if !open */}
                 {open &&
+                    <Box marginTop={2}>
+                        <div>
+                            <Typography variant={"h6"} align={"center"}>Join this Group? </Typography>
+                        </div>
+                        <Divider  variant={"middle"}sx={{
+                            margin:1,
+                            borderBottomWidth: 2,
+                            backgroundColor: "#e3dbd0"}}/>
 
-                    <Box>
                         <MapIframe placeId={placeId}/>
-                        GroupId = {groupId}
-                        <Divider  variant={"middle"}/>
+                        <Divider  variant={"middle"}sx={{
+                            margin:1,
+                            borderBottomWidth: 2,
+                            backgroundColor: "#e3dbd0"}}/>
                         <Typography>
 
                         </Typography>
@@ -120,14 +128,13 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 
 }
 
+// Dynamically create and return dropdown menus from map
 export function AllGroupDropDown() {
 
         return(
             testMap.map((value, index) => {
                 return (
-
                         <SingleGroupDropDown groupId={value.groupId} placeId={value.values.placeId} time={value.values.time}/>
-
                 )
             })
 
