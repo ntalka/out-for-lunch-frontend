@@ -44,4 +44,43 @@ export const themeOptions: ThemeOptions = {
         },
         divider: '#ffffff',
     },
+    components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor:"#80a4ff",
+                    text:{
+                        primary:"#e3dbd0",
+                        secondary:"#e3dbd0"
+                    }
+
+
+                },
+                text:{
+                    primary:"#e3dbd0",
+                    secondary:"#e3dbd0"
+                }
+            },
+        },
+        MuiClock:{
+            styleOverrides: {
+                root:{
+                    backgroundColor: "#80a4ff"
+                }
+            }
+        },
+        MuiClockNumber:{
+            styleOverrides:{
+                root:{
+                    Mui:{
+                      disabled: {
+                          color:"#fffffff"
+                      }
+                    },
+                    //backgroundColor:"#9F2B68"
+
+                }
+            }
+        }
+    },
 };

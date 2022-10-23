@@ -137,7 +137,7 @@ function TimeSelector(){
                                                    color: '#ffffff' },
                                            }}/>
                             )}
-                            sx={{backgroundColor:"#0047f2"}}/>
+                            sx={{backgroundColor:"#00173a"}}/>
 
                     </Grid>
 
@@ -161,17 +161,8 @@ function TimeSelector(){
                             )}
                             minTime={pickerOptions.minTime}
                             maxTime={pickerOptions.maxTime}
-                            sx={{
-                                overrides: {
-                                    MuiClockPicker: {
-                                        root:{
-                                          color:"red"
-                                        },
-                                        clock:{
-                                            color:"red"},
-                                        } }
-                        }}
-                        />
+                                    sx={{backgroundColor:"#00173a"}}/>
+
                     </Grid>
 
                         <Grid item alignItems={"center"} xs={10} width={'max-content'}>
