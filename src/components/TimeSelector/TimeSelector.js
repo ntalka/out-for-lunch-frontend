@@ -1,16 +1,14 @@
 import React from 'react';
 import Typography from "@mui/material/Typography";
 import {
-    CssBaseline,
     Grid,
     Slider,
-    TextField, ThemeProvider,
+    TextField,
 } from "@mui/material";
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import "./TimeSelector.css";
 
 
@@ -40,7 +38,6 @@ const marks = [
         label: '14:00',
     },
 ]
-const theme = themeOptions;
 
 
 const pickerOptions={
