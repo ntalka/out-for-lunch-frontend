@@ -1,29 +1,27 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import {SingleGroupDropDown} from "../GroupDropDown/GroupDropDown";
 
 
+
+// test users
 const testUsers =[
-    {User: "Tommi Linkinen"},
-    {User: "Aleksi Karelius"},
-    {User: "Ville Herajärvi"},
-    {User: "Zeba Ramzan"},
-    {User: "Muhammad Arslan Shahab"},
-    {User: "Ahmad Imam"},
+    {User: "User Tester1"},
+    {User: "User Tester2"},
+    {User: "User Tester3"},
+    {User: "User Tester4"},
+    {User: "User TesterTesterTester"},
+    {User: "User Tester5"},
 ]
 
-
+//Returns gridded participants to fit 2 per row
 export function ParticipantList() {
-
     return(
-        testUsers.map((value, index) => {
+        testUsers.map((value) => {
             return (
-                <Grid item xs={6} justifyContent={"center"}>
+                <Grid key={value.User} item xs={6} justifyContent={"center"}>
                     <Typography align={"center"} color={"white"}>{value.User}</Typography>
                 </Grid>
-
             )
         })
     )}
