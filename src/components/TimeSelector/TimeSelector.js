@@ -91,7 +91,7 @@ function TimeSelector(){
 
     // Timer changes and slider linking
     // calls slider changes with null event to distinguish
-    // TODO: remove duplicate code
+    // TODO: remove duplicate code, add handling for start later than end etc
     const handleTimer1Change = (newValue)=>{
         let newDate = dayjs(newValue);
         const mins = newDate.minute()+newDate.hour()*60;
