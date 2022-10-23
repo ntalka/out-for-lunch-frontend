@@ -25,12 +25,11 @@ export default function Main() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 0,
+                        marginTop: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-        <h2>Main Page - Restaurants</h2>
                     <TimeSelector/>
                     <Grid container justifyContent={"center"}>
                         <AllGroupDropDown/>
