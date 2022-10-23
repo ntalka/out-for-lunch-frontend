@@ -3,11 +3,14 @@ import Typography from "@mui/material/Typography";
 import {Box, Button, Grid, Switch} from "@mui/material";
 import Divider from "@mui/material/Divider";
 
+
 //Icon imports
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+
+import {ParticipantList} from "../ParticipantList/ParticipantList";
 
 
 const testMap =[
@@ -131,7 +134,9 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 
                 {/*Contents of the dropdown menu, hidden if !open */}
                 {open &&
-                    <Box marginTop={2}>
+                    <Box marginTop={2} >
+
+                        {/*Group Joining*/}
                         <div>
                             <Typography variant={"h6"} align={"center"}>Join this Group?
                                 <Switch
@@ -147,14 +152,19 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                             borderBottomWidth: 2,
                             backgroundColor: "#e3dbd0"}}/>
 
+                        {/*Google Map Embed*/}
                         <MapIframe placeId={placeId}/>
                         <Divider  variant={"middle"}sx={{
                             margin:1,
                             borderBottomWidth: 2,
                             backgroundColor: "#e3dbd0"}}/>
-                        <Typography>
 
-                        </Typography>
+                        {/*Participant info*/}
+                        <Typography variant={"h6"} align={"center"}>Participants</Typography>
+
+                        <Grid marginY={2} container justifyContent={"center"} spacing={0} >
+                            <ParticipantList/>
+                        </Grid>
                     </Box>
                 }
             </Grid>
