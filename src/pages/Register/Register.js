@@ -179,7 +179,7 @@ const Register = () => {
                                    },
                                }}
                     />
-                    <Typography sx={{fontFamily: 'Quicksand'}} maxWidth={170} textAlign={"center"} > {registerText} </Typography>
+                    <Typography maxWidth={170} textAlign={"center"} > {registerText} </Typography>
                     <Button onClick={() => setOpen(true)} id={"RegisterButton"}
                             disabled={emailError || passwordError || emptyCheck}
                             sx={{
