@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Typography from "@mui/material/Typography";
-import {Box, Button, Grid} from "@mui/material";
+import {Box, Button, Grid, Switch} from "@mui/material";
 import Divider from "@mui/material/Divider";
 
 //Icon imports
@@ -25,7 +25,8 @@ const testLocation = {
     placeid: "ChIJuy6UbDjfjkYRmI04K3dwVcs",
 }
 
-const testMyGroup = "test3";
+let testMyGroup = "test3";
+let testOpenGroup= null;
 
 function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
     return(
@@ -54,21 +55,50 @@ function MapIframe({placeId}){
 // Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
 // - AK
 export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false}){
+    const dropMenu = useRef(null)
+    const dropMenuButton = useRef(null)
     const [open, setOpen] = useState(defaultOpen);
-    const [joined, setJoin] = useState(false);
-    function toggleOpen(e){
-        setOpen(!open);}
+    const [joined, setJoin] = useState(testMyGroup===groupId);
+    function toggleOpen(e) {
+        setOpen(!open);
+    }
+    const closeOpenDropDown = (e)=>{
+        if(dropMenu.current && open && !dropMenu.current.contains(e.target)){
+            setOpen(false)
+        }
+    }
+    function handleJoin(e){
+        if(!joined){
+            testMyGroup=groupId;
+        }
+        else{testMyGroup=null;}
+        setJoin(!joined);
+    }
+
+    // sync joining
+    useEffect(() => {
+        setJoin(groupId===testMyGroup);
+    }, [groupId, testMyGroup]);
+
+    // Closing dropdown menu on clicks outside / clicking other button
+    useEffect(() => {
+        document.addEventListener("mouseup", closeOpenDropDown);
+        return () => {
+            document.removeEventListener("mouseup", closeOpenDropDown);
+        };
+    }, [open]);
+
 
         return(
-            <Grid item xs={11} marginBottom={0.5} >
-                    <Button variant={"contained"}
+            <Grid item xs={11} marginBottom={0.5} ref={dropMenu}>
+                    <Button variant={"contained"} ref={dropMenuButton}
                         fullWidth={true}
                         onClick={toggleOpen}
 
                         //BG colour will depened on join status, currently nulled
                         sx={{
                         color: "black",
-                        backgroundColor: joined ? null : "#e3dbd0"}}>
+                        backgroundColor: groupId===testMyGroup ? null : "#e3dbd0"}}>
 
                         {/*Gridded button info contents to assure easier time
                         aligning via proportions -AK */}
@@ -103,7 +133,14 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                 {open &&
                     <Box marginTop={2}>
                         <div>
-                            <Typography variant={"h6"} align={"center"}>Join this Group? </Typography>
+                            <Typography variant={"h6"} align={"center"}>Join this Group?
+                                <Switch
+                                checked={groupId===testMyGroup}
+                                onChange={handleJoin}
+                                >
+                                </Switch>
+                            </Typography>
+
                         </div>
                         <Divider  variant={"middle"}sx={{
                             margin:1,
@@ -119,9 +156,6 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 
                         </Typography>
                     </Box>
-
-
-
                 }
             </Grid>
         )
