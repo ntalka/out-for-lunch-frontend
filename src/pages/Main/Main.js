@@ -4,7 +4,7 @@ import {
     Box,
     Container,
     createTheme,
-    CssBaseline,
+    CssBaseline, Grid,
     ThemeProvider
 } from "@mui/material";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
@@ -32,7 +32,9 @@ export default function Main() {
                     }}>
         <h2>Main Page - Restaurants</h2>
                     <TimeSelector/>
-                    <AllGroupDropDown/>
+                    <Grid container justifyContent={"center"}>
+                        <AllGroupDropDown/>
+                    </Grid>
 
             </Box>
             </Container>

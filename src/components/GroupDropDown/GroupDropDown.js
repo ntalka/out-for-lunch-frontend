@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import {Box, Button, Grid} from "@mui/material";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Divider from "@mui/material/Divider";
 
 
@@ -21,6 +23,7 @@ const testLocation = {
     placeid: "ChIJuy6UbDjfjkYRmI04K3dwVcs",
 }
 
+const testMyGroup = "test3";
 
 function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
     return(
@@ -53,18 +56,51 @@ function JoinGroupSwitch({groupId}){
 
 export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false}){
     const [open, setOpen] = useState(defaultOpen);
+    const [joined, setJoin] = useState(false);
     function toggleOpen(e){
         setOpen(!open);}
 
         return(
-            <Grid xs={10} item >
-                <Box bgcolor={"pink"}>
-                    <Button
+            <Grid item xs={11} marginBottom={0.5} >
+                    <Button variant={"contained"}
+                        fullWidth={true}
                         onClick={toggleOpen}
-                        endIcon={open ? <ExpandLessIcon/> : <ExpandMoreIcon/> }>
-                        {placeId} {time}
-                    </Button>
-                </Box>
+                        sx={{
+                        color: "black",
+                        backgroundColor: joined ? null : "#e3dbd0"}}
+                     >
+                        <Grid container>
+                            <Grid item xs={6} >
+                                <Typography align={"left"} color={"black"}>{groupId} </Typography>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <AccessTimeIcon />
+
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography color={"black"}>{time} </Typography>
+
+                            </Grid>
+                            <Grid item xs={1}>
+                                <PeopleAltIcon/>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <Typography align={"left"} color={"black"}>3 </Typography>
+
+                            </Grid>
+                            <Grid item xs={1}>
+                                {open ? <ExpandLessIcon /> : <ExpandMoreIcon/>}
+                            </Grid>
+
+
+
+                        </Grid>
+
+
+
+                            </Button>
+
+
                 {open &&
 
                     <Box>
@@ -85,16 +121,18 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 }
 
 export function AllGroupDropDown() {
+
         return(
             testMap.map((value, index) => {
                 return (
-                    <div>
+
                         <SingleGroupDropDown groupId={value.groupId} placeId={value.values.placeId} time={value.values.time}/>
-                    </div>
+
                 )
             })
 
 
-        )
+
+)
 
 }
