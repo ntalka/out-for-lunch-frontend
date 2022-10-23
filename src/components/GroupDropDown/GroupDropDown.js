@@ -21,15 +21,8 @@ const testMap =[
     {groupId: "test5" , values: {placeId:"ChIJ20XPZQHfjkYR3ffX3EPuqh8", time: "12:00"} },
 ]
 
-const testLocation = {
-    lat: 61.49925378109671,
-    long: 23.776468082987602,
-    address: "Itsenäisyydenkatu 3, 33100 Tampere, Suomi",
-    placeid: "ChIJuy6UbDjfjkYRmI04K3dwVcs",
-}
 
 let testMyGroup = "test3";
-let testOpenGroup= null;
 
 function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
     return(
@@ -81,7 +74,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
     // sync joining
     useEffect(() => {
         setJoin(groupId===testMyGroup);
-    }, [groupId, testMyGroup]);
+    }, [groupId]);
 
     // Closing dropdown menu on clicks outside / clicking other button
     useEffect(() => {
@@ -89,7 +82,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
         return () => {
             document.removeEventListener("mouseup", closeOpenDropDown);
         };
-    }, [open]);
+    }, [open, closeOpenDropDown]);
 
 
         return(
@@ -147,14 +140,14 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                             </Typography>
 
                         </div>
-                        <Divider  variant={"middle"}sx={{
+                        <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
                             backgroundColor: "#e3dbd0"}}/>
 
                         {/*Google Map Embed*/}
                         <MapIframe placeId={placeId}/>
-                        <Divider  variant={"middle"}sx={{
+                        <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
                             backgroundColor: "#e3dbd0"}}/>
@@ -169,21 +162,15 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                 }
             </Grid>
         )
-
 }
 
 // Dynamically create and return dropdown menus from map
 export function AllGroupDropDown() {
-
         return(
-            testMap.map((value, index) => {
+            testMap.map((value) => {
                 return (
-                        <SingleGroupDropDown groupId={value.groupId} placeId={value.values.placeId} time={value.values.time}/>
-                )
+                        <SingleGroupDropDown key={value.groupId} groupId={value.groupId} placeId={value.values.placeId} time={value.values.time}/>
+                        )
             })
-
-
-
-)
-
+        )
 }
