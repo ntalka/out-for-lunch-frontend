@@ -21,20 +21,21 @@ const Profile = () => {
         officeLocation: "Testi1"
     });
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorElm] = useState(null);
     const [open, setOpen] = useState(false);
 
+    // close on selection
     const handleClose = e => {
-        setAnchorEl(null);
+        setAnchorElm(null);
         setOpen(false);
         values.lunchTime = e.currentTarget.outerText;
-
-
+        console.log(values.lunchTime);
 
     }
 
+    // open dropdown menu
     const handleClick = (e) =>{
-        setAnchorEl(e.currentTarget);
+        setAnchorElm(e.currentTarget);
         setOpen(true);
     }
 
@@ -45,57 +46,59 @@ const Profile = () => {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <Box margin="auto" textAlign='center'  justifyContent="center" sx={{ width: '100%', maxWidth: 360 }}>
+                <Box margin="auto" textAlign='center'  justifycontent="center" sx={{ width: '100%', maxWidth: 360 }}>
                     <Typography  fontSize={25} textAlign={"center"} > Your Profile</Typography>
 
                     <Typography  textAlign={"center"}> {values.profile} </Typography>
 
-                    <Divider  justifyContent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
+                    <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
 
 
-                    <Button variant={"contained"} onClick={handleClick} sx={{ marginTop: 2, textTransform: 'none', color: "black", borderRadius: 2,
+                    <Button variant={"contained"} onClick={handleClick} sx={{fontWeight: "bold",  marginTop: 2, textTransform: 'none', color: "black", borderRadius: 2,
                         backgroundColor: theme.palette.secondary.dark,
                         '&:hover':{backgroundColor: theme.palette.primary.dark,
                             color: theme.palette.primary.contrastText,
 
                         }}}> Set my preferred lunch time</Button>
 
+
+                    {/* currenly hardcoded times, change to list somehow */}
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClick}>
-                        <MenuItem onClick={handleClose}>10:00</MenuItem>
-                        <MenuItem onClick={handleClose}>10:15</MenuItem>
-                        <MenuItem onClick={handleClose}>10:30</MenuItem>
-                        <MenuItem onClick={handleClose}>10:45</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>10:00</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>10:15</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>10:30</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>10:45</MenuItem>
 
-                        <MenuItem onClick={handleClose}>11:00</MenuItem>
-                        <MenuItem onClick={handleClose}>11:15</MenuItem>
-                        <MenuItem onClick={handleClose}>11:30</MenuItem>
-                        <MenuItem onClick={handleClose}>11:45</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>11:00</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>11:15</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>11:30</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>11:45</MenuItem>
 
-                        <MenuItem onClick={handleClose}>12:00</MenuItem>
-                        <MenuItem onClick={handleClose}>12:15</MenuItem>
-                        <MenuItem onClick={handleClose}>12:30</MenuItem>
-                        <MenuItem onClick={handleClose}>12:45</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>12:00</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>12:15</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>12:30</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>12:45</MenuItem>
 
-                        <MenuItem onClick={handleClose}>13:00</MenuItem>
-                        <MenuItem onClick={handleClose}>13:15</MenuItem>
-                        <MenuItem onClick={handleClose}>13:30</MenuItem>
-                        <MenuItem onClick={handleClose}>13:45</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>13:00</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>13:15</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>13:30</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>13:45</MenuItem>
 
-                        <MenuItem onClick={handleClose}>14:00</MenuItem>
+                        <MenuItem sx={{ color: "black", fontWeight: "bold" }} onClick={handleClose}>14:00</MenuItem>
                     </Menu>
                     <Typography marginTop={1} marginBottom={2} textAlign={"center"}> Currently set @ {values.lunchTime} </Typography>
 
-                    <Divider  justifyContent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
+                    <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
 
-                    <Button sx={{ marginTop: 2, marginBottom: 2, textTransform: 'none', color: "black", borderRadius: 2,
+                    <Button component={Link} to="/profile/changepassword" sx={{fontWeight: "bold", marginTop: 2, marginBottom: 2, textTransform: 'none', color: "black", borderRadius: 2,
                         backgroundColor: theme.palette.secondary.dark,
                         '&:hover':{backgroundColor: theme.palette.primary.dark,
                             color: theme.palette.primary.contrastText,
 
                         }}}>Change password</Button>
-                    <Divider  justifyContent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
+                    <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
 
-                    <Button component={Link} to="/main" sx={{ marginTop: 5, marginBottom: -25,  textTransform: 'none', color: "black", borderRadius: 2,
+                    <Button component={Link} to="/main" sx={{ fontWeight: "bold",  marginTop: 5, marginBottom: -25,  textTransform: 'none', color: "black", borderRadius: 2,
                         backgroundColor: theme.palette.secondary.dark,
                         '&:hover':{backgroundColor: theme.palette.primary.dark,
                             color: theme.palette.primary.contrastText,
