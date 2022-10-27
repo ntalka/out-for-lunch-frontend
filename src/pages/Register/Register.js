@@ -31,6 +31,7 @@ TODO: quicksand is not correct one, more styling
 
 
 const Register = () => {
+    const host = process.env.REACT_APP_SERVER;
 
 
 
@@ -79,6 +80,31 @@ const Register = () => {
             password: data.get('password'),
             passwordAgain: data.get("passwordAgain")
         });
+        const res = signUp(data.get("email"), data.get("password"));
+        console.log(res);
+    };
+
+    const signUp = async (email, password) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "email": email,
+                "password": password
+            })
+        }
+        console.log(requestOptions);
+        const res = await fetch(host + '/signup', requestOptions )
+        const resJSON = await res.json()
+            .then((resJSON) =>{
+                console.log(resJSON);
+                console.log(resJSON.message);
+                if(resJSON.status === 200){
+                    console.log(email);
+                    sessionStorage.setItem("user", String(email));
+                    console.log(sessionStorage.getItem("user"));
+                }
+            });
     };
 
 
