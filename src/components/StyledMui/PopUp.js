@@ -6,7 +6,7 @@ import {
     DialogContentText
 } from "@mui/material";
 import {themeOptions as theme} from "../../utils/Theme/ThemeOptions";
-import {useState} from "@types/react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 // Simple popup display with message with optional refer to another page on
@@ -15,6 +15,7 @@ export function PopUp({displayText, buttonText, referTo}){
     const [open, setOpen] = useState(true);
     const navigate = useNavigate();
 
+    // Button refer navigation handling
     function handleRefer(){
         navigate(referTo);
         setOpen(false);
