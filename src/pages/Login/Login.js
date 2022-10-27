@@ -29,34 +29,58 @@ TODO: async function to call backend for login -AK
  */
 const Login = () => {
     const {setUser, user} = useAuth();
-    const [username, setUsername] = useState(user);
     const navigate = useNavigate();
     const location = useLocation();
+    const host = process.env.REACT_APP_SERVER;
 
     // Login submit for the user, provides it to the authenticator
     // TODO: async call for backend for checking actual login - AK
     const submit = useCallback(
         (event) => {
+            event.preventDefault();
             const data = new FormData(event.currentTarget);
             console.log({
                 email: data.get('email'),
                 password: data.get('password'),
             });
-            setUsername((String)(data.get('email')));
+            const res =  login(data.get('email'), data.get('password'));
+            console.log(res);
+
             event.preventDefault();
-            setUser({username});
-            navigate("/main");
 
         },
-        [setUser, username, navigate]
     );
+    const login = async (email, password) => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+            }
+            console.log(requestOptions);
+            const res = await fetch(host + '/login', requestOptions )
+            const resJSON = await res.json()
+                .then((resJSON) =>{
+                    console.log(resJSON);
+                    console.log(resJSON.message);
+                    if(resJSON.status === 200){
+                        console.log(email);
+                        sessionStorage.setItem("user", String(email));
+                        console.log(sessionStorage.getItem("user"));
+
+                        setUser(email);
+                        navigate("/main");
+                    }
+                });
+    };
+
 
     if (user) {
-        console.log(user);
         return (<Navigate
             to={{ pathname: "/main", state: { from: location }}}/>)
     } else {
-        console.log(user);
         return (
 
             <ThemeProvider theme={theme}>
