@@ -7,7 +7,7 @@ import {
     CssBaseline,
     TextField,
     ThemeProvider,
-    FormLabel, Dialog, DialogActions, DialogContentText, DialogContent
+    FormLabel
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
@@ -87,7 +87,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} >
 
                 {/* Placing text between borders */}
-                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
+                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registration</FormLabel>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
