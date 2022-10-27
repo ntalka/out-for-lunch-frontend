@@ -18,6 +18,7 @@ import {
 } from "../utils/Authentication/Authenticate";
 import NoPermission from "../pages/NoPermission/NoPermission";
 import YourGroup from "../pages/YourGroup/YourGroup";
+import Verify from "../pages/Verify/Verify";
 
 
 
@@ -28,10 +29,6 @@ import YourGroup from "../pages/YourGroup/YourGroup";
     -AK
  */
 const App = () => {
-    /*
-    TODO: Token handling
-
-     */
         return (
             <div className="wrapper">
                 <Authenticator>
@@ -47,6 +44,7 @@ const App = () => {
                                     <Route path="*" element={<Login/>}/>
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<Register/>}/>
+                                    <Route path="/verify/*" element={<Verify/>}/>
 
                                     <Route element={<Authenticate/>}>
                                         <Route path="/main" element={<Main />} />
