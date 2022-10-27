@@ -1,50 +1,62 @@
-import React from 'react';
-import {useNavigate} from "react-router-dom";
+import React, {useEffect} from 'react';
 import {
-    Box,
-    Button, Container, createTheme, CssBaseline, Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText, ThemeProvider
+    Container, createTheme, CssBaseline, ThemeProvider
 } from "@mui/material";
 import {useState} from "react";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {PopUp} from "../../components/StyledMui/PopUp";
 
 const theme = createTheme(themeOptions);
 
+// Verify page for account, waits for server response and displays appropriate
+// Popup message with refer to login page -AK
 export default function Verify() {
-    const [open, setOpen] = useState(true)
-    const navigate = useNavigate();
+    // Host and client url information
     const host = process.env.REACT_APP_SERVER;
-    const tokenUrl = window.location.pathname
+    const tokenUrl = window.location.pathname;
     const fullUrl = window.location.href;
 
+    // response data to be used and response status for displaying popup
+    const [resMessage, setResMessage] = useState();
+    const [resCode, setResCode] = useState();
+    const  [resReceived, setResReceived] = useState(false);
+
+    // Async function to verify the actual token
     const verifyToken = async() => {
-        const requestOptions = {
-            method: 'POST',
-            url: fullUrl,
+        try{
+            const requestOptions = {
+                method: 'POST',
+                url: fullUrl,
+            }
+            const res = await (await fetch(host + tokenUrl, requestOptions)).json()
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.message);
+                    setResCode(res.status);
+                    setResMessage(res.message);
+                    // setting received status for popup display
+                    setResReceived(true)
+                });
+            }
+        catch(e){
+            console.log(e);
         }
-        console.log(requestOptions);
-        const res = await fetch(host + tokenUrl, requestOptions)
-        const resJSON = await res.json()
-            .then((resJSON) => {
-                console.log(resJSON);
-                console.log(resJSON.message);
-            });
-        return res;
     }
-    const res = verifyToken();
-    function handleClick(){
-        navigate("/login");
-    }
+    useEffect( () => {
+        const res = verifyToken()
+        }, [])
+
 
     return(
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs" >
-                <CssBaseline />
-
-
-        </Container>
+        <div>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs" >
+                    <CssBaseline />
+                    {resReceived &&
+                        <PopUp buttonText={"OK"} displayText={resMessage} referTo={"/login"}/>
+                    }
+                </Container>
             </ThemeProvider>
-    );
+        </div>
+    )
 }
