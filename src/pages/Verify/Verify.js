@@ -18,7 +18,6 @@ export default function Verify() {
 
     // response data to be used and response status for displaying popup
     const [resMessage, setResMessage] = useState();
-    const [resCode, setResCode] = useState();
     const  [resReceived, setResReceived] = useState(false);
 
     // Async function to verify the actual token
@@ -32,7 +31,6 @@ export default function Verify() {
                 .then((res) => {
                     console.log(res);
                     console.log(res.message);
-                    setResCode(res.status);
                     setResMessage(res.message);
                     // setting received status for popup display
                     setResReceived(true)
