@@ -22,7 +22,7 @@ const testMap =[
 ]
 
 
-let testMyGroup = "test3";
+
 
 function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
     return(
@@ -43,7 +43,6 @@ function MapIframe({placeId}){
                 width="300" height="300" frameBorder="0" style={{border: 0}}
                 aria-hidden="false" tabIndex="0"/>
         </div>
-
     )
 }
 
@@ -54,33 +53,55 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
     const dropMenu = useRef(null)
     const dropMenuButton = useRef(null)
     const [open, setOpen] = useState(defaultOpen);
-    const [joined, setJoin] = useState(testMyGroup===groupId);
+    const [joined, setJoin] = useState(sessionStorage.getItem("groupid")===groupId);
+    const [myGroup, setMyGroup] = useState(sessionStorage.getItem("groupid"));
+    const [joinedColor, setJoinedColor] = useState(myGroup===groupId ? null : "#e3dbd0");
     function toggleOpen(e) {
         setOpen(!open);
     }
+
+    // To close all other dropdown menus
     const closeOpenDropDown = (e)=>{
         if(dropMenu.current && open && !dropMenu.current.contains(e.target)){
             setOpen(false)
         }
     }
+    // set colour of the button to reflect join status
+    const setChosenColor = (e) =>{
+        if(sessionStorage.getItem("groupid")===groupId){setJoinedColor("#80a4ff")}
+        else{
+            setJoinedColor("#e3dbd0");
+        }
+    }
+
+    // Handling joining and leaving particular group
     function handleJoin(e){
         if(!joined){
-            testMyGroup=groupId;
+            setMyGroup(groupId);
+            sessionStorage.setItem("groupid", String(groupId));
         }
-        else{testMyGroup=null;}
+        else{
+            setMyGroup(null);
+            sessionStorage.removeItem("groupid");
+        }
         setJoin(!joined);
+
+
     }
 
     // sync joining
     useEffect(() => {
-        setJoin(groupId===testMyGroup);
-    }, [groupId]);
+        setMyGroup(sessionStorage.getItem("groupid"))
+        setJoin(groupId===myGroup);
+    }, [sessionStorage.getItem("groupid")]);
 
     // Closing dropdown menu on clicks outside / clicking other button
+    // Colouring right button on changes
     useEffect(() => {
         document.addEventListener("mouseup", closeOpenDropDown);
+        document.addEventListener("change", setChosenColor);
         return () => {
-            document.removeEventListener("mouseup", closeOpenDropDown);
+
         };
     }, );
 
@@ -91,10 +112,10 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                         fullWidth={true}
                         onClick={toggleOpen}
 
-                        //BG colour will depened on join status, currently nulled
+                        //BG colour will depend on join status, currently nulled
                         sx={{
                         color: "black",
-                        backgroundColor: groupId===testMyGroup ? null : "#e3dbd0"}}>
+                        backgroundColor: joinedColor}}>
 
                         {/*Gridded button info contents to assure easier time
                         aligning via proportions -AK */}
@@ -133,7 +154,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                         <div>
                             <Typography variant={"h6"} align={"center"}>Join this Group?
                                 <Switch
-                                checked={groupId===testMyGroup}
+                                checked={groupId===myGroup}
                                 onChange={handleJoin}
                                 >
                                 </Switch>
