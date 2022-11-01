@@ -7,7 +7,7 @@ import {
     CssBaseline,
     TextField,
     ThemeProvider,
-    FormLabel, Dialog, DialogActions, DialogContentText, DialogContent
+    FormLabel,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
@@ -31,61 +31,64 @@ TODO: quicksand is not correct one, more styling
 
 
 const Register = () => {
-
-
-
+    const host = process.env.REACT_APP_SERVER;
+    const  registerText = "Check your email after registration to finalize the process! \n";
+    const [resMessage, setResMessage] = useState()
+    const [openPopUp, setOpenPopUp] = useState(false)
     const [values, setValues] = useState({
         email: "",
         password: "",
         passwordAgain: ""
     });
 
+
     //handle change on email
     const handleChangeEmail = email => event => {
-        setValues({...values, [email]: event.target.value});
-    };
+        setValues({...values, [email]: event.target.value});};
 
-    //handle change on password
+    //handle change on password fields
     const handleChangePassword = password => event => {
-        setValues({...values, [password]: event.target.value});
-    };
-
-
-    // handle change on password again
+        setValues({...values, [password]: event.target.value});};
     const handleChangePasswordAgain = passwordAgain => event => {
         setValues({...values, [passwordAgain]: event.target.value});
     };
 
-    // email error
+    // Input error checks
     const emailError = (!values.email.includes("@huld.io") && values.email !== "");
-
-    // password error
     const passwordError = (!(values.password === values.passwordAgain ));
-
     const emptyCheck = ( values.password === "" && values.passwordAgain === "");
-
-    //register text
-    const  registerText = " Check your email after registration to finalize the process!";
-
 
 
     // handle registration submit
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-            passwordAgain: data.get("passwordAgain")
-        });
+        const res = signUp(data.get("email"), data.get("password"));
+        console.log(res);
     };
 
+    // Async function to post signup data to server
+    const signUp = async (email, password) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "email": email,
+                "password": password
+            })
+        }
+        console.log(requestOptions);
+        const res = await fetch(host + '/signup', requestOptions )
+        const resJSON = await res.json()
+            .then((resJSON) =>{
+                console.log(resJSON);
+                console.log(resJSON.message);
 
-    const [open, setOpen] = useState(false)
-
-
-
+                // Setting up popup message
+                setResMessage(resJSON.message);
+                setOpenPopUp(true);
+            });
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -94,7 +97,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} >
 
                 {/* Placing text between borders */}
-                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registeration</FormLabel>
+                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registration</FormLabel>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
@@ -179,36 +182,35 @@ const Register = () => {
                                    },
                                }}
                     />
-                    <Typography maxWidth={170} textAlign={"center"} > {registerText} </Typography>
-                    <Button onClick={() => setOpen(true)} id={"RegisterButton"}
+                    <Typography
+                        sx={{fontFamily: 'Quicksand'}}
+                        maxWidth={170}
+                        textAlign={"center"}>
+                            {registerText}
+                    </Typography>
+
+                    <Button id={"RegisterButton"}
                             disabled={emailError || passwordError || emptyCheck}
                             sx={{
-                                marginTop: 2, borderRadius: 2
+                                marginTop: 2,
+                                borderRadius: 2
                             }}
-                            style={{ fontStyle: "normal", minWidth:'120px', fontWeight: "bold"}}
+                            style={{
+                                fontStyle: "normal",
+                                minWidth:'120px',
+                                fontWeight: "bold"}}
                             type={"submit"}
-
                             variant = "contained"> Register
-
                     </Button>
 
-                    {/* Popup after sumbit */}
-                    <Dialog
-                    open={open}
-                    onClose={() => setOpen(false)}>
-                        <DialogContent sx={{backgroundColor: theme.palette.background.default}}>
-                        <DialogContentText> Confirmation link has been sent to {values.email}
-                        </DialogContentText>
-                        </DialogContent >
-                        <DialogActions sx={{backgroundColor: theme.palette.background.default}}>
-                            <Button onClick={() => setOpen(false)} sx={{ color: "black", fontWeight: "bold",
-                                backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-
-                            }}}>Ok</Button>
-                        </DialogActions>
-                    </Dialog>
+                    {/* Popup after submit, displaying after response received
+                     from the server -AK*/}
+                    {openPopUp &&
+                        <PopUp
+                            displayText={resMessage + values.email}
+                            buttonText={"OK"}
+                            referTo={"/login"}/>
+                    }
                 </Box>
             </form>
             </Container>
@@ -216,6 +218,5 @@ const Register = () => {
     );
 
 };
-
 
 export default Register;
