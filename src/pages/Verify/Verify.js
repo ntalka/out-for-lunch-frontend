@@ -27,7 +27,7 @@ export default function Verify() {
                 method: 'POST',
                 url: fullUrl,
             }
-            const res = await (await fetch(host + tokenUrl, requestOptions)).json()
+            await (await fetch(host + tokenUrl, requestOptions)).json()
                 .then((res) => {
                     console.log(res);
                     console.log(res.message);

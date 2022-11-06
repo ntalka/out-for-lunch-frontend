@@ -9,7 +9,6 @@ import {
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
-import {AllGroupDropDown} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 
 
