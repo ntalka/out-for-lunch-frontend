@@ -9,8 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 //TODO: local storage solution, integrating token with backend
 export const Authenticator = ({ children }) => {
     //default sessionstorage user if present
-    const [user, setUser] = useState(sessionStorage.getItem("user"));
-    const localUser = window.localStorage.getItem("user");
+    const [user, setUser] = useState(!localStorage.getItem("user") ? sessionStorage.getItem("user") : localStorage.getItem("user"));
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

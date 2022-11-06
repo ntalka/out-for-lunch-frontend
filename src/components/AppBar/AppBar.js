@@ -44,6 +44,7 @@ const TopAppBar =() => {
             e.preventDefault();
             setUser(null);
             sessionStorage.clear();
+            localStorage.clear();
             setAnchorEl(false);
             navigate("/login");
         },
