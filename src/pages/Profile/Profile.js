@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 const theme = createTheme(themeOptions);
 
 const Profile = () => {
-    const [location, setLocation] = React.useState('');
+    const [location, setLocation] = React.useState(10);
 
     const handleChange = (event) => {
         setLocation(event.target.value);
@@ -28,19 +28,21 @@ const Profile = () => {
                     <Typography  fontSize={25} textAlign={"center"} > Your Profile</Typography>
                     <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography> Currently selected office: </Typography>
-                    <FormControl  sx={{ m: 1, minWidth: 200, marginBottom: 2, marginTop: 1., fontWeight: "bold", textTransform: 'none', color: "black", borderRadius: 2,
+                    <FormControl  sx={{  minWidth: 200, marginBottom: 2, marginTop: 1., fontWeight: "bold", color: "black", borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText}}}>
-                        <InputLabel id="Location_select"></InputLabel>
+
                         <Select sx={{color: "black", fontWeight: "bold"}}
-                            labelId="select-label"
-                            id="select"
-                            value={location}
-                            label="Location"
-                            onChange={handleChange}
+                                defaultValue={10}
+                                labelId="select-label"
+                                id="select"
+                                value={location}
+                                label="Location"
+                                onChange={handleChange}
                         >
-                            <MenuItem sx={{color: "black", fontWeight: "bold"}} value={10}>Ratina</MenuItem>
+
+                            <MenuItem  sx={{color: "black", fontWeight: "bold"}} value={10}>Ratina</MenuItem>
                             <MenuItem sx={{color: "black", fontWeight: "bold"}} value={20}>Location 2</MenuItem>
                             <MenuItem sx={{color: "black", fontWeight: "bold"}} value={30}>Location 3</MenuItem>
                         </Select>
