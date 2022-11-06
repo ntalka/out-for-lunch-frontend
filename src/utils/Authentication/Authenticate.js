@@ -3,10 +3,9 @@ import { createContext, useContext, useState } from "react";
 import { useLocation, Navigate, Outlet} from "react-router-dom";
 
 const AuthContext = createContext(null);
-
+let token = null;
 export const useAuth = () => useContext(AuthContext);
 
-//TODO: local storage solution, integrating token with backend
 export const Authenticator = ({ children }) => {
     //default sessionstorage user if present
     const [user, setUser] = useState(!localStorage.getItem("user") ? sessionStorage.getItem("user") : localStorage.getItem("user"));
@@ -30,7 +29,13 @@ export const Authenticate=()=>{
             />
         );
     }
-    return <Outlet/>
+    else{
+        token=user;
+        return <Outlet/>
+    }
 };
 
+export const getUser=()=>{
+    return token;
+}
 

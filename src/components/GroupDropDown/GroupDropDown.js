@@ -14,15 +14,6 @@ import {ParticipantList} from "../ParticipantList/ParticipantList";
 import {GetAllGroups, GetGroup} from "../../utils/Groups/Groups";
 
 
-const testMap =[
-    {groupId: "test1" , values: {placeId:"ChIJuy6UbDjfjkYRmI04K3dwVcs", time: "11:00"} },
-    {groupId: "test2" , values: {placeId:"ChIJR22IU1PfjkYRUdouAWl9Kkc", time: "11:15"} },
-    {groupId: "test3" , values: {placeId:"ChIJydE9wKzYjkYR3LQAO8zeJ84", time: "11:30"} },
-    {groupId: "test4" , values: {placeId:"ChIJK4E4X6vYjkYReCDV0hC2rS0", time: "11:45"} },
-    {groupId: "test5" , values: {placeId:"ChIJ20XPZQHfjkYR3ffX3EPuqh8", time: "12:00"} },
-]
-
-
 
 
 function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
