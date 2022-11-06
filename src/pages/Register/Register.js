@@ -12,6 +12,7 @@ import {
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import {useState} from "react";
+import {PopUp} from "../../components/StyledMui/PopUp";
 const theme = createTheme(themeOptions);
 
 /*
