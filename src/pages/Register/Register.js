@@ -12,6 +12,7 @@ import {
 import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import {useState} from "react";
+import {PopUp} from "../../components/StyledMui/PopUp";
 const theme = createTheme(themeOptions);
 
 /*
@@ -79,7 +80,7 @@ const Register = () => {
         }
         console.log(requestOptions);
         const res = await fetch(host + '/signup', requestOptions )
-        const resJSON = await res.json()
+        await res.json()
             .then((resJSON) =>{
                 console.log(resJSON);
                 console.log(resJSON.message);
