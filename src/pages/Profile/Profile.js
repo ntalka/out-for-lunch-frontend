@@ -3,7 +3,7 @@ import {
     Box,
     Button,
     Container, createTheme,
-    CssBaseline, Divider, FormControl, InputLabel, MenuItem, Select,
+    CssBaseline, Divider, FormControl, MenuItem, Select,
     ThemeProvider
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -49,7 +49,7 @@ const Profile = () => {
                     </FormControl>
                     <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
 
-                    <Button component={Link} to="/main" sx={{ fontWeight: "bold",  marginTop: 5, marginBottom: -25,  textTransform: 'none', color: "black", borderRadius: 2,
+                    <Button component={Link} to="/main" sx={{ fontWeight: "bold",  marginTop: 5, marginBottom: -25,  color: "black", borderRadius: 2,
                         backgroundColor: theme.palette.secondary.dark,
                         '&:hover':{backgroundColor: theme.palette.primary.dark,
                             color: theme.palette.primary.contrastText,
