@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import './Login.css'
 import {
     Box, Button,
@@ -47,13 +47,13 @@ const Login = () => {
             console.log(res);
 
             event.preventDefault();
-
         },
     );
     const login = async (email, password) => {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'},
                 body: JSON.stringify({
                     "email": email,
                     "password": password
@@ -61,16 +61,16 @@ const Login = () => {
             }
             console.log(requestOptions);
             const res = await fetch(host + '/login', requestOptions )
-            const resJSON = await res.json()
+            await res.json()
                 .then((resJSON) =>{
                     console.log(resJSON);
                     console.log(resJSON.message);
                     if(resJSON.status === 200){
-                        console.log(email);
-                        sessionStorage.setItem("user", String(email));
+                        sessionStorage.setItem("user", String(resJSON.authToken));
                         console.log(sessionStorage.getItem("user"));
 
-                        setUser(email);
+                        setUser(String(resJSON["authToken"]));
+
                         navigate("/main");
                     }
                 });
