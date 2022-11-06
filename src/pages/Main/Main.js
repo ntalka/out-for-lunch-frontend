@@ -1,15 +1,17 @@
 import React from 'react';
 import './Main.css'
 import {
-    Box,
+    Box, Button, ButtonGroup,
     Container,
     createTheme,
-    CssBaseline, Grid,
+    CssBaseline, Divider, Grid,
     ThemeProvider
 } from "@mui/material";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {AllGroupDropDown} from "../../components/GroupDropDown/GroupDropDown";
+import Typography from "@mui/material/Typography";
+
 
 const theme = createTheme(themeOptions);
 
@@ -31,6 +33,33 @@ export default function Main() {
                         alignItems: 'center',
                     }}>
                     <TimeSelector/>
+                    <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3, marginBottom: 1}}/>
+                    <Typography> Please select an option </Typography>
+                    <ButtonGroup variant="contained" aria-label="button group" sx={{marginTop: 2, marginBottom: 2}} >
+                        <Button
+                            id={"Join random"}
+                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                            backgroundColor: theme.palette.secondary.dark,
+                            '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                color: theme.palette.primary.contrastText,
+                            }}}>Join random</Button>
+                        <Button
+                            id={"Create random"}
+                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                            backgroundColor: theme.palette.secondary.dark,
+                            '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                color: theme.palette.primary.contrastText,
+                            }}}>Create random</Button>
+                        <Button
+                            id={"Create custom"}
+                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                            backgroundColor: theme.palette.secondary.dark,
+                            '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                color: theme.palette.primary.contrastText,
+                            }}}>Create custom</Button>
+                    </ButtonGroup>
+                    <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
+                    <Typography sx={{ marginTop: 1, marginBottom: 3}}> Groups of the day </Typography>
                     <Grid container justifyContent={"center"}>
                         <AllGroupDropDown/>
                     </Grid>
