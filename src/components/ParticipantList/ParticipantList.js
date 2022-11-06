@@ -1,26 +1,24 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {GetGroup} from "../../utils/Groups/Groups";
 
 
-
-// test users
-const testUsers =[
-    {User: "User Tester1"},
-    {User: "User Tester2"},
-    {User: "User Tester3"},
-    {User: "User Tester4"},
-    {User: "User TesterTesterTester"},
-    {User: "User Tester5"},
-]
 
 //Returns gridded participants to fit 2 per row
-export function ParticipantList() {
+export function ParticipantList(groupId) {
+   const members = GetGroup(groupId.groupId)["groupMember"]
     return(
-        testUsers.map((value) => {
+        members.map((value) => {
             return (
-                <Grid key={value.User} item xs={6} justifyContent={"center"}>
-                    <Typography align={"center"} color={"white"}>{value.User}</Typography>
+                <Grid key={value.user.id}
+                      item xs={6}
+                      justifyContent={"center"}>
+                    <Typography
+                        align={"center"}
+                        color={"white"}>
+                        {value.user.name}
+                    </Typography>
                 </Grid>
             )
         })
