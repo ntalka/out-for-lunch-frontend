@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import './Login.css'
 import {
     Box, Button,
@@ -28,13 +28,14 @@ TODO: async function to call backend for login -AK
 
  */
 const Login = () => {
-    const {setUser, user} = useAuth();
+    const {user, setUser} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const host = process.env.REACT_APP_SERVER;
 
     // Login submit for the user, provides it to the authenticator
     // TODO: async call for backend for checking actual login - AK
+
     const submit = useCallback(
         (event) => {
             event.preventDefault();
@@ -42,18 +43,17 @@ const Login = () => {
             console.log({
                 email: data.get('email'),
                 password: data.get('password'),
+                remember: data.get("remember")
             });
-            const res =  login(data.get('email'), data.get('password'));
-            console.log(res);
-
-            event.preventDefault();
+            const res = login(data.get('email'), data.get('password'), data.get("remember") !== null)
 
         },
     );
-    const login = async (email, password) => {
+    const login = async (email, password, remember) => {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'},
                 body: JSON.stringify({
                     "email": email,
                     "password": password
@@ -61,18 +61,20 @@ const Login = () => {
             }
             console.log(requestOptions);
             const res = await fetch(host + '/login', requestOptions )
-            const resJSON = await res.json()
+            await res.json()
                 .then((resJSON) =>{
                     console.log(resJSON);
                     console.log(resJSON.message);
                     if(resJSON.status === 200){
-                        console.log(email);
-                        sessionStorage.setItem("user", String(email));
+                        const token = String(resJSON.authToken);
+                        sessionStorage.setItem("user", token);
                         console.log(sessionStorage.getItem("user"));
-
-                        setUser(email);
+                        if(remember){
+                            localStorage.setItem("user", token);}
+                        setUser(String(resJSON["authToken"]));
                         navigate("/main");
                     }
+
                 });
     };
 
@@ -86,6 +88,7 @@ const Login = () => {
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
+
                     <FormLabel  style={{
                         marginLeft: "110px",
                         marginTop: "-20px",
@@ -150,6 +153,8 @@ const Login = () => {
                                 autoComplete="current-password"
                             />
                             <FormControlLabel
+                                name="remember"
+                                id = "remember"
                                 control={<Switch value="remember" defaultChecked
                                 />}
                                 color='objective'

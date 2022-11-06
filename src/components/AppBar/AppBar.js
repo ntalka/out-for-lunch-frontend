@@ -122,7 +122,9 @@ const TopAppBar =() => {
                                  sx={{borderBottomWidth: 2}}/>
 
                         {/*TODO: currently nonfunctional / static proof of concept*/}
-                        <ListItemButton  component={Link} onClick ={toggleDrawer} to="/yourGroup">
+                        <ListItemButton
+                            disabled={sessionStorage.getItem("myGroup")===null }
+                            component={Link} onClick ={toggleDrawer} to="/yourGroup">
                             <RestaurantInfoButton/>
                         </ListItemButton>
 
