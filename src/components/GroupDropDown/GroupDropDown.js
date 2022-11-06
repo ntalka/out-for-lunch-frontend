@@ -11,6 +11,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import {ParticipantList} from "../ParticipantList/ParticipantList";
+import {GetAllGroups, GetGroup} from "../../utils/Groups/Groups";
 
 
 const testMap =[
@@ -49,12 +50,12 @@ function MapIframe({placeId}){
 
 // Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
 // - AK
-export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false}){
+export function SingleGroupDropDown({groupId, placeName, placeId, time, nParticipants, defaultOpen=false}){
     const dropMenu = useRef(null)
     const dropMenuButton = useRef(null)
     const [open, setOpen] = useState(defaultOpen);
-    const [joined, setJoin] = useState(sessionStorage.getItem("groupid")===groupId);
-    const [myGroup, setMyGroup] = useState(sessionStorage.getItem("groupid"));
+    const [joined, setJoin] = useState(parseInt(sessionStorage.getItem("groupid"))===groupId);
+    const [myGroup, setMyGroup] = useState(parseInt(sessionStorage.getItem("groupid")));
     const [joinedColor, setJoinedColor] = useState(myGroup===groupId ? null : "#e3dbd0");
     function toggleOpen(e) {
         setOpen(!open);
@@ -62,13 +63,15 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 
     // To close all other dropdown menus
     const closeOpenDropDown = (e)=>{
+        console.log("firing closeOpenDropDown")
         if(dropMenu.current && open && !dropMenu.current.contains(e.target)){
             setOpen(false)
         }
     }
     // set colour of the button to reflect join status
     const setChosenColor = (e) =>{
-        if(sessionStorage.getItem("groupid")===groupId){setJoinedColor("#80a4ff")}
+        console.log("firing setChosenColor")
+        if(parseInt(sessionStorage.getItem("groupid"))===groupId){setJoinedColor("#80a4ff")}
         else{
             setJoinedColor("#e3dbd0");
         }
@@ -83,15 +86,35 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
         else{
             setMyGroup(null);
             sessionStorage.removeItem("groupid");
+            sessionStorage.removeItem("myGroup")
         }
         setJoin(!joined);
 
 
     }
 
+    function localStorageInfo(e) {
+
+        const groupid = parseInt(sessionStorage.getItem("groupid"));
+        if (groupid) {
+            console.log("firing groupinfo")
+            const group = GetGroup(groupid);
+            const groupinfo = {
+                "id" : group["id"],
+                "restaurant" : group["restaurant"]["name"],
+                "restaurantId" : group["restaurantId"],
+                "participants" : group["groupMember"].length,
+                "time": "11:00"
+
+            };
+
+            sessionStorage.setItem("myGroup", JSON.stringify(groupinfo));
+        }
+    }
+
     // sync joining
     useEffect(() => {
-        setMyGroup(sessionStorage.getItem("groupid"))
+        setMyGroup(parseInt(sessionStorage.getItem("groupid")))
         setJoin(groupId===myGroup);
     }, [sessionStorage.getItem("groupid")]);
 
@@ -99,11 +122,13 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
     // Colouring right button on changes
     useEffect(() => {
         document.addEventListener("mouseup", closeOpenDropDown);
-        document.addEventListener("change", setChosenColor);
+        document.addEventListener("input", setChosenColor);
+        document.addEventListener("input", localStorageInfo);
         return () => {
 
         };
     }, );
+
 
 
         return(
@@ -121,7 +146,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                         aligning via proportions -AK */}
                         <Grid container>
                             <Grid item xs={6} >
-                                <Typography align={"left"} color={"black"}>{groupId} </Typography>
+                                <Typography align={"left"} color={"black"}>{placeName} </Typography>
                             </Grid>
 
                             <Grid item xs={1}>
@@ -137,7 +162,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                             </Grid>
 
                             <Grid item xs={1}>
-                                <Typography align={"left"} color={"black"}>3 </Typography>
+                                <Typography align={"left"} color={"black"}>{nParticipants} </Typography>
                             </Grid>
 
                             <Grid item xs={1}>
@@ -177,7 +202,7 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
                         <Typography variant={"h6"} align={"center"}>Participants</Typography>
 
                         <Grid marginY={2} container justifyContent={"center"} spacing={0} >
-                            <ParticipantList/>
+                            <ParticipantList groupId={groupId}/>
                         </Grid>
                     </Box>
                 }
@@ -186,12 +211,49 @@ export function SingleGroupDropDown({groupId, placeId, time, defaultOpen=false})
 }
 
 // Dynamically create and return dropdown menus from map
-export function AllGroupDropDown() {
-        return(
-            testMap.map((value) => {
+function AllGroupDropDown({groups}) {
+    return (
+            groups.map((value) => {
+                const id = value["id"];
+                const oId = value["officeId"];
+                const rName = value["restaurant"]["name"];
+                const rId = value["restaurantId"];
+                const nP = value["groupMember"].length;
+
                 return (
-                        <SingleGroupDropDown key={value.groupId} groupId={value.groupId} placeId={value.values.placeId} time={value.values.time}/>
-                        )
-            })
-        )
+                    <SingleGroupDropDown
+                        key={id}
+                        groupId={id}
+                        placeId={rId}
+                        placeName={rName}
+                        nParticipants={nP}
+                        time={"11:00"}/>)})
+)
 }
+
+// function to render DropDowns so that data is fetched
+// and components are shown after loading
+export function RenderDropDowns() {
+    const  [didMount, setDidMount] = useState(false);
+    const [groups, setGroups] = useState();
+
+    useEffect(()=>{
+        if(!didMount) {
+            GetAllGroups().then(r => {
+                console.log("groups fetched")
+                setGroups(JSON.parse(sessionStorage.getItem("groups")))
+                setDidMount(true);
+            })
+        }
+    })
+
+    return (<>
+        {groups &&
+        <AllGroupDropDown groups ={groups}/>
+}
+    </>);
+
+
+}
+
+
