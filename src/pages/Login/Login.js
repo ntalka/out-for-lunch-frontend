@@ -28,13 +28,14 @@ TODO: async function to call backend for login -AK
 
  */
 const Login = () => {
-    const {setUser, user} = useAuth();
+    const {user, setUser} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const host = process.env.REACT_APP_SERVER;
 
     // Login submit for the user, provides it to the authenticator
     // TODO: async call for backend for checking actual login - AK
+
     const submit = useCallback(
         (event) => {
             event.preventDefault();
@@ -42,14 +43,13 @@ const Login = () => {
             console.log({
                 email: data.get('email'),
                 password: data.get('password'),
+                remember: data.get("remember")
             });
-            const res =  login(data.get('email'), data.get('password'));
-            console.log(res);
+            const res = login(data.get('email'), data.get('password'), data.get("remember") !== null)
 
-            event.preventDefault();
         },
     );
-    const login = async (email, password) => {
+    const login = async (email, password, remember) => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json',
@@ -66,13 +66,15 @@ const Login = () => {
                     console.log(resJSON);
                     console.log(resJSON.message);
                     if(resJSON.status === 200){
-                        sessionStorage.setItem("user", String(resJSON.authToken));
+                        const token = String(resJSON.authToken);
+                        sessionStorage.setItem("user", token);
                         console.log(sessionStorage.getItem("user"));
-
+                        if(remember){
+                            localStorage.setItem("user", token);}
                         setUser(String(resJSON["authToken"]));
-
                         navigate("/main");
                     }
+
                 });
     };
 
@@ -86,6 +88,7 @@ const Login = () => {
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
+
                     <FormLabel  style={{
                         marginLeft: "110px",
                         marginTop: "-20px",
@@ -150,6 +153,8 @@ const Login = () => {
                                 autoComplete="current-password"
                             />
                             <FormControlLabel
+                                name="remember"
+                                id = "remember"
                                 control={<Switch value="remember" defaultChecked
                                 />}
                                 color='objective'
