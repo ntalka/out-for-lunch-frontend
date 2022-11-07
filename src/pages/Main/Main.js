@@ -11,6 +11,7 @@ import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {AllGroupDropDown} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
+import {Link} from "react-router-dom";
 
 
 const theme = createTheme(themeOptions);
@@ -50,7 +51,7 @@ export default function Main() {
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText,
                             }}}>Create random</Button>
-                        <Button
+                        <Button component={Link} to="/createcustom"
                             id={"Create custom"}
                             sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
