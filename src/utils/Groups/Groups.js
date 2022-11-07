@@ -5,7 +5,7 @@ const example = "{ \"status\": 200, \"message\": \"Success\", \"data\": [ { \"id
 
 
 export async function GetAllGroups() {
-    const user2 = getUser();
+    const user = getUser();
     const host = process.env.REACT_APP_SERVER;
 
 
@@ -13,17 +13,18 @@ export async function GetAllGroups() {
         method: 'GET',
         redirect: 'follow',
         headers: {
-            'Authorization': user2
+            'Authorization': user
         }
     }
     const res = await fetch(host + "/get-groups-list", requestOptions)
     await res.json().then((resJSON) => {
-        console.log(resJSON);
+        console.log(resJSON.data);
 
         try{
-            sessionStorage.setItem("groups", JSON.stringify(JSON.parse(example).data))
+            sessionStorage.setItem("groups", JSON.stringify(resJSON.data))
         }
         catch (e){
+            console.log(e)
             sessionStorage.setItem("groups","[]");
         }
     })
@@ -32,7 +33,7 @@ export async function GetAllGroups() {
 // Get specified group from the current sessionStorage
 export function GetGroup(groupId){
     // Finding the exact group
-    const group = JSON.parse(example).data.find(function (i) {
+    const group = JSON.parse(sessionStorage.getItem("groups")).find(function (i) {
         if (i.id === groupId) {
             return i;
         }

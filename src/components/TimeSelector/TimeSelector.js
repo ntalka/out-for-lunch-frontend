@@ -64,7 +64,7 @@ function TimeSelector(){
     const [t1Value, t1SetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
     const [t2Value, t2SetValue] = React.useState(dayjs(new Date()).hour(12).minute(0));
     const [sliderValue, setSliderValue] = React.useState([660, 720]);
-
+    updateSessionsStorage();
     //Handling Slider connecting it to the timepickers using activeThumb
     const handleSliderChange = (event, newValue, activeThumb) => {
         let newDate = dayjs(new Date()).hour(0).minute(newValue[activeThumb]);
@@ -84,7 +84,15 @@ function TimeSelector(){
         } else {
             t2SetValue(newDate);
         }
+        updateSessionsStorage()
     };
+
+    function updateSessionsStorage(){
+        // sessionStorage.setItem("start", t1Value.toISOString().slice(0,-1))
+        // sessionStorage.setItem("end", t2Value.toISOString().slice(0,-1))
+        sessionStorage.setItem("start", "2022-10-29"+t1Value.toISOString().slice(10,-1))
+        sessionStorage.setItem("end", "2022-10-29"+t2Value.toISOString().slice(10,-1))
+    }
 
     // Timer changes and slider linking
     // calls slider changes with null event to distinguish
@@ -94,6 +102,7 @@ function TimeSelector(){
         const mins = newDate.minute()+newDate.hour()*60;
         t1SetValue(newDate);
         handleSliderChange(null, [mins, sliderValue[1]], 1);
+        updateSessionsStorage()
     }
 
     const handleTimer2Change = (newValue)=>{
@@ -101,6 +110,7 @@ function TimeSelector(){
         const mins = newDate.minute()+newDate.hour()*60;
         t2SetValue(newDate);
         handleSliderChange(null, [sliderValue[0], mins], 0);
+        updateSessionsStorage()
     }
 
 

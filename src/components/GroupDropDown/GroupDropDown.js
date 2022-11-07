@@ -95,7 +95,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
                 "restaurant" : group["restaurant"]["name"],
                 "restaurantId" : group["restaurantId"],
                 "participants" : group["groupMember"].length,
-                "time": "11:00"
+                "time": group["time"].slice(11,16)
 
             };
 
@@ -210,6 +210,7 @@ function AllGroupDropDown({groups}) {
                 const rName = value["restaurant"]["name"];
                 const rId = value["restaurantId"];
                 const nP = value["groupMember"].length;
+                const time = value["time"].slice(11,16)
 
                 return (
                     <SingleGroupDropDown
@@ -218,7 +219,7 @@ function AllGroupDropDown({groups}) {
                         placeId={rId}
                         placeName={rName}
                         nParticipants={nP}
-                        time={"11:00"}/>)})
+                        time={time}/>)})
 )
 }
 
