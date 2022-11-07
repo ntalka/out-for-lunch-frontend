@@ -80,7 +80,7 @@ const Register = () => {
         }
         console.log(requestOptions);
         const res = await fetch(host + '/signup', requestOptions )
-        const resJSON = await res.json()
+        await res.json()
             .then((resJSON) =>{
                 console.log(resJSON);
                 console.log(resJSON.message);

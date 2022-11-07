@@ -27,7 +27,7 @@ import CreateCustom from "../pages/CreateCustom/CreateCustom";
 /*
     The root app functionality and browser routing system.
     Contains always on display AppBar
-    TODO: And handles page authentication checks
+
     -AK
  */
 const App = () => {
@@ -46,7 +46,7 @@ const App = () => {
                                     <Route path="*" element={<Login/>}/>
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<Register/>}/>
-                                    <Route path="/verify/*" element={<Verify/>}/>
+                                    <Route path="*/verify/*" element={<Verify/>}/>
 
                                     <Route element={<Authenticate/>}>
                                         <Route path="/main" element={<Main />} />

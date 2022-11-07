@@ -1,4 +1,3 @@
-import React from 'react';
 import './Main.css'
 import {
     Box, Button, ButtonGroup,
@@ -9,7 +8,7 @@ import {
 } from "@mui/material";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
-import {AllGroupDropDown} from "../../components/GroupDropDown/GroupDropDown";
+import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 
@@ -19,8 +18,6 @@ const theme = createTheme(themeOptions);
 
 
 // Main page for displaying the restaurants / locations
-// TODO: Actual functionality, currently just contains 2 proof of concepts for
-// TODO: maps
 export default function Main() {
     return(
         <ThemeProvider theme={theme}>
@@ -62,11 +59,12 @@ export default function Main() {
                     <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography sx={{ marginTop: 1, marginBottom: 3}}> Groups of the day </Typography>
                     <Grid container justifyContent={"center"}>
-                        <AllGroupDropDown/>
+                        <RenderDropDowns/>
                     </Grid>
 
             </Box>
             </Container>
         </ThemeProvider>
             );
+
 }
