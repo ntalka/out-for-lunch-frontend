@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from "react";
 
 
-import {Container, createTheme, CssBaseline, Divider, Grid, Slider, ThemeProvider} from "@mui/material";
+import {Autocomplete, Container, createTheme, CssBaseline, Divider, Grid, Slider, ThemeProvider} from "@mui/material";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
-import SearchBar from "./SearchBar";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 
 
@@ -14,21 +14,17 @@ import Typography from "@mui/material/Typography";
 
 const theme = createTheme(themeOptions);
 
-const filterData = (query, data) => {
-    if (!query) {
-        return data;
-    } else {
-        return data.filter((d) => d.toLowerCase().includes(query));
-    }
-};
 
 const data = [
-    "Ravintola Tampella",
-    "Sasor - Restaurant & Winebar",
-    "Rioni Tampere",
-    "Viikinkiravintola Harald",
-    "Ravintola Kajo",
+    { label: "Ravintola Tampella"},
+    { label: "Sasor - Restaurant & Winebar" },
+    { label:  "Rioni Tampere"},
+    { label: "Viikinkiravintola Harald" },
+    { label: "Ravintola Kajo" },
+    { label: "testi" },
+    { label: "testi2" }
 ];
+
 
 const sliderOptions={
     // Slider works in minutes, count starts from 00:00 -AK
@@ -69,13 +65,18 @@ const marks = [
 
 
 const CreateCustom = () => {
-    const [searchQuery, setSearchQuery] = useState("");
-    const dataFiltered = filterData(searchQuery, data);
+
     const [sliderValue, setSliderValue] = React.useState([660]);
+    const[textfieldValue, settextfieldValue] = React.useState([660]);
 
 
     const handleSliderChange = (event, newValue, activeThumb) => {
         setSliderValue(newValue);
+        settextfieldValue(newValue);
+
+    }
+
+    const handle2 = (event, newValue2) =>{
 
     }
 
@@ -85,8 +86,9 @@ const CreateCustom = () => {
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <Typography> Please set the start time of your lunch</Typography>
-
-
+                <TextField value={sliderValue}
+                onChange={handle2}>
+                </TextField>
                 <Grid item alignItems={"center"}  >
                     <Slider
                         id="timeSlider"
@@ -100,38 +102,35 @@ const CreateCustom = () => {
                         min={sliderOptions.minTime}
                         max={sliderOptions.maxTime}/>
                 </Grid>
-                <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{marginBottom: 5, marginTop: 5, borderBottomWidth: 3}}/>
-            <Grid container spacing={0} justifyContent={"center"} >
-                <Grid   item xs={9.2} alignContent={"center"}>
-                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                </Grid>
-                <Grid item xs={7}>
-                    <div style={{ padding: 3 }}>
-                        {dataFiltered.map((d) => (
-                            <div
-                                className="text"
-                                style={{
-                                    padding: 5,
-                                    justifyContent: "normal",
-                                    fontSize: 20,
-                                    color: "white",
-                                    margin: 1,
-                                    width: "250px",
-                                    BorderColor: "green",
-                                    borderWidth: "10px"
-                                }}
-                                key={d.id}
-                            >
-                                {d}
-                            </div>
-                        ))}
 
-                    </div>
+                <Divider style={{width:'90%'}}  justifycontent="center" variant="middle" sx={{marginBottom: 1, marginTop: 5, borderBottomWidth: 3}}/>
+                <Grid   container spacing={0} justifyContent={"center"}>
+                    <Typography sx={{marginBottom: 3, marginTop: 2, fontSize: 20}}> Please Choose a restaurant</Typography>
+                    <Autocomplete
+                        disablePortal
+                        variant={"outlined"}
+                        id="restaurantBar"
+                        options={data}
+                        /* Currenly value on console */
+                        onChange={(event, value) => console.log(value)}
+                        sx={{  "& .MuiOutlinedInput-root": {
+                                "& > fieldset": {
+                                    borderColor: "#ffffff",
+                                    borderRadius : 3},
+                            },
+                            width: 320,
+                            svg: {
+                                color: '#ffffff' },
+                            input: {
+                                color: '#ffffff' },
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Restaurant" />}
+                    />
                 </Grid>
-            </Grid>
-                <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{marginBottom: 5, marginTop: 5, borderBottomWidth: 3}}/>
+                <Divider style={{width:'90%'}}  justifycontent="center" variant="middle" sx={{marginBottom: 5, marginTop: 5, borderBottomWidth: 3}}/>
             </Container>
         </ThemeProvider>
+
     );
 
 };
