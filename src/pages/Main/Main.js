@@ -31,35 +31,29 @@ export default function Main() {
                         alignItems: 'center',
                     }}>
                     <TimeSelector/>
-                    <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3, marginBottom: 1}}/>
-                    <Typography> Please select an option </Typography>
-                    <ButtonGroup variant="contained" aria-label="button group" sx={{marginTop: 2, marginBottom: 2}} >
                         <Button
-                            id={"Join random"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                            id={"JoinRandom"}
+                            style={{minWidth: 360}}
+                            sx={{ marginTop: 1, marginBottom: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText,
                             }}}>Join random</Button>
-                        <Button
-                            id={"Create random"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}>Create random</Button>
-                        <Button component={Link} to="/createcustom"
-                            id={"Create custom"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}>Create custom</Button>
-                    </ButtonGroup>
+
                     <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography sx={{ marginTop: 1, marginBottom: 3}}> Groups of the day </Typography>
                     <Grid container justifyContent={"center"}>
                         <RenderDropDowns/>
+                    </Grid>
+                    <Grid>
+                        <Button component={Link} to="/createcustom"
+                                id={"CreateCustom"}
+                                style={{minWidth: 360}}
+                                sx={{ marginTop: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                                    backgroundColor: theme.palette.secondary.dark,
+                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                        color: theme.palette.primary.contrastText,
+                                    }}}>Create custom</Button>
                     </Grid>
 
             </Box>
