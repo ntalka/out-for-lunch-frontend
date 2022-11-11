@@ -23,7 +23,6 @@ const theme = createTheme(themeOptions);
 export default function Main() {
     const {user} = useAuth();
     const host = process.env.REACT_APP_SERVER;
-    const utcNow = new Date().toISOString().slice(0, -1);
     const [start] = React.useState(sessionStorage.getItem("start"));
     const [end] = React.useState(sessionStorage.getItem("end"));
     console.log(user);
@@ -57,21 +56,17 @@ export default function Main() {
 
         const raw = "{\r\n\"endTime\":\"2022-10-29T11:00:04.169\",\r\n\"startTime\":\"2022-10-29T09:00:04.000\"\r\n}";
 
-        const requestOptions = {
+        let requestOptions = {
             method: 'POST',
-            headers: {"Authorization" : "eyJhbGciOiJIUzI1NiJ9.emVlYmFyYW16YW5AZ21haWwuY29t.m44QU9VeNaVUqynpFcw5mCMvYAjRKS8AdOs_gkixzpw"},
+            headers: {
+                'Authorization' : user},
             body: {
-                "endTime":"2022-10-29T11:00:04.169",
-                "startTime":"2022-10-29T09:00:04.000"
-            },
+                "startTime" : "2022-10-29T09:00:50.141",
+                "endTime" : "2022-10-29T11:00:04.169"},
             redirect: 'follow'
         };
-        console.log(JSON.stringify({
-            "endTime":"2022-10-29T11:00:04.169",
-            "startTime":"2022-10-29T09:00:04.000"
-        }))
 
-        console.log(requestOptions);
+            console.log(requestOptions);
         const res = await fetch(host + '/join-random-group', requestOptions )
         await res.json()
             .then((resJSON) =>{
