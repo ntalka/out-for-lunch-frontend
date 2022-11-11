@@ -1,6 +1,7 @@
 import './Main.css'
 import {
-    Box, Button, ButtonGroup,
+    Accordion, AccordionDetails, AccordionSummary,
+    Box, Button,
     Container,
     createTheme,
     CssBaseline, Divider, Grid,
@@ -11,6 +12,7 @@ import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 const theme = createTheme(themeOptions);
@@ -30,16 +32,31 @@ export default function Main() {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
+                    <Accordion
+                        id={"lunchTimePicker"}
+                        sx={{backgroundColor: "#00173a" }}>
+                        <AccordionSummary
+                            sx={{backgroundColor: "#80a4ff", color: "black",
+                            "& .MuiAccordionSummary-content": {
+                                justifyContent: "center",
+                            } }}
+                            expandIcon={<ExpandMoreIcon />}>
+                            <Typography > Lunch time picker </Typography>
+                        </AccordionSummary>
+
+                        <AccordionDetails>
                     <TimeSelector/>
                         <Button
                             id={"JoinRandom"}
                             style={{minWidth: 360}}
-                            sx={{ marginTop: 1, marginBottom: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                            sx={{ marginTop: 1,  fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText,
-                            }}}>Join random</Button>
+                            }}}>Join random suitable group</Button>
+                        </AccordionDetails>
 
+                    </Accordion>
                     <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography sx={{ marginTop: 1, marginBottom: 3}}> Groups of the day </Typography>
                     <Grid container justifyContent={"center"}>
