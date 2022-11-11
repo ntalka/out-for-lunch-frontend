@@ -1,4 +1,5 @@
 import './Main.css'
+import React from 'react'
 import {
     Accordion, AccordionDetails, AccordionSummary,
     Box, Button,
@@ -21,6 +22,16 @@ const theme = createTheme(themeOptions);
 
 // Main page for displaying the restaurants / locations
 export default function Main() {
+    const [expanded, setExpanded] = React.useState(true);
+
+    const handleChange = () =>{
+        if( expanded === true){
+            setExpanded(false);
+            return;
+        }
+        setExpanded(true);
+    }
+
     return(
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -34,7 +45,10 @@ export default function Main() {
                     }}>
                     <Accordion
                         id={"lunchTimePicker"}
-                        sx={{backgroundColor: "#00173a" }}>
+                        sx={{backgroundColor: "#00173a" }}
+                        expanded={expanded}
+                        onClick={handleChange}
+                    >
                         <AccordionSummary
                             sx={{backgroundColor: "#80a4ff", color: "black",
                             "& .MuiAccordionSummary-content": {
