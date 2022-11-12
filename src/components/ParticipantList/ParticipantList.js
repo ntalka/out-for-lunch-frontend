@@ -11,10 +11,11 @@ export function ParticipantList(groupId) {
     return(
         members.map((value) => {
             return (
-                <Grid key={value.user.id}
+                <Grid key={"grid"+value["userId"]}
                       item xs={6}
                       justifyContent={"center"}>
                     <Typography
+                        key={"typo"+value["userId"]}
                         align={"center"}
                         color={"white"}>
                         {value.user.name}
