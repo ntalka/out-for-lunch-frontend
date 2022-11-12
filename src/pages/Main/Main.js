@@ -1,7 +1,7 @@
-import React from 'react'
 import './Main.css'
 import {
-    Box, Button, ButtonGroup,
+    Accordion, AccordionDetails, AccordionSummary,
+    Box, Button,
     Container,
     createTheme,
     CssBaseline, Divider, Grid,
@@ -11,6 +11,8 @@ import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
+import {Link} from "react-router-dom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {getUser, useAuth} from "../../utils/Authentication/Authenticate";
 import dayjs from "dayjs";
 
@@ -90,40 +92,49 @@ export default function Main() {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-                    <TimeSelector/>
-                    <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3, marginBottom: 1}}/>
-                    <Typography> Please select an option </Typography>
-                    <ButtonGroup variant="contained" aria-label="button group" sx={{marginTop: 2, marginBottom: 2}} >
-                        <Button
-                            onClick={joinRandom}
-                            id={"Join random"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}>Join random</Button>
-                        <Button
-                            onClick={createRandom}
-                            id={"Create random"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}>Create random</Button>
-                        <Button
-                            id={"Create custom"}
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}>Create custom</Button>
-                    </ButtonGroup>
+                    <Accordion
+                        id={"lunchTimePicker"}
+                        sx={{backgroundColor: "#00173a" }}
+                        expanded={expanded}
+                        onClick={handleChange}
+                    >
+                        <AccordionSummary
+                            sx={{backgroundColor: "#80a4ff", color: "black",
+                                "& .MuiAccordionSummary-content": {
+                                    justifyContent: "center",
+                                } }}
+                            expandIcon={<ExpandMoreIcon />}>
+                            <Typography > Lunch time picker </Typography>
+                        </AccordionSummary>
+
+                        <AccordionDetails>
+                            <TimeSelector/>
+                            <Button
+                                id={"JoinRandom"}
+                                style={{minWidth: 360}}
+                                sx={{ marginTop: 1,  fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                                    backgroundColor: theme.palette.secondary.dark,
+                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                        color: theme.palette.primary.contrastText,
+                                    }}}>Join random suitable group</Button>
+                        </AccordionDetails>
+
+                    </Accordion>
                     <Divider style={{width:'100%'}}  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography sx={{ marginTop: 1, marginBottom: 3}}> Groups of the day </Typography>
                     <Grid container justifyContent={"center"}>
                         <RenderDropDowns/>
                     </Grid>
-
+                    <Grid>
+                        <Button component={Link} to="/createcustom"
+                                id={"CreateCustom"}
+                                style={{minWidth: 360}}
+                                sx={{ marginTop: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
+                                    backgroundColor: theme.palette.secondary.dark,
+                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
+                                        color: theme.palette.primary.contrastText,
+                                    }}}>Create custom</Button>
+                    </Grid>
             </Box>
             </Container>
         </ThemeProvider>

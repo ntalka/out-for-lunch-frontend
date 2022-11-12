@@ -19,6 +19,7 @@ import {
 import NoPermission from "../pages/NoPermission/NoPermission";
 import YourGroup from "../pages/YourGroup/YourGroup";
 import Verify from "../pages/Verify/Verify";
+import CreateCustom from "../pages/CreateCustom/CreateCustom";
 
 
 
@@ -51,6 +52,7 @@ const App = () => {
                                         <Route path="/main" element={<Main />} />
                                         <Route path="/profile" element={<Profile />} />
                                         <Route path="/yourgroup" element={<YourGroup />} />
+                                        <Route path="/createcustom" element={<CreateCustom />} />
                                     </Route>
                                 </Routes>
 
