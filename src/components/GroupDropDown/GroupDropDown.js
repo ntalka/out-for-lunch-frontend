@@ -13,6 +13,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {ParticipantList} from "../ParticipantList/ParticipantList";
 import {GetAllGroups, GetGroup} from "../../utils/Groups/Groups";
 import {postRequest} from "../../utils/backend/utils";
+import {useAuth} from "../../utils/Authentication/Authenticate";
 
 
 
@@ -43,6 +44,7 @@ function MapIframe({placeId}){
 // Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
 // - AK
 export function SingleGroupDropDown({groupId, placeName, placeId, time, nParticipants, defaultOpen=false}){
+    const {user} = useAuth();
     const dropMenu = useRef(null)
     const dropMenuButton = useRef(null)
     const [open, setOpen] = useState(defaultOpen);
@@ -88,7 +90,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
         const body = {
             "groupId" : groupId
         }
-        postRequest("/join-group", body, sessionStorage.getItem("authToken"))
+        postRequest("/join-group", body, String(user))
             .then((resJSON) =>{
                 console.log(resJSON);
                 console.log(resJSON.message);
