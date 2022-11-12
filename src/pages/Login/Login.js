@@ -16,6 +16,7 @@ import {
     useNavigate
 } from "react-router-dom";
 import {useAuth} from "../../utils/Authentication/Authenticate";
+import {postRequest} from "../../utils/backend/utils";
 
 
 const theme = createTheme(themeOptions);
@@ -40,44 +41,40 @@ const Login = () => {
         (event) => {
             event.preventDefault();
             const data = new FormData(event.currentTarget);
-            console.log({
-                email: data.get('email'),
-                password: data.get('password'),
-                remember: data.get("remember")
-            });
             const res = login(data.get('email'), data.get('password'), data.get("remember") !== null)
 
         },
     );
     const login = async (email, password, remember) => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'},
-                body: JSON.stringify({
-                    "email": email,
-                    "password": password
-                })
+            const body ={
+                "email": email,
+                "password": password
             }
-            console.log(requestOptions);
-            const res = await fetch(host + '/login', requestOptions )
-            await res.json()
+            postRequest('/login', body, null)
                 .then((resJSON) =>{
                     console.log(resJSON);
-                    console.log(resJSON.message);
                     if(resJSON.status === 200){
-                        const token = String(resJSON.authToken);
-                        sessionStorage.setItem("user", token);
-                        console.log(sessionStorage.getItem("user"));
-                        if(remember){
-                            localStorage.setItem("user", token);}
-                        setUser(String(resJSON["authToken"]));
+                        saveUserInfo(resJSON, remember)
                         navigate("/main");
                     }
-
                 });
     };
 
+    function saveUserInfo(data, remember){
+        const authToken = String(data["authToken"]);
+        const userInfo =JSON.stringify({
+            "name" : data["data"]["name"],
+            "email" : data["data"]["email"],
+            "officeId" : data["data"]["officeId"]
+        })
+        setUser(authToken);
+        sessionStorage.setItem("authToken", authToken);
+        sessionStorage.setItem("userInfo", userInfo);
+        if(remember){
+            localStorage.setItem("authToken", authToken)
+            localStorage.setItem("userInfo", userInfo);
+        }
+    }
 
     if (user) {
         return (<Navigate
