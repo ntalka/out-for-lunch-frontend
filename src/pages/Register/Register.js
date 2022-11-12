@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/Theme/ThemeOptions";
 import {useState} from "react";
 import {PopUp} from "../../components/StyledMui/PopUp";
+import {postRequest} from "../../utils/backend/utils";
 const theme = createTheme(themeOptions);
 
 /*
@@ -70,21 +71,12 @@ const Register = () => {
 
     // Async function to post signup data to server
     const signUp = async (email, password) => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "email": email,
-                "password": password
-            })
+        const body = {
+            "email": email,
+            "password": password
         }
-        console.log(requestOptions);
-        const res = await fetch(host + '/signup', requestOptions )
-        await res.json()
+        postRequest("/signup", body, null)
             .then((resJSON) =>{
-                console.log(resJSON);
-                console.log(resJSON.message);
-
                 // Setting up popup message
                 setResMessage(resJSON.message);
                 setOpenPopUp(true);
@@ -161,7 +153,7 @@ const Register = () => {
                     />
 
                     <TextField id={"passwordAgain"}
-                               border
+                               border={1}
                                required
                                label = "Password again"
                                name={"passwordAgain"}
@@ -208,7 +200,7 @@ const Register = () => {
                      from the server -AK*/}
                     {openPopUp &&
                         <PopUp
-                            displayText={resMessage + values.email}
+                            displayText={resMessage +"\n"+ values.email}
                             buttonText={"OK"}
                             referTo={"/login"}/>
                     }
