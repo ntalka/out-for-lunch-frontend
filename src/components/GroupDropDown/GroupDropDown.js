@@ -12,6 +12,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import {ParticipantList} from "../ParticipantList/ParticipantList";
 import {GetAllGroups, GetGroup} from "../../utils/Groups/Groups";
+import {postRequest} from "../../utils/backend/utils";
 
 
 
@@ -71,8 +72,10 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
     // Handling joining and leaving particular group
     function handleJoin(e){
         if(!joined){
-            setMyGroup(groupId);
-            sessionStorage.setItem("groupid", String(groupId));
+            joinGroup(groupId).then(r => {
+                setMyGroup(groupId);
+                sessionStorage.setItem("groupid", String(groupId));
+            });
         }
         else{
             setMyGroup(null);
@@ -80,17 +83,25 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
             sessionStorage.removeItem("myGroup")
         }
         setJoin(!joined);
-
-
+    }
+    const joinGroup = async () =>{
+        const body = {
+            "groupId" : groupId
+        }
+        postRequest("/join-group", body, sessionStorage.getItem("authToken"))
+            .then((resJSON) =>{
+                console.log(resJSON);
+                console.log(resJSON.message);
+            });
     }
 
-    function localStorageInfo(e) {
+    function sessionStorageInfo(e) {
 
         const groupid = parseInt(sessionStorage.getItem("groupid"));
         if (groupid) {
             console.log("firing groupinfo")
             const group = GetGroup(groupid);
-            const groupinfo = {
+            const groupInfo = {
                 "id" : group["id"],
                 "restaurant" : group["restaurant"]["name"],
                 "restaurantId" : group["restaurantId"],
@@ -99,7 +110,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
 
             };
 
-            sessionStorage.setItem("myGroup", JSON.stringify(groupinfo));
+            sessionStorage.setItem("myGroup", JSON.stringify(groupInfo));
         }
     }
 
@@ -114,7 +125,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
     useEffect(() => {
         document.addEventListener("mouseup", closeOpenDropDown);
         document.addEventListener("input", setChosenColor);
-        document.addEventListener("input", localStorageInfo);
+        document.addEventListener("input", sessionStorageInfo);
         return () => {
 
         };
@@ -193,7 +204,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
                         <Typography variant={"h6"} align={"center"}>Participants</Typography>
 
                         <Grid marginY={2} container justifyContent={"center"} spacing={0} >
-                            <ParticipantList groupId={groupId}/>
+                            <ParticipantList key={"participantList"} groupId={groupId}/>
                         </Grid>
                     </Box>
                 }
@@ -226,15 +237,14 @@ function AllGroupDropDown({groups}) {
 // function to render DropDowns so that data is fetched
 // and components are shown after loading
 export function RenderDropDowns() {
-    const  [didMount, setDidMount] = useState(false);
+    const [didMount, setDidMount] = useState(false);
     const [groups, setGroups] = useState();
 
     useEffect(()=>{
         if(!didMount) {
             GetAllGroups().then(r => {
-                console.log("groups fetched")
-                setGroups(JSON.parse(sessionStorage.getItem("groups")))
-                setDidMount(true);
+                    setGroups(JSON.parse(sessionStorage.getItem("groups")))
+                    setDidMount(true);
             })
         }
     })
