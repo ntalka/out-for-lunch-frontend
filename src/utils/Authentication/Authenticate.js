@@ -8,7 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const Authenticator = ({ children }) => {
     //default sessionstorage user if present
-    const [user, setUser] = useState(!localStorage.getItem("user") ? sessionStorage.getItem("user") : localStorage.getItem("user"));
+    const [user, setUser] = useState(!localStorage.getItem("authToken") ? sessionStorage.getItem("authToken") : localStorage.getItem("authToken"));
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>
