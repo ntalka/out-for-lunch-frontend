@@ -15,6 +15,8 @@ import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {getUser, useAuth} from "../../utils/Authentication/Authenticate";
 import dayjs from "dayjs";
+import React from "react";
+import {postRequest} from "../../utils/backend/utils";
 
 
 const theme = createTheme(themeOptions);
@@ -27,7 +29,16 @@ export default function Main() {
     const host = process.env.REACT_APP_SERVER;
     const [start] = React.useState(sessionStorage.getItem("start"));
     const [end] = React.useState(sessionStorage.getItem("end"));
-    console.log(user);
+
+    const [expanded, setExpanded] = React.useState(true);
+
+    const handleChange = () =>{
+        if( expanded === true){
+            setExpanded(false);
+            return;
+        }
+        setExpanded(true);
+    }
 
     const createRandom = async () =>{
         let requestOptions = {
@@ -53,32 +64,17 @@ export default function Main() {
     }
 
     const joinRandom = async () =>{
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiJ9.emVlYmFyYW16YW5AZ21haWwuY29t.m44QU9VeNaVUqynpFcw5mCMvYAjRKS8AdOs_gkixzpw");
-
-        const raw = "{\r\n\"endTime\":\"2022-10-29T11:00:04.169\",\r\n\"startTime\":\"2022-10-29T09:00:04.000\"\r\n}";
-
-        let requestOptions = {
-            method: 'POST',
-            headers: {
-                'Authorization' : user},
-            body: {
-                "startTime" : "2022-10-29T09:00:50.141",
-                "endTime" : "2022-10-29T11:00:04.169"},
-            redirect: 'follow'
-        };
-
-            console.log(requestOptions);
-        const res = await fetch(host + '/join-random-group', requestOptions )
-        await res.json()
+        const body = {
+            "endTime": "2022-11-07T14:00:35Z",
+            "startTime": "2022-11-07T09:00:35Z"}
+        postRequest("/join-random-group", body, String(user))
             .then((resJSON) =>{
                 console.log(resJSON);
                 console.log(resJSON.message);
-                if(resJSON.status === 200){
-                    console.log("ryhmä liitytty")
-                }
             });
     }
+
+
 
 
     return(
@@ -110,6 +106,7 @@ export default function Main() {
                         <AccordionDetails>
                             <TimeSelector/>
                             <Button
+                                onClick={joinRandom}
                                 id={"JoinRandom"}
                                 style={{minWidth: 360}}
                                 sx={{ marginTop: 1,  fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
