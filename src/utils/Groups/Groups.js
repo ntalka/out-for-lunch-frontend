@@ -1,43 +1,32 @@
 import React from 'react'
 import {getUser} from "../Authentication/Authenticate";
-const example = "{ \"status\": 200, \"message\": \"Success\", \"data\": [ { \"id\": 6, \"officeId\": 1, \"restaurantId\": \"ChIJ-5aEPlQnj0YRFrphwJ8aXy8\", \"groupMember\": [ { \"userId\": 1, \"user\": { \"name\": \"zeebaramzan undefined\" } } ], \"restaurant\": { \"name\": \"Primo Contanti Oy\" } }, { \"id\": 7, \"officeId\": 1, \"restaurantId\": \"ChIJIU42_LbfjkYRaqJ_9DqnIfs\", \"groupMember\": [ { \"userId\": 1, \"user\": { \"name\": \"zeebaramzan undefined\" } } ], \"restaurant\": { \"name\": \"FIMA Forum for Intelligent Machines ry\" } }, { \"id\": 8, \"officeId\": 1, \"restaurantId\": \"ChIJd8SNoLDfjkYRG8S0J4jX3TY\", \"groupMember\": [ { \"userId\": 1, \"user\": { \"name\": \"zeebaramzan undefined\" } } ], \"restaurant\": { \"name\": \"Citycon Oyj\" } } ] }"
-
+import {getRequest} from "../backend/utils";
 
 
 export async function GetAllGroups() {
     const user = getUser();
-    const host = process.env.REACT_APP_SERVER;
+    const resJSON = getRequest("/get-groups-list", String(user))
+        .then((resJSON) => {
+            if(resJSON.status===200){
+                const data = JSON.stringify(resJSON["data"])
+                try{
+                    sessionStorage.setItem("groups", data)
+                }
+                catch (e){
+                    console.log(e)
+                    sessionStorage.setItem("groups","[]");
+                }
+            }
 
-
-    const requestOptions = {
-        method: 'GET',
-        redirect: 'follow',
-        headers: {
-            'Authorization': user
-        }
-    }
-    const res = await fetch(host + "/get-groups-list", requestOptions)
-    await res.json().then((resJSON) => {
-        console.log(resJSON.data);
-
-        try{
-            sessionStorage.setItem("groups", JSON.stringify(resJSON.data))
-        }
-        catch (e){
-            console.log(e)
-            sessionStorage.setItem("groups","[]");
-        }
-    })
-
+        })
+    return await resJSON;
 }
 // Get specified group from the current sessionStorage
 export function GetGroup(groupId){
     // Finding the exact group
     const group = JSON.parse(sessionStorage.getItem("groups")).find(function (i) {
         if (i.id === groupId) {
-            return i;
-        }
-    })
+            return i;}})
     if (group) {
         return group;
     }
