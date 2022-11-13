@@ -4,6 +4,7 @@ import { Grid, ListItemText} from "@mui/material";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {useState} from "react";
+import {ISOtoLocalHours} from "../../utils/TimeUtils";
 
 
 
@@ -22,10 +23,10 @@ export function RestaurantInfoButton() {
 
 
     const [groupId, ] = useState(myGroup ? myGroup["id"] : "null");
-    const [name, ] = useState(myGroup ? myGroup["restaurant"] : null);
+    const [name, ] = useState(myGroup ? myGroup["restaurant"]["name"] : null);
     //const [restaurantId, ] = useState(myGroup ? myGroup["restaurantId"] : null);
-    const [participants, ] = useState(myGroup ? myGroup["participants"] : null);
-    const [time, ] = useState(myGroup ? myGroup["time"] : null);
+    const [participants, ] = useState(myGroup ? myGroup["groupMember"].length : null);
+    const [time, ] = useState(myGroup ? ISOtoLocalHours(myGroup["time"]) : null);
     const [hidden, ] = useState(groupId!=="null");
 
     return(
