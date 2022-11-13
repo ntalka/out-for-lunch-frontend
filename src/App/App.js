@@ -15,7 +15,7 @@ import {HuldBanner} from "../components/HuldBanner/HuldBanner";
 import {
     Authenticator,
     Authenticate,
-} from "../utils/Authentication/Authenticate";
+} from "../utils/Authenticate";
 import NoPermission from "../pages/NoPermission/NoPermission";
 import YourGroup from "../pages/YourGroup/YourGroup";
 import Verify from "../pages/Verify/Verify";
