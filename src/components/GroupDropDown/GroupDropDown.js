@@ -11,9 +11,10 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import {ParticipantList} from "../ParticipantList/ParticipantList";
-import {GetAllGroups, GetGroup} from "../../utils/Groups/Groups";
-import {postRequest} from "../../utils/backend/utils";
-import {useAuth} from "../../utils/Authentication/Authenticate";
+import {GetAllGroups} from "../../utils/Groups";
+import {postRequest} from "../../utils/RequestUtils";
+import {useAuth} from "../../utils/Authenticate";
+import {ISOtoLocalHours} from "../../utils/TimeUtils";
 
 
 
@@ -43,93 +44,77 @@ function MapIframe({placeId}){
 
 // Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
 // - AK
-export function SingleGroupDropDown({groupId, placeName, placeId, time, nParticipants, defaultOpen=false}){
+export function SingleGroupDropDown({groupData}){
     const {user} = useAuth();
     const dropMenu = useRef(null)
     const dropMenuButton = useRef(null)
-    const [open, setOpen] = useState(defaultOpen);
-    const [joined, setJoin] = useState(parseInt(sessionStorage.getItem("groupid"))===groupId);
-    const [myGroup, setMyGroup] = useState(parseInt(sessionStorage.getItem("groupid")));
-    const [joinedColor, setJoinedColor] = useState(myGroup===groupId ? null : "#e3dbd0");
-    function toggleOpen(e) {
+    const [open, setOpen] = useState(groupData["joined"]);
+    const [joined, setJoined] = useState(groupData["joined"]);
+    const [color, setColor] = useState(joined ? null : "#e3dbd0");
+
+
+    const groupId = groupData["id"];
+    //const officeId = groupData["officeId"];
+    const restaurantName = groupData["restaurant"]["name"];
+    const restaurantId = groupData["restaurantId"];
+    const nParticipants = groupData["groupMember"].length;
+    const time = ISOtoLocalHours(groupData["time"]);
+
+
+
+    function toggleOpen() {
         setOpen(!open);
     }
 
     // To close all other dropdown menus
     const closeOpenDropDown = (e)=>{
-        console.log("firing closeOpenDropDown")
         if(dropMenu.current && open && !dropMenu.current.contains(e.target)){
             setOpen(false)
         }
     }
-    // set colour of the button to reflect join status
-    const setChosenColor = (e) =>{
-        console.log("firing setChosenColor")
-        if(parseInt(sessionStorage.getItem("groupid"))===groupId){setJoinedColor("#80a4ff")}
-        else{
-            setJoinedColor("#e3dbd0");
-        }
-    }
 
     // Handling joining and leaving particular group
-    function handleJoin(e){
+    function handleJoin(){
         if(!joined){
-            joinGroup(groupId).then(r => {
-                setMyGroup(groupId);
-                sessionStorage.setItem("groupid", String(groupId));
+            joinGroup(groupId).then(() => {
+                setJoined(true);
+                sessionStorage.setItem("myGroup", JSON.stringify(groupData))
             });
         }
         else{
-            setMyGroup(null);
-            sessionStorage.removeItem("groupid");
+            setJoined(false);
             sessionStorage.removeItem("myGroup")
         }
-        setJoin(!joined);
+        setJoined(!joined);
     }
+
+    // Async func to communicate jjoining with the backend
     const joinGroup = async () =>{
         const body = {
             "groupId" : groupId
         }
         postRequest("/join-group", body, String(user))
             .then((resJSON) =>{
-                console.log(resJSON);
                 console.log(resJSON.message);
             });
     }
 
-    function sessionStorageInfo(e) {
 
-        const groupid = parseInt(sessionStorage.getItem("groupid"));
-        if (groupid) {
-            console.log("firing groupinfo")
-            const group = GetGroup(groupid);
-            const groupInfo = {
-                "id" : group["id"],
-                "restaurant" : group["restaurant"]["name"],
-                "restaurantId" : group["restaurantId"],
-                "participants" : group["groupMember"].length,
-                "time": group["time"].slice(11,16)
-
-            };
-
-            sessionStorage.setItem("myGroup", JSON.stringify(groupInfo));
-        }
-    }
-
-    // sync joining
+    // sync joining switches and colours
     useEffect(() => {
-        setMyGroup(parseInt(sessionStorage.getItem("groupid")))
-        setJoin(groupId===myGroup);
-    }, [sessionStorage.getItem("groupid")]);
+        const joinedThis = joined
+        setJoined(joinedThis);
+        if(joinedThis){setColor("#80a4ff")}
+        else{
+            setColor("#e3dbd0");
+        }
+    });
 
     // Closing dropdown menu on clicks outside / clicking other button
     // Colouring right button on changes
     useEffect(() => {
         document.addEventListener("mouseup", closeOpenDropDown);
-        document.addEventListener("input", setChosenColor);
-        document.addEventListener("input", sessionStorageInfo);
         return () => {
-
         };
     }, );
 
@@ -144,13 +129,13 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
                         //BG colour will depend on join status, currently nulled
                         sx={{
                         color: "black",
-                        backgroundColor: joinedColor}}>
+                        backgroundColor: color}}>
 
                         {/*Gridded button info contents to assure easier time
                         aligning via proportions -AK */}
                         <Grid container>
                             <Grid item xs={6} >
-                                <Typography align={"left"} color={"black"}>{placeName} </Typography>
+                                <Typography align={"left"} color={"black"}>{restaurantName} </Typography>
                             </Grid>
 
                             <Grid item xs={1}>
@@ -183,7 +168,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
                         <div>
                             <Typography variant={"h6"} align={"center"}>Join this Group?
                                 <Switch
-                                checked={groupId===myGroup}
+                                checked={joined}
                                 onChange={handleJoin}
                                 >
                                 </Switch>
@@ -196,7 +181,7 @@ export function SingleGroupDropDown({groupId, placeName, placeId, time, nPartici
                             backgroundColor: "#e3dbd0"}}/>
 
                         {/*Google Map Embed*/}
-                        <MapIframe placeId={placeId}/>
+                        <MapIframe placeId={restaurantId}/>
                         <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
@@ -219,20 +204,15 @@ function AllGroupDropDown({groups}) {
     return (
             groups.map((value) => {
                 const id = value["id"];
-                const oId = value["officeId"];
-                const rName = value["restaurant"]["name"];
-                const rId = value["restaurantId"];
-                const nP = value["groupMember"].length;
-                const time = value["time"].slice(11,16)
+                if(value["joined"]){
+                    sessionStorage.setItem("myGroup", JSON.stringify(value));
+                }
 
                 return (
                     <SingleGroupDropDown
                         key={id}
-                        groupId={id}
-                        placeId={rId}
-                        placeName={rName}
-                        nParticipants={nP}
-                        time={time}/>)})
+                        groupData={value}
+                      />)})
 )
 }
 
@@ -244,7 +224,7 @@ export function RenderDropDowns() {
 
     useEffect(()=>{
         if(!didMount) {
-            GetAllGroups().then(r => {
+            GetAllGroups().then(() => {
                     setGroups(JSON.parse(sessionStorage.getItem("groups")))
                     setDidMount(true);
             })
