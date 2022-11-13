@@ -38,9 +38,9 @@ const data = [
 ];
 
 const pickerOptions={
-    // max/min time +1/-1 min so no invalid input @ full-hour -AK
-    minTime:dayjs(new Date()).hour(9).minute(59),
-    maxTime:dayjs(new Date()).hour(14).minute(1),
+    //maxTime +1m but < step - AK
+    minTime:dayjs(new Date()).hour(10).minute(0).second(0).millisecond(0),
+    maxTime:dayjs(new Date()).hour(14).minute(1).second(0).millisecond(0),
     minStep:15,
 }
 
@@ -121,6 +121,7 @@ const CreateCustom = () => {
                     <Grid container spacing={0} justifyContent={"center"} >
                         <Typography  sx={{ marginBottom: 4, marginTop: 2, fontSize: 20}}> Please set the start time of your lunch</Typography>
                         <TimePicker
+                            closeOnSelect={true}
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
                             value={tValue}

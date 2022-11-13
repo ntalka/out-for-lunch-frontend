@@ -41,10 +41,10 @@ const marks = [
 
 
 const pickerOptions={
-    // max/min time +1/-1 min so no invalid input @ full-hour -AK
-    minTime:dayjs(new Date()).hour(9).minute(59),
-    maxTime:dayjs(new Date()).hour(14).minute(1),
-    minStep:15,
+    //maxTime +1m but < step - AK
+    minTime:dayjs(new Date()).hour(10).minute(0).second(0).millisecond(0),
+    maxTime:dayjs(new Date()).hour(14).minute(1).second(0).millisecond(0),
+    minStep:15
 }
 
 const sliderOptions={
@@ -126,6 +126,7 @@ function TimeSelector(){
                     <Grid item xs={4}>
 
                         <TimePicker
+                            closeOnSelect={true}
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
                             value={t1Value}
@@ -149,7 +150,8 @@ function TimeSelector(){
                     </Grid>
 
                     <Grid item xs={4}>
-                        <TimePicker InputProps={{"background-colour":"black"}}
+                        <TimePicker
+                            closeOnSelect={true}
                             minutesStep={pickerOptions.minStep}
                             ampm={false}
                             value={t2Value}
@@ -177,11 +179,9 @@ function TimeSelector(){
                                 id="timeSlider"
                                 value={sliderValue}
                                 defaultValue={1100}
-                                getAriaValueText={valuetext}
                                 onChange={handleSliderChange}
-                                step={sliderOptions.minStep}
-                                valueLabelDisplay="off"
                                 marks={marks}
+                                step={sliderOptions.minStep}
                                 min={sliderOptions.minTime}
                                 max={sliderOptions.maxTime}/>
                         </Grid>
