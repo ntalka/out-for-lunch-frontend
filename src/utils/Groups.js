@@ -1,6 +1,6 @@
 import React from 'react'
-import {getUser} from "../Authentication/Authenticate";
-import {getRequest} from "../backend/utils";
+import {getUser} from "./Authenticate";
+import {getRequest} from "./RequestUtils";
 
 
 export async function GetAllGroups() {

@@ -3,7 +3,7 @@ import {
     Container, createTheme, CssBaseline, ThemeProvider
 } from "@mui/material";
 import {useState} from "react";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 import {PopUp} from "../../components/StyledMui/PopUp";
 
 const theme = createTheme(themeOptions);

@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 const huldTheme = createTheme(themeOptions);
 
 const NoPermission=()=>(

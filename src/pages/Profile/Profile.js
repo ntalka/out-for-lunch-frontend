@@ -7,7 +7,7 @@ import {
     ThemeProvider
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 import {Link} from "react-router-dom";
 
 const theme = createTheme(themeOptions);

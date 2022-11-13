@@ -7,16 +7,16 @@ import {
     CssBaseline, Divider, Grid,
     ThemeProvider
 } from "@mui/material";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {getUser, useAuth} from "../../utils/Authentication/Authenticate";
+import {getUser, useAuth} from "../../utils/Authenticate";
 import dayjs from "dayjs";
 import React from "react";
-import {postRequest} from "../../utils/backend/utils";
+import {postRequest} from "../../utils/RequestUtils";
 
 
 const theme = createTheme(themeOptions);

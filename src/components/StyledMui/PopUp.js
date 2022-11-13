@@ -5,7 +5,7 @@ import {
     DialogContent,
     DialogContentText
 } from "@mui/material";
-import {themeOptions as theme} from "../../utils/Theme/ThemeOptions";
+import {themeOptions as theme} from "../../utils/ThemeOptions";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 

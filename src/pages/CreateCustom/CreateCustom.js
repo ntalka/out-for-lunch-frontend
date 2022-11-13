@@ -9,7 +9,7 @@ import {
     Slider,
     ThemeProvider
 } from "@mui/material";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";

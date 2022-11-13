@@ -10,10 +10,10 @@ import {
     FormLabel,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
+import {themeOptions} from "../../utils/ThemeOptions";
 import {useState} from "react";
 import {PopUp} from "../../components/StyledMui/PopUp";
-import {postRequest} from "../../utils/backend/utils";
+import {postRequest} from "../../utils/RequestUtils";
 const theme = createTheme(themeOptions);
 
 /*

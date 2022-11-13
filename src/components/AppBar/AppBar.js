@@ -13,8 +13,8 @@ import {useCallback, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {RestaurantInfoButton} from "../RestaurantInfoButton/RestaurantInfoButton"
 
-import {themeOptions} from "../../utils/Theme/ThemeOptions";
-import {useAuth} from "../../utils/Authentication/Authenticate";
+import {themeOptions} from "../../utils/ThemeOptions";
+import {useAuth} from "../../utils/Authenticate";
 
 const drawerWidth = 150;
 const huldTheme = createTheme(themeOptions);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {GetGroup} from "../../utils/Groups/Groups";
+import {GetGroup} from "../../utils/Groups";
 
 
 
