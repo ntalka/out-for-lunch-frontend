@@ -33,11 +33,7 @@ export default function Main() {
     const [expanded, setExpanded] = React.useState(true);
 
     const handleChange = () =>{
-        if( expanded === true){
-            setExpanded(false);
-            return;
-        }
-        setExpanded(true);
+        setExpanded(!expanded);
     }
 
     const createRandom = async () =>{
@@ -92,14 +88,14 @@ export default function Main() {
                         id={"lunchTimePicker"}
                         sx={{backgroundColor: "#00173a" }}
                         expanded={expanded}
-                        onClick={handleChange}
                     >
                         <AccordionSummary
                             sx={{backgroundColor: "#80a4ff", color: "black",
                                 "& .MuiAccordionSummary-content": {
                                     justifyContent: "center",
                                 } }}
-                            expandIcon={<ExpandMoreIcon />}>
+                            expandIcon={ <ExpandMoreIcon onClick={handleChange} />}>
+
                             <Typography > Lunch time picker </Typography>
                         </AccordionSummary>
 
