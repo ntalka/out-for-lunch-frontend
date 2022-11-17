@@ -87,7 +87,7 @@ export default function Main() {
                     >
                         <AccordionSummary
                             expandIcon={ <ExpandMoreIcon onClick={handleChange} />}>
-                            <Typography > Lunch time picker </Typography>
+                            <Typography fontWeight={"bold"} > Lunch time picker </Typography>
                         </AccordionSummary>
 
                         <AccordionDetails>
