@@ -179,9 +179,17 @@ const CreateCustom = () => {
                         }}
                         renderInput={(params) => <TextField {...params} label="Restaurant" />}
                     />
+
                 </Grid>
 
-                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 2, marginTop: 5, borderBottomWidth: 3}}/>
+                <Grid align="center">
+                    <Button sx={{
+                        marginTop: 2
+                    }}
+                     > Create random</Button>
+                    </Grid>
+
+                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 2, marginTop: 2, borderBottomWidth: 3}}/>
 
                 <Grid container spacing={1} align="center" direction="row">
 
@@ -201,6 +209,8 @@ const CreateCustom = () => {
                             > Cancel</Button>
                     </Grid>
                 </Grid>
+
+
 
             </Container>
         </LocalizationProvider>
