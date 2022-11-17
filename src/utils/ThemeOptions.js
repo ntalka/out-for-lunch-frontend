@@ -44,7 +44,43 @@ export const themeOptions: ThemeOptions = {
         },
         divider: '#ffffff',
     },
+
+
     components: {
+        MuiTextField: {
+            styleOverrides: {
+                root:{
+                    "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                            borderColor: '#ffffff',
+
+                        },
+
+                    },
+
+                }
+            }
+
+        },
+        MuiButton:{
+            styleOverrides: {
+
+                root: {
+                    '&:hover': {
+                        backgroundColor: '#0047f2',
+                        color: '#000000',
+                    },
+
+                    fontSize: 11.5,
+                    fontWeight: "bold",
+                    color: "black",
+                    backgroundColor: '#80a4ff'
+
+                }
+            }
+        },
+
+
         MuiPaper: {
             styleOverrides: {
                 root: {
