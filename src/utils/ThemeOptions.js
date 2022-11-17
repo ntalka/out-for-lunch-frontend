@@ -47,30 +47,50 @@ export const themeOptions: ThemeOptions = {
 
 
     components: {
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    "& .MuiAccordionSummary-content": {
+                        justifyContent: "center",
+                    },
+                    backgroundColor: "#80a4ff",
+                    color: "black"
+                }
+            }
+
+
+        },
+        MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#00173a"
+                }
+            }
+
+        },
         MuiTextField: {
             styleOverrides: {
                 root:{
                     "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                             borderColor: '#ffffff',
-
+                            borderRadius: 10
                         },
 
                     },
-
                 }
             }
 
         },
         MuiButton:{
             styleOverrides: {
-
                 root: {
+
                     '&:hover': {
                         backgroundColor: '#0047f2',
                         color: '#000000',
                     },
-
+                    borderRadius: 6,
                     fontSize: 11.5,
                     fontWeight: "bold",
                     color: "black",
