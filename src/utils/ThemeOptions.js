@@ -47,6 +47,14 @@ export const themeOptions: ThemeOptions = {
 
 
     components: {
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: "black",
+                    fontWeight: "bold"
+                }
+            }
+        },
         MuiAccordionSummary: {
             styleOverrides: {
                 root: {
@@ -55,52 +63,47 @@ export const themeOptions: ThemeOptions = {
                     },
                     backgroundColor: "#80a4ff",
                     color: "black",
-                    borderRadius: 10,
+                    borderRadius: 8,
                 }
             }
-
-
         },
+
         MuiAccordion: {
             styleOverrides: {
                 root: {
                     backgroundColor: "#00173a"
                 }
             }
-
         },
+
         MuiTextField: {
             styleOverrides: {
                 root:{
                     "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                             borderColor: '#ffffff',
-                            borderRadius: 10
+                            borderRadius: 8
                         },
-
                     },
                 }
             }
-
         },
+
         MuiButton:{
             styleOverrides: {
                 root: {
-
                     '&:hover': {
                         backgroundColor: '#0047f2',
                         color: '#000000',
                     },
-                    borderRadius: 6,
+                    borderRadius: 8,
                     fontSize: 11.5,
                     fontWeight: "bold",
                     color: "black",
                     backgroundColor: '#80a4ff'
-
                 }
             }
         },
-
 
         MuiPaper: {
             styleOverrides: {
