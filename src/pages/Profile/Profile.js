@@ -28,7 +28,7 @@ const Profile = () => {
                     <Typography  fontSize={25} textAlign={"center"} > Your Profile</Typography>
                     <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
                     <Typography> Currently selected office: </Typography>
-                    <FormControl  sx={{  minWidth: 200, marginBottom: 2, marginTop: 1., fontWeight: "bold", color: "black", borderRadius: 2,
+                    <FormControl  sx={{  minWidth: 200, marginBottom: 2, marginTop: 1., borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText}}}>
@@ -42,18 +42,14 @@ const Profile = () => {
                                 onChange={handleChange}
                         >
 
-                            <MenuItem  sx={{color: "black", fontWeight: "bold"}} value={10}>Ratina</MenuItem>
-                            <MenuItem sx={{color: "black", fontWeight: "bold"}} value={20}>Location 2</MenuItem>
-                            <MenuItem sx={{color: "black", fontWeight: "bold"}} value={30}>Location 3</MenuItem>
+                            <MenuItem value={10}>Ratina</MenuItem>
+                            <MenuItem value={20}>Location 2</MenuItem>
+                            <MenuItem value={30}>Location 3</MenuItem>
                         </Select>
                     </FormControl>
                     <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
 
-                    <Button component={Link} to="/main" sx={{ fontWeight: "bold",  marginTop: 5, marginBottom: -25,  color: "black", borderRadius: 2,
-                        backgroundColor: theme.palette.secondary.dark,
-                        '&:hover':{backgroundColor: theme.palette.primary.dark,
-                            color: theme.palette.primary.contrastText,
-                        }}}
+                    <Button component={Link} to="/main" sx={{ marginTop: 5, marginBottom: -25}}
                             >Back to main page </Button>
                 </Box>
 
