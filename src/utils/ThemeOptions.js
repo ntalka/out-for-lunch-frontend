@@ -54,7 +54,8 @@ export const themeOptions: ThemeOptions = {
                         justifyContent: "center",
                     },
                     backgroundColor: "#80a4ff",
-                    color: "black"
+                    color: "black",
+                    borderRadius: 10,
                 }
             }
 
