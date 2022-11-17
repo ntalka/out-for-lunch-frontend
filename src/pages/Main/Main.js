@@ -105,11 +105,7 @@ export default function Main() {
                                 onClick={joinRandom}
                                 id={"JoinRandom"}
                                 style={{minWidth: 360}}
-                                sx={{ marginTop: 1,  fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                                    backgroundColor: theme.palette.secondary.dark,
-                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                        color: theme.palette.primary.contrastText,
-                                    }}}>Join random suitable group</Button>
+                                >Join random suitable group</Button>
                         </AccordionDetails>
 
                     </Accordion>
@@ -122,11 +118,8 @@ export default function Main() {
                         <Button component={Link} to="/createcustom"
                                 id={"CreateCustom"}
                                 style={{minWidth: 360}}
-                                sx={{ marginTop: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                                    backgroundColor: theme.palette.secondary.dark,
-                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                        color: theme.palette.primary.contrastText,
-                                    }}}>Create custom</Button>
+                                sx={{ marginTop: 1,}}
+                                >Create custom</Button>
                     </Grid>
             </Box>
             </Container>
