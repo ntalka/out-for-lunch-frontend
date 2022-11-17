@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import Typography from "@mui/material/Typography";
-import {Box, Button, Grid, Switch} from "@mui/material";
+import {Box, Button, Grid, IconButton, Stack, Switch} from "@mui/material";
 import Divider from "@mui/material/Divider";
 
 
@@ -15,6 +15,7 @@ import {GetAllGroups} from "../../utils/Groups";
 import {postRequest} from "../../utils/RequestUtils";
 import {useAuth} from "../../utils/Authenticate";
 import {ISOtoLocalHours} from "../../utils/TimeUtils";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 
@@ -165,16 +166,20 @@ export function SingleGroupDropDown({groupData}){
                     <Box marginTop={2} >
 
                         {/*Group Joining*/}
-                        <div>
+                        <Stack direction={"row"} justifyContent="center" >
                             <Typography variant={"h6"} align={"center"}>Join this Group?
                                 <Switch
-                                checked={joined}
-                                onChange={handleJoin}
+                                    checked={joined}
+                                    onChange={handleJoin}
                                 >
                                 </Switch>
+                                <IconButton  aria-label="delete" color="error" size={"large"}
+                                             style={{  bottom: 1, right: -30 }}>
+                                    <DeleteIcon />
+                                </IconButton>
                             </Typography>
+                        </Stack>
 
-                        </div>
                         <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
