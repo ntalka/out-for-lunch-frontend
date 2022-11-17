@@ -70,9 +70,6 @@ export default function Main() {
             });
     }
 
-
-
-
     return(
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -86,16 +83,10 @@ export default function Main() {
                     }}>
                     <Accordion
                         id={"lunchTimePicker"}
-                        sx={{backgroundColor: "#00173a" }}
                         expanded={expanded}
                     >
                         <AccordionSummary
-                            sx={{backgroundColor: "#80a4ff", color: "black",
-                                "& .MuiAccordionSummary-content": {
-                                    justifyContent: "center",
-                                } }}
                             expandIcon={ <ExpandMoreIcon onClick={handleChange} />}>
-
                             <Typography > Lunch time picker </Typography>
                         </AccordionSummary>
 
