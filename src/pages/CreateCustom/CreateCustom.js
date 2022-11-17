@@ -170,11 +170,7 @@ const CreateCustom = () => {
                         options={data}
                         /* Currenly value on console */
                         onChange={handleAutoChange}
-                        sx={{  "& .MuiOutlinedInput-root": {
-                                "& > fieldset": {
-                                    borderColor: "#ffffff",
-                                    borderRadius : 3},
-                            },
+                        sx={{
                             width: 320,
                             svg: {
                                 color: '#ffffff' },
@@ -195,22 +191,14 @@ const CreateCustom = () => {
                         id={"okButton"}
                         onClick={handleOk}
                         component={Link} to="/main"
-                        sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                            backgroundColor: theme.palette.secondary.dark,
-                            '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                color: theme.palette.primary.contrastText,
-                            }}}> Ok</Button>
+                      > Ok</Button>
                     </Grid>
 
                     <Grid item xs={6}>
                         <Button style={{minWidth: 100}}
                             id={"cancelButton"}
                             component={Link} to="/main"
-                            sx={{ fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                                backgroundColor: theme.palette.secondary.dark,
-                                '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                    color: theme.palette.primary.contrastText,
-                                }}}> Cancel</Button>
+                            > Cancel</Button>
                     </Grid>
                 </Grid>
 
