@@ -110,7 +110,7 @@ export default function Main() {
                                 id={"CreateCustom"}
                                 style={{minWidth: 360}}
                                 sx={{ marginTop: 1,}}
-                                >Create custom</Button>
+                                >Create group</Button>
                     </Grid>
             </Box>
             </Container>
