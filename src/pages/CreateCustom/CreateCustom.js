@@ -159,7 +159,8 @@ const CreateCustom = () => {
                         max={sliderOptions.maxTime}/>
                 </Grid>
 
-                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 1, marginTop: 5, borderBottomWidth: 3}}/>
+                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle"
+                         sx={{marginBottom: 1, marginTop: 5, borderBottomWidth: 3}}/>
 
                 <Grid   container spacing={0} justifyContent={"center"}>
                     <Typography sx={{marginBottom: 3, marginTop: 2, fontSize: 20}}> Please Choose a restaurant</Typography>
@@ -183,10 +184,8 @@ const CreateCustom = () => {
                 </Grid>
 
                 <Grid align="center">
-                    <Button sx={{
-                        marginTop: 2
-                    }}
-                     > Create random</Button>
+                    <Button sx={{marginTop: 2}}
+                     > Pick for me</Button>
                     </Grid>
 
                 <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 2, marginTop: 2, borderBottomWidth: 3}}/>
