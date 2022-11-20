@@ -81,7 +81,7 @@ const CreateCustom = () => {
     const navigate = useNavigate();
     const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
     const [sliderValue, setSliderValue] = React.useState(660);
-    const [autoValue, setAutoValue] = React.useState([]);
+    const [autoValue, setAutoValue] = React.useState("Restaurant");
     const [restaurants, setRestaurants] = React.useState();
 
     // handle autocomplete change to get value
@@ -104,6 +104,7 @@ const CreateCustom = () => {
 
     // currently printing time and restaurant on console
     const handleOk = async() =>{
+        if(autoValue==="Restaurant"){return;}
         await createGroup(autoValue["id"]).then(()=>{
             navigate("/main")
         })
@@ -117,6 +118,13 @@ const CreateCustom = () => {
             .then(() =>{
 
             });
+    }
+
+    const pickForMe = () =>{
+        const size = (restaurants).length;
+        const randInt = Math.floor(Math.random() * size)
+        const restaurant = restaurants[randInt];
+        setAutoValue(restaurant)
     }
 
 
@@ -203,7 +211,9 @@ const CreateCustom = () => {
                         disablePortal
                         variant={"outlined"}
                         id="restaurantBar"
+                        value={autoValue}
                         options={restaurants}
+                        isOptionEqualToValue={(option, value) => option.value === value.value}
                         /* Currenly value on console */
                         onChange={handleAutoChange}
                         sx={{
@@ -218,10 +228,14 @@ const CreateCustom = () => {
 
                 </Grid>}
 
-                <Grid item align="center">
-                    <Button sx={{marginTop: 2}}
-                     > Pick for me</Button>
-                    </Grid>
+                    {restaurants &&
+                        <Grid item align="center">
+                            <Button
+                                onClick={pickForMe}
+                                sx={{marginTop: 2}}
+                            > Pick for me</Button>
+                        </Grid>
+                    }
 
                     <CenterDivider/>
 
