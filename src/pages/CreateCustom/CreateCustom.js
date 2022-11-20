@@ -153,9 +153,8 @@ const CreateCustom = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
-                <Box sx={{
+                <Box  sx={{
                         marginTop: 2,
-                        display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
