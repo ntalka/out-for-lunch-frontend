@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Autocomplete, Button,
+    Autocomplete, Box, Button,
     Container,
     createTheme,
     CssBaseline,
@@ -17,6 +17,7 @@ import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import {Link} from "react-router-dom";
+import {CenterDivider} from "../../components/StyledMui/CenterDivider";
 
 
 
@@ -107,7 +108,7 @@ const CreateCustom = () => {
     }
 
     // currently printing time and restaurant on console
-    const handleOk = () =>{
+    const handleOk = async() =>{
         console.log(tValue, autoValue);
     }
 
@@ -117,33 +118,40 @@ const CreateCustom = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
+                <Box sx={{
+                        marginTop: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}>
+                    <Typography variant={"h6"} textAlign={"center"} marginBottom={2}>
+                        Please set the start time of your lunch</Typography>
+                    <Grid container spacing={3} justifyContent={"center"} >
+                        <Grid item alignItems={"center"} xs={6} >
+                            <TimePicker
+                                closeOnSelect={true}
+                                minutesStep={pickerOptions.minStep}
+                                ampm={false}
+                                value={tValue}
+                                onChange={handleTimerChange}
+                                minTime={pickerOptions.minTime}
+                                maxTime={pickerOptions.maxTime}
 
-                    <Grid container spacing={0} justifyContent={"center"} >
-                        <Typography  sx={{ marginBottom: 4, marginTop: 2, fontSize: 20}}> Please set the start time of your lunch</Typography>
-                        <TimePicker
-                            closeOnSelect={true}
-                            minutesStep={pickerOptions.minStep}
-                            ampm={false}
-                            value={tValue}
-                            onChange={handleTimerChange}
-                            minTime={pickerOptions.minTime}
-                            maxTime={pickerOptions.maxTime}
-
-                            renderInput={(params) => (
-                                <TextField {...params} className="timePicker"
-                                           label={"At"}
-                                           sx={{
-                                               svg: {
-                                                   color: '#ffffff' },
-                                               input: {
-                                                   textAlign: "center",
-                                                   color: '#ffffff' },
-                                           }}/>
-                            )}
-                            sx={{backgroundColor:"#00173a"}}/>
+                                renderInput={(params) => (
+                                    <TextField {...params} className="timePicker"
+                                               label={"At"}
+                                               sx={{
+                                                   svg: {
+                                                       color: '#ffffff' },
+                                                   input: {
+                                                       textAlign: "center",
+                                                       color: '#ffffff' },
+                                               }}/>
+                                )}
+                                sx={{backgroundColor:"#00173a"}}/>
                     </Grid>
 
-                <Grid item alignItems={"center"} xs={9} >
+                <Grid item alignItems={"center"} xs={8} >
                     <Slider
                         sx={{marginTop: 2}}
                         id="timeSlider"
@@ -158,11 +166,11 @@ const CreateCustom = () => {
                         min={sliderOptions.minTime}
                         max={sliderOptions.maxTime}/>
                 </Grid>
-
-                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 1, marginTop: 5, borderBottomWidth: 3}}/>
+            </Grid>
+                    <CenterDivider/>
 
                 <Grid   container spacing={0} justifyContent={"center"}>
-                    <Typography sx={{marginBottom: 3, marginTop: 2, fontSize: 20}}> Please Choose a restaurant</Typography>
+                    <Typography variant={"h6"} textAlign={"center"} marginBottom={2}> Please Choose a restaurant</Typography>
                     <Autocomplete
                         disablePortal
                         variant={"outlined"}
@@ -185,7 +193,7 @@ const CreateCustom = () => {
                     />
                 </Grid>
 
-                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 2, marginTop: 5, borderBottomWidth: 3}}/>
+                    <CenterDivider/>
 
                 <Grid container spacing={1} align="center" direction="row">
 
@@ -213,7 +221,7 @@ const CreateCustom = () => {
                                 }}}> Cancel</Button>
                     </Grid>
                 </Grid>
-
+                </Box>
             </Container>
         </LocalizationProvider>
         </ThemeProvider>

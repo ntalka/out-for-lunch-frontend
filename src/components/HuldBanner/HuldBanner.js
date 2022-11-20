@@ -1,5 +1,6 @@
 import { Box, Divider} from "@mui/material";
 import logo_white from '../../material/huld_logo_white.svg';
+import {CenterDivider} from "../StyledMui/CenterDivider";
 
 /*
 Simple HULD-logo middle-aligned banner element w/ divider to use at the
@@ -11,14 +12,8 @@ Aleksi Karelius
 export function HuldBanner() {
     return (
         /* Centered banner, currently margined const 3 from top*/
-        <Box margin="auto" marginTop= {18} justifyContent="center" sx={{ width: '100%', maxWidth: 360 } }>
-            {/* Divider is just white, might be changed later to suit HULD
-            colour scheme*/}
-            <Divider variant="middle"
-                     sx={{
-                         marginTop:3,
-                         borderBottomWidth: 3,
-                        backgroundColor: "white"}}/>
+        <Box alignItems={"center"} margin="auto" marginTop= {6} justifyContent="center" >
+            <CenterDivider/>
             <Box alignContent='center'>
                 <a href="https://huld.io">
                     <img alt="Huld company logo" src={logo_white} align='center' />

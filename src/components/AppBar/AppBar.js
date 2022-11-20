@@ -52,7 +52,8 @@ const TopAppBar =() => {
     );
 
     return (
-        <div>
+        <div >
+
             <AppBar
                 /*
                 Fixing drawer to be under appbar
@@ -60,7 +61,7 @@ const TopAppBar =() => {
                  */
                 position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,
                 backgroundColor: huldTheme.palette.background.paper,
-                color: huldTheme.palette.text.disabled,}}>
+                color: huldTheme.palette.text.disabled, marginBottom: 2}}>
                 <Toolbar>
                     <Grid
                         /*Grid containing out-for-lunch tittle and hamburgermenu,
@@ -133,7 +134,6 @@ const TopAppBar =() => {
                         <Divider variant="middle"
                                  sx={{borderBottomWidth: 2}}/>
 
-                        {/*TODO: Switching between login / log out*/}
                         <ListItemButton onClick ={logout}>
                             <Typography width={"100%"} textAlign={"center"}> Log out</Typography>
                         </ListItemButton>
@@ -143,7 +143,7 @@ const TopAppBar =() => {
                 </Box>
             </Drawer>
             <Toolbar />
-        </div>
+        </div >
     );
 }
 export default TopAppBar;
