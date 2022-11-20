@@ -13,8 +13,7 @@ import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {getUser, useAuth} from "../../utils/Authenticate";
-import dayjs from "dayjs";
+import {useAuth} from "../../utils/Authenticate";
 import React from "react";
 import {postRequest} from "../../utils/RequestUtils";
 
@@ -26,7 +25,6 @@ const theme = createTheme(themeOptions);
 // Main page for displaying the restaurants / locations
 export default function Main() {
     const {user} = useAuth();
-    const host = process.env.REACT_APP_SERVER;
     const [start] = React.useState(sessionStorage.getItem("start"));
     const [end] = React.useState(sessionStorage.getItem("end"));
 
@@ -36,37 +34,13 @@ export default function Main() {
         setExpanded(!expanded);
     }
 
-    const createRandom = async () =>{
-        let requestOptions = {
-            method: 'POST',
-            headers: {
-                'Authorization' : user},
-            body: {
-                "startTime" : start,
-                "endTime" : end},
-            redirect: 'follow'
-        };
-
-        console.log(requestOptions);
-        const res = await fetch(host + '/create-random-group', requestOptions )
-        await res.json()
-            .then((resJSON) =>{
-                console.log(resJSON);
-                console.log(resJSON.message);
-                if(resJSON.status === 200){
-                    console.log("ryhmä luotu")
-                }
-            });
-    }
 
     const joinRandom = async () =>{
         const body = {
-            "endTime": "2022-11-07T14:00:35Z",
-            "startTime": "2022-11-07T09:00:35Z"}
+            "endTime": "2023-10-29T14:00:35Z",
+            "startTime": "2023-10-28T09:00:35Z"}
         postRequest("/join-random-group", body, String(user))
-            .then((resJSON) =>{
-                console.log(resJSON);
-                console.log(resJSON.message);
+            .then(() =>{
             });
     }
 
