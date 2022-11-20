@@ -4,7 +4,6 @@ import {
     Container,
     createTheme,
     CssBaseline,
-    Divider,
     Grid,
     Slider,
     ThemeProvider
@@ -16,8 +15,11 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {CenterDivider} from "../../components/StyledMui/CenterDivider";
+import {getRequest, postRequest} from "../../utils/RequestUtils";
+import {useAuth} from "../../utils/Authenticate";
+import {useEffect} from "react";
 
 
 
@@ -27,16 +29,6 @@ import {CenterDivider} from "../../components/StyledMui/CenterDivider";
 
 const theme = createTheme(themeOptions);
 
-
-const data = [
-    { label: "Ravintola Tampella"},
-    { label: "Sasor - Restaurant & Winebar" },
-    { label:  "Rioni Tampere"},
-    { label: "Viikinkiravintola Harald" },
-    { label: "Ravintola Kajo" },
-    { label: "testi" },
-    { label: "testi2" }
-];
 
 const pickerOptions={
     //maxTime +1m but < step - AK
@@ -85,9 +77,12 @@ const marks = [
 
 
 const CreateCustom = () => {
+    const {user} = useAuth();
+    const navigate = useNavigate();
     const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
     const [sliderValue, setSliderValue] = React.useState(660);
     const [autoValue, setAutoValue] = React.useState([]);
+    const [restaurants, setRestaurants] = React.useState();
 
     // handle autocomplete change to get value
     const handleAutoChange = (event, value) => setAutoValue(value);
@@ -109,8 +104,40 @@ const CreateCustom = () => {
 
     // currently printing time and restaurant on console
     const handleOk = async() =>{
-        console.log(tValue, autoValue);
+        await createGroup(autoValue["id"]).then(()=>{
+            navigate("/main")
+        })
     }
+
+    const createGroup = async (targetId) =>{
+        const body = {
+            "time": "2023-10-29T13:34:00.000",
+            "restaurantId": targetId}
+        await postRequest("/create-custom-group", body, String(user))
+            .then(() =>{
+
+            });
+    }
+
+
+    useEffect(()=>{
+        if(!restaurants) {
+            getRequest("/get-restaurant-list-office", String(user))
+                .then((resJSON) =>{
+                if(resJSON){
+                    let data =[];
+                    resJSON["data"].map((value) =>{
+                    let restaurant={
+                        label: value["name"],
+                        id: value["id"]
+                    }
+                    data.push(restaurant);
+                    })
+                    setRestaurants(data);
+                }
+            })
+        }
+    })
 
 
     return (
@@ -169,13 +196,14 @@ const CreateCustom = () => {
             </Grid>
                     <CenterDivider/>
 
+                    {restaurants&&
                 <Grid   container spacing={0} justifyContent={"center"}>
                     <Typography variant={"h6"} textAlign={"center"} marginBottom={2}> Please Choose a restaurant</Typography>
                     <Autocomplete
                         disablePortal
                         variant={"outlined"}
                         id="restaurantBar"
-                        options={data}
+                        options={restaurants}
                         /* Currenly value on console */
                         onChange={handleAutoChange}
                         sx={{
@@ -188,14 +216,13 @@ const CreateCustom = () => {
                         renderInput={(params) => <TextField {...params} label="Restaurant" />}
                     />
 
-                </Grid>
+                </Grid>}
 
-                <Grid align="center">
+                <Grid item align="center">
                     <Button sx={{marginTop: 2}}
                      > Pick for me</Button>
                     </Grid>
 
-                <Divider style={{width: '100%', maxWidth: 360}}  justifycontent="center" variant="middle" sx={{marginBottom: 2, marginTop: 2, borderBottomWidth: 3}}/>
                     <CenterDivider/>
 
                 <Grid container spacing={1} align="center" direction="row">
@@ -205,7 +232,7 @@ const CreateCustom = () => {
                         style={{minWidth: 100}}
                         id={"okButton"}
                         onClick={handleOk}
-                        component={Link} to="/main"
+                        //component={Link} to="/main"
                       > Ok</Button>
                     </Grid>
 
