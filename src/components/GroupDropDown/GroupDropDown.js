@@ -222,6 +222,8 @@ export function SingleGroupDropDown({groupData}){
 
 // Dynamically create and return dropdown menus from map
 function AllGroupDropDown({groups}) {
+    sessionStorage.removeItem("myGroup");
+
     return (
             groups.map((value) => {
                 const id = value["id"];
