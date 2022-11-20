@@ -83,20 +83,25 @@ export function SingleGroupDropDown({groupData}){
             });
         }
         else{
-            setJoined(false);
-            sessionStorage.removeItem("myGroup")
+            leaveGroup().then(() =>{
+                setJoined(false);
+                sessionStorage.removeItem("myGroup")
+            })
+
         }
         setJoined(!joined);
     }
 
     // Async func to communicate jjoining with the backend
     const joinGroup = async () =>{
-        const body = {
-            "groupId" : groupId
-        }
-        postRequest("/join-group", body, String(user))
-            .then((resJSON) =>{
-                console.log(resJSON.message);
+        postRequest("/join-group/"+groupId, {}, String(user))
+            .then(() =>{
+            });
+    }
+
+    const leaveGroup = async () =>{
+        postRequest("/leave-group/"+groupId,{}, String(user))
+            .then(() =>{
             });
     }
 
@@ -112,7 +117,6 @@ export function SingleGroupDropDown({groupData}){
     });
 
     // Closing dropdown menu on clicks outside / clicking other button
-    // Colouring right button on changes
     useEffect(() => {
         document.addEventListener("mouseup", closeOpenDropDown);
         return () => {
