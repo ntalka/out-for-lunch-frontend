@@ -12,7 +12,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import {ParticipantList} from "../ParticipantList/ParticipantList";
 import {GetAllGroups} from "../../utils/Groups";
-import {postRequest} from "../../utils/RequestUtils";
+import {deleteRequest, postRequest} from "../../utils/RequestUtils";
 import {useAuth} from "../../utils/Authenticate";
 import {ISOtoLocalHours} from "../../utils/TimeUtils";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -105,6 +105,13 @@ export function SingleGroupDropDown({groupData}){
             });
     }
 
+    const deleteGroup = async () =>{
+        await deleteRequest("/delete-group/"+groupId, String(user))
+            .then(()=>{
+            window.location.reload();
+        });
+    }
+
 
     // sync joining switches and colours
     useEffect(() => {
@@ -177,7 +184,9 @@ export function SingleGroupDropDown({groupData}){
                                     onChange={handleJoin}
                                 >
                                 </Switch>
-                                <IconButton  aria-label="delete" color="error" size={"large"}
+                                <IconButton
+                                    onClick={deleteGroup}
+                                    aria-label="delete" color="error" size={"large"}
                                              style={{  bottom: 1, right: -30 }}>
                                     <DeleteIcon />
                                 </IconButton>

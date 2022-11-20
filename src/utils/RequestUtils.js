@@ -31,3 +31,18 @@ export const getRequest = async(url, auth) =>{
     console.log(resJSON);
     return resJSON;
 }
+
+export const deleteRequest = async(url, auth) =>{
+    const method = 'DELETE';
+    const res = await fetch(host + url,{
+        method,
+        redirect: 'follow',
+        credentials: 'same-origin',
+        headers:{
+            Authorization: auth
+        }
+    });
+    const resJSON = await res.json()
+    console.log(resJSON);
+    return resJSON;
+}
