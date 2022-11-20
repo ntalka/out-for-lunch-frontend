@@ -12,7 +12,8 @@ Aleksi Karelius
 export function HuldBanner() {
     return (
         /* Centered banner, currently margined const 3 from top*/
-        <Box maxWidth={360}  marginTop= {6} justifyContent="center" >
+        <Box alignItems={"center"} margin="auto" marginTop= {6}
+             sx={{maxWidth: 360 }}>
             <CenterDivider/>
             <Box >
                 <a href="https://huld.io">
