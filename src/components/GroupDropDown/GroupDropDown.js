@@ -108,6 +108,9 @@ export function SingleGroupDropDown({groupData}){
     const deleteGroup = async () =>{
         await deleteRequest("/delete-group/"+groupId, String(user))
             .then(()=>{
+                if(joined){
+                    sessionStorage.removeItem("myGroup")
+                }
             window.location.reload();
         });
     }
