@@ -90,7 +90,9 @@ const Register = () => {
             <form onSubmit={handleSubmit} >
 
                 {/* Placing text between borders */}
-                <FormLabel style={{marginLeft: "105px", marginTop: "-20px", paddingLeft: "5px", paddingRight: "5px",  width: "180px", backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registration</FormLabel>
+                <FormLabel style={{marginLeft: "105px", marginTop: "-20px",
+                    paddingLeft: "5px", paddingRight: "5px",  width: "180px",
+                    backgroundColor: "#00173a", position: "absolute", fontSize: "28px"}}>Registration</FormLabel>
                 <Box
                      id={"RegisterBox"}
                      display ="flex"
@@ -118,15 +120,7 @@ const Register = () => {
                                onChange={handleChangeEmail("email")}
                                helperText={emailError ? "Email needs to be '@huld.io'" : ""}
                                error={emailError}
-
-                               // still hard coded borders
-                               sx={{
-                                   "& .MuiOutlinedInput-root": {
-                                       "& > fieldset": {
-                                           borderColor: theme.palette.secondary.contrastText,
-                                           borderRadius : 3},
-                                   },
-                               }}/>
+                                />
 
                     <TextField id={"password"}
                                name={"password"}
@@ -140,16 +134,6 @@ const Register = () => {
                                onChange={handleChangePassword("password")}
                                helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
-
-                               // still hard coded borders
-                               sx={{
-                                   "& .MuiOutlinedInput-root": {
-                                       "& > fieldset": {
-                                           borderColor: theme.palette.secondary.contrastText,
-                                           borderRadius : 3}
-                                       ,
-                                   },
-                               }}
                     />
 
                     <TextField id={"passwordAgain"}
@@ -166,14 +150,6 @@ const Register = () => {
                                helperText={passwordError ? "Both passwords need to be same" : ""}
                                error={passwordError}
 
-                               // still hard coded borders
-                               sx={{
-                                   "& .MuiOutlinedInput-root": {
-                                       "& > fieldset": {
-                                           borderColor: theme.palette.secondary.contrastText,
-                                           borderRadius : 3},
-                                   },
-                               }}
                     />
                     <Typography
                         sx={{fontFamily: 'Quicksand'}}
@@ -186,12 +162,10 @@ const Register = () => {
                             disabled={emailError || passwordError || emptyCheck}
                             sx={{
                                 marginTop: 2,
-                                borderRadius: 2
                             }}
                             style={{
-                                fontStyle: "normal",
                                 minWidth:'120px',
-                                fontWeight: "bold"}}
+                                }}
                             type={"submit"}
                             variant = "contained"> Register
                     </Button>

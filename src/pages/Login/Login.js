@@ -113,16 +113,6 @@ const Login = () => {
                              sx={{mt: 1}}
                              textAlign='center'>
                             <TextField
-
-                                // still hard coded borders
-                                sx={{
-                                    "& .MuiOutlinedInput-root": {
-                                        "& > fieldset": {
-                                            borderColor: theme.palette.secondary.contrastText,
-                                            borderRadius: 3
-                                        },
-                                    },
-                                }}
                                 variant='outlined'
                                 margin="normal"
                                 required
@@ -132,15 +122,7 @@ const Login = () => {
                                 autoComplete="email"
                                 autoFocus
                             />
-                            <TextField // still hard coded borders
-                                sx={{
-                                    "& .MuiOutlinedInput-root": {
-                                        "& > fieldset": {
-                                            borderColor: theme.palette.secondary.contrastText,
-                                            borderRadius: 3
-                                        },
-                                    },
-                                }}
+                            <TextField
                                 margin="normal"
                                 required
                                 name="password"
@@ -164,7 +146,6 @@ const Login = () => {
                             <Grid>
                                 <Grid item>
                                     <Button
-                                        sx={{borderRadius: 2, fontWeight: "bold"}}
                                         style={{minWidth: '180px'}}
                                         type="submit"
                                         variant="contained"
@@ -174,7 +155,7 @@ const Login = () => {
                                 </Grid>
                                 <Grid item>
                                     <Button
-                                        sx={{mt: 1, mb: 2, borderRadius: 2, fontWeight: "bold"}}
+                                        sx={{mt: 1, mb: 2}}
                                         style={{minWidth: '120px'}}
                                         type="link"
                                         variant="contained"

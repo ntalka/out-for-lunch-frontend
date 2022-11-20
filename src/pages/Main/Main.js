@@ -33,11 +33,7 @@ export default function Main() {
     const [expanded, setExpanded] = React.useState(true);
 
     const handleChange = () =>{
-        if( expanded === true){
-            setExpanded(false);
-            return;
-        }
-        setExpanded(true);
+        setExpanded(!expanded);
     }
 
     const createRandom = async () =>{
@@ -74,9 +70,6 @@ export default function Main() {
             });
     }
 
-
-
-
     return(
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -90,17 +83,11 @@ export default function Main() {
                     }}>
                     <Accordion
                         id={"lunchTimePicker"}
-                        sx={{backgroundColor: "#00173a" }}
                         expanded={expanded}
-                        onClick={handleChange}
                     >
                         <AccordionSummary
-                            sx={{backgroundColor: "#80a4ff", color: "black",
-                                "& .MuiAccordionSummary-content": {
-                                    justifyContent: "center",
-                                } }}
-                            expandIcon={<ExpandMoreIcon />}>
-                            <Typography > Lunch time picker </Typography>
+                            expandIcon={ <ExpandMoreIcon onClick={handleChange} />}>
+                            <Typography fontWeight={"bold"} > Lunch time picker </Typography>
                         </AccordionSummary>
 
                         <AccordionDetails>
@@ -109,11 +96,7 @@ export default function Main() {
                                 onClick={joinRandom}
                                 id={"JoinRandom"}
                                 style={{minWidth: 360}}
-                                sx={{ marginTop: 1,  fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                                    backgroundColor: theme.palette.secondary.dark,
-                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                        color: theme.palette.primary.contrastText,
-                                    }}}>Join random suitable group</Button>
+                                >Join random suitable group</Button>
                         </AccordionDetails>
 
                     </Accordion>
@@ -126,11 +109,8 @@ export default function Main() {
                         <Button component={Link} to="/createcustom"
                                 id={"CreateCustom"}
                                 style={{minWidth: 360}}
-                                sx={{ marginTop: 1, fontSize: 11.5, fontWeight: "bold", color: "black", borderRadius: 2,
-                                    backgroundColor: theme.palette.secondary.dark,
-                                    '&:hover':{backgroundColor: theme.palette.primary.dark,
-                                        color: theme.palette.primary.contrastText,
-                                    }}}>Create custom</Button>
+                                sx={{ marginTop: 1,}}
+                                >Create group</Button>
                     </Grid>
             </Box>
             </Container>
