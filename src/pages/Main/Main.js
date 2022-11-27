@@ -37,8 +37,8 @@ export default function Main() {
 
     const joinRandom = async () =>{
         const body = {
-            "endTime": "2023-10-29T14:00:35Z",
-            "startTime": "2023-10-28T09:00:35Z"}
+            "endTime": end,
+            "startTime": start}
         postRequest("/join-random-group", body, String(user))
             .then(() =>{
             });
