@@ -54,11 +54,6 @@ const sliderOptions={
     minStep: 15,
 }
 
-function valuetext(value) {
-    return (value.toString().slice(0,2) + ":" + value.toString().slice(3));
-}
-
-
 function TimeSelector(){
     // State/value changes with initial times
     const [t1Value, t1SetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
@@ -90,8 +85,8 @@ function TimeSelector(){
     function updateSessionsStorage(){
         // sessionStorage.setItem("start", t1Value.toISOString().slice(0,-1))
         // sessionStorage.setItem("end", t2Value.toISOString().slice(0,-1))
-        sessionStorage.setItem("start", "2022-10-29"+t1Value.toISOString().slice(10,-1))
-        sessionStorage.setItem("end", "2022-10-29"+t2Value.toISOString().slice(10,-1))
+        sessionStorage.setItem("start", t1Value.toISOString().slice(0,-1))
+        sessionStorage.setItem("end", t2Value.toISOString().slice(0,-1))
     }
 
     // Timer changes and slider linking
