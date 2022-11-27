@@ -102,7 +102,7 @@ const CreateCustom = () => {
         handleSliderChange(null, mins);
     }
 
-    // currently printing time and restaurant on console
+    // currently, printing time and restaurant on console
     const handleOk = async() =>{
         if(autoValue==="Restaurant"){return;}
         await createGroup(autoValue["id"]).then(()=>{
@@ -112,7 +112,7 @@ const CreateCustom = () => {
 
     const createGroup = async (targetId) =>{
         const body = {
-            "time": "2023-10-29T13:34:00.000",
+            "time": tValue,
             "restaurantId": targetId}
         await postRequest("/create-custom-group", body, String(user))
             .then(() =>{
@@ -135,11 +135,12 @@ const CreateCustom = () => {
                 if(resJSON){
                     let data =[];
                     resJSON["data"].map((value) =>{
-                    let restaurant={
-                        label: value["name"],
-                        id: value["id"]
-                    }
-                    data.push(restaurant);
+                        let restaurant={
+                            label: value["name"],
+                            id: value["id"]
+                        }
+                        data.push(restaurant);
+                            return true
                     })
                     setRestaurants(data);
                 }
@@ -213,7 +214,7 @@ const CreateCustom = () => {
                         value={autoValue}
                         options={restaurants}
                         isOptionEqualToValue={(option, value) => option.value === value.value}
-                        /* Currenly value on console */
+                        /* Currently, value on console */
                         onChange={handleAutoChange}
                         sx={{
                             width: 320,
