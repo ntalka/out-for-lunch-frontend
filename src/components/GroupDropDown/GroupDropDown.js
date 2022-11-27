@@ -122,9 +122,8 @@ export function SingleGroupDropDown({groupData}){
         setJoined(joinedThis);
         if(joinedThis){setColor("#80a4ff")}
         else{
-            setColor("#e3dbd0");
-        }
-    });
+            setColor("#e3dbd0");}
+    }, [joined]);
 
     // Closing dropdown menu on clicks outside / clicking other button
     useEffect(() => {
