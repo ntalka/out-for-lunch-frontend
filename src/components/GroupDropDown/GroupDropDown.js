@@ -29,17 +29,40 @@ function EmbedLink(placeId="ChIJuy6UbDjfjkYRmI04K3dwVcs"){
 )
 }
 
-function MapIframe({placeId}){
+function EmbedCoordinates(coordinates="61.449801,23.856506"){
     return(
-        <div align={"center"}>
-            <iframe
-                id={"embeddedMap"}
-                title={"Restaurant map location"}
-                src={EmbedLink(placeId)}
-                width="300" height="300" frameBorder="0" style={{border: 0}}
-                aria-hidden="false" tabIndex="0"/>
-        </div>
+        "https://www.google.com/maps/embed/v1/view?" +
+        "key=" + process.env.REACT_APP_GOOGLE_API_KEY +
+        "&center="+coordinates+
+        "&zoom=14"
     )
+}
+
+function MapIframe({placeId, coordinates}){
+    if(!placeId===0) {
+        return (
+            <div align={"center"}>
+                <iframe
+                    id={"embeddedMap"}
+                    title={"Restaurant map location"}
+                    src={EmbedLink(placeId)}
+                    width="300" height="300" frameBorder="0" style={{border: 0}}
+                    aria-hidden="false" tabIndex="0"/>
+            </div>
+        )
+    }
+    else{
+        return (
+            <div align={"center"}>
+                <iframe
+                    id={"embeddedMap"}
+                    title={"office map location"}
+                    src={EmbedCoordinates(coordinates)}
+                    width="300" height="300" frameBorder="0" style={{border: 0}}
+                    aria-hidden="false" tabIndex="0"/>
+            </div>
+        )
+    }
 }
 
 
@@ -53,10 +76,13 @@ export function SingleGroupDropDown({groupData}){
     const [joined, setJoined] = useState(groupData["joined"]);
     const [color, setColor] = useState(joined ? null : "#e3dbd0");
 
-
+    let restaurantName;
     const groupId = groupData["id"];
     //const officeId = groupData["officeId"];
-    const restaurantName = groupData["restaurant"]["name"];
+    if(groupData["restaurant"] === null){
+        restaurantName = "office"
+    }
+    else{restaurantName = groupData["restaurant"]["name"];}
     const restaurantId = groupData["restaurantId"];
     const nParticipants = groupData["groupMember"].length;
     const time = ISOtoLocalHours(groupData["time"]);
@@ -201,7 +227,7 @@ export function SingleGroupDropDown({groupData}){
                             backgroundColor: "#e3dbd0"}}/>
 
                         {/*Google Map Embed*/}
-                        <MapIframe placeId={restaurantId}/>
+                        <MapIframe placeId={restaurantId} />
                         <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
