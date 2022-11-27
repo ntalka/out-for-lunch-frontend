@@ -59,6 +59,9 @@ const Profile = () => {
         let currentInfo = JSON.parse(userInfo);
         currentInfo["officeId"] = {location}["location"]["id"];
         sessionStorage.setItem("userInfo", JSON.stringify(currentInfo));
+        if(localStorage.getItem("userInfo")){
+            localStorage.setItem("userInfo", JSON.stringify(currentInfo));
+        }
         navigate("/main")
     }
 
