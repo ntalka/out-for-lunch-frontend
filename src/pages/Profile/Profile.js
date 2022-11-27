@@ -23,7 +23,8 @@ const Profile = () => {
     const navigate = useNavigate();
     const [location, setLocation] = React.useState();
     const [offices, setOffices] = React.useState();
-    const [currentOffice] = React.useState(JSON.parse(sessionStorage.getItem("userInfo"))["officeId"])
+    const [userInfo] = React.useState(!sessionStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : sessionStorage.getItem("userInfo"))
+    const [currentOffice] = React.useState(JSON.parse(userInfo)["officeId"])
 
     // handle autocomplete change to get value
     const handleAutoChange = (event, value) => setLocation(value);
@@ -55,7 +56,7 @@ const Profile = () => {
     // save current settings
     // TODO: There's no endpoint for changing the office
     function saveSettings() {
-        let currentInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+        let currentInfo = JSON.parse(userInfo);
         currentInfo["officeId"] = {location}["location"]["id"];
         sessionStorage.setItem("userInfo", JSON.stringify(currentInfo));
         navigate("/main")
