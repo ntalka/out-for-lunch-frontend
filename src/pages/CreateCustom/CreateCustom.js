@@ -3,9 +3,9 @@ import {
     Autocomplete, Box, Button,
     Container,
     createTheme,
-    CssBaseline,
+    CssBaseline, FormControlLabel,
     Grid,
-    Slider,
+    Slider, Switch,
     ThemeProvider
 } from "@mui/material";
 import {themeOptions} from "../../utils/ThemeOptions";
@@ -83,6 +83,8 @@ const CreateCustom = () => {
     const [sliderValue, setSliderValue] = React.useState(660);
     const [autoValue, setAutoValue] = React.useState("Restaurant");
     const [restaurants, setRestaurants] = React.useState();
+    const [eatAtOffice, setEatAtOffice] = React.useState(false);
+
 
     // handle autocomplete change to get value
     const handleAutoChange = (event, value) => setAutoValue(value);
@@ -103,11 +105,20 @@ const CreateCustom = () => {
     }
 
     // currently, printing time and restaurant on console
-    const handleOk = async() =>{
-        if(autoValue==="Restaurant"){return;}
-        await createGroup(autoValue["id"]).then(()=>{
-            navigate("/main")
-        })
+    const handleOk = async() => {
+        if (eatAtOffice) {
+            await createAtOffice().then(() => {
+                navigate("/main")
+            })
+
+            // custom restaurant choices
+            if (autoValue === "Restaurant") {
+                return;
+            }
+            await createGroup(autoValue["id"]).then(() => {
+                navigate("/main")
+            })
+        }
     }
 
     const createGroup = async (targetId) =>{
@@ -118,6 +129,14 @@ const CreateCustom = () => {
             .then(() =>{
 
             });
+    }
+    const createAtOffice = async () =>{
+        const body = {
+            "time": tValue
+        }
+        await postRequest("/eat-at-office", body, String(user))
+            .then(() =>{
+        });
     }
 
     const pickForMe = () =>{
@@ -204,10 +223,21 @@ const CreateCustom = () => {
             </Grid>
                     <CenterDivider/>
 
-                    {restaurants&&
+
+
                 <Grid   container spacing={0} justifyContent={"center"}>
+                    <FormControlLabel
+                        id = "eatAtOffice"
+                        control={<Switch onChange={()=>setEatAtOffice(!eatAtOffice)} value="atOffice"/>}
+                        color='objective'
+                        label="Eat at office?"
+                        labelPlacement={"start"}
+                    />
+                    {(restaurants && !eatAtOffice)&&
+                        <>
                     <Typography variant={"h6"} textAlign={"center"} marginBottom={2}> Please Choose a restaurant</Typography>
                     <Autocomplete
+                        disabled={eatAtOffice}
                         disablePortal
                         variant={"outlined"}
                         id="restaurantBar"
@@ -225,19 +255,21 @@ const CreateCustom = () => {
                         }}
                         renderInput={(params) => <TextField {...params} label="Restaurant" />}
                     />
+                        </>}
+                </Grid>
 
-                </Grid>}
-
-                    {restaurants &&
+                    {(restaurants && !eatAtOffice)&&
                         <Grid item align="center">
                             <Button
+                                disabled={eatAtOffice}
                                 onClick={pickForMe}
                                 sx={{marginTop: 2}}
                             > Pick for me</Button>
-                        </Grid>
-                    }
+
+                        </Grid>}
 
                     <CenterDivider/>
+
 
                 <Grid container spacing={1} align="center" direction="row">
 
