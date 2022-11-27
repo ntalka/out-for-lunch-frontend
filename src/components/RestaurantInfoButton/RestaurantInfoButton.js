@@ -22,12 +22,12 @@ export function RestaurantInfoButton() {
     }
 
 
-    const [groupId, ] = useState(myGroup ? myGroup["id"] : "null");
-    const [name, ] = useState(myGroup ? myGroup["restaurant"]["name"] : null);
-    //const [restaurantId, ] = useState(myGroup ? myGroup["restaurantId"] : null);
-    const [participants, ] = useState(myGroup ? myGroup["groupMember"].length : null);
-    const [time, ] = useState(myGroup ? ISOtoLocalHours(myGroup["time"]) : null);
-    const [hidden, ] = useState(groupId!=="null");
+    const [groupId] = useState(myGroup ? myGroup["id"] : "null");
+    const [restaurantId] = useState(myGroup ? myGroup["restaurantId"] : null);
+    const [name] = useState(restaurantId===0 ? myGroup["restaurantId"]["name"] : "Office");
+    const [participants] = useState(myGroup ? myGroup["groupMember"].length : null);
+    const [time] = useState(myGroup ? ISOtoLocalHours(myGroup["time"]) : null);
+    const [hidden] = useState(groupId!=="null");
 
     return(
         <>
