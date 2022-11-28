@@ -115,10 +115,11 @@ const CreateCustom = () => {
             if (autoValue === "Restaurant") {
                 return;
             }
-            await createGroup(autoValue["id"]).then(() => {
-                navigate("/main")
-            })
+
         }
+        await createGroup(autoValue["id"]).then(() => {
+            navigate("/main")
+        })
     }
 
     const createGroup = async (targetId) =>{
