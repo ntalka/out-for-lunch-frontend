@@ -80,7 +80,7 @@ const marks = [
 const CreateCustom = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(23).minute(0));
+    const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
     const [sliderValue, setSliderValue] = React.useState(660);
     const [autoValue, setAutoValue] = React.useState("Restaurant");
     const [restaurants, setRestaurants] = React.useState();
