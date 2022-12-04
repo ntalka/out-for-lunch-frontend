@@ -4,7 +4,7 @@ import {
     Box,
     Button,
     Container, createTheme,
-    CssBaseline, Divider, FormControl,
+    CssBaseline, FormControl,
     ThemeProvider
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -13,6 +13,8 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../utils/Authenticate";
 import {getRequest} from "../../utils/RequestUtils";
 import TextField from "@mui/material/TextField";
+import {changeLocation} from "../../utils/User";
+import {CenterDivider} from "../../components/StyledMui/CenterDivider";
 
 const theme = createTheme(themeOptions);
 
@@ -24,6 +26,7 @@ const Profile = () => {
     const [location, setLocation] = React.useState();
     const [offices, setOffices] = React.useState();
     const [userInfo] = React.useState(!sessionStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : sessionStorage.getItem("userInfo"))
+    const userJson = JSON.parse(userInfo);
     const [currentOffice] = React.useState(JSON.parse(userInfo)["officeId"])
 
     // handle autocomplete change to get value
@@ -39,7 +42,8 @@ const Profile = () => {
                         resJSON["data"].map((value) =>{
                             let option={
                                 label: value["name"],
-                                id: value["id"]
+                                id: value["id"],
+                                coord: value["location"]
                             }
                             if(option.id === currentOffice){
                                 setLocation(option)
@@ -55,13 +59,8 @@ const Profile = () => {
 
     // save current settings
     // TODO: There's no endpoint for changing the office
-    function saveSettings() {
-        let currentInfo = JSON.parse(userInfo);
-        currentInfo["officeId"] = {location}["location"]["id"];
-        sessionStorage.setItem("userInfo", JSON.stringify(currentInfo));
-        if(localStorage.getItem("userInfo")){
-            localStorage.setItem("userInfo", JSON.stringify(currentInfo));
-        }
+    async function saveSettings() {
+        await changeLocation({location}["location"]["id"], {location}["location"]["coord"])
         navigate("/main")
     }
 
@@ -71,37 +70,47 @@ const Profile = () => {
                 <CssBaseline />
                 <Box margin="auto" textAlign='center'  justifycontent="center" sx={{ width: '100%', maxWidth: 360 }}>
                     <Typography  fontSize={25} textAlign={"center"} > Your Profile</Typography>
-                    <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
-                    <Typography> Currently selected office: </Typography>
+                    <CenterDivider/>
+                    <Typography variant={"h5"}> Currently selected office: </Typography>
                     <FormControl  sx={{  minWidth: 200, marginBottom: 2, marginTop: 1., borderRadius: 2,
                             backgroundColor: theme.palette.secondary.dark,
                             '&:hover':{backgroundColor: theme.palette.primary.dark,
                                 color: theme.palette.primary.contrastText}}}>
                         {offices &&
+
                             <Autocomplete
-                            disablePortal
-                            variant={"outlined"}
-                            id="officeSelector"
-                            value={location}
-                            options={offices}
-                            isOptionEqualToValue={(option, value) => option.value === value.value}
-                            /* Currently, value on console */
-                            onChange={handleAutoChange}
-                            sx={{
-                            width: 320,
-                            svg: {
-                            color: '#ffffff' },
-                            input: {
-                            color: '#ffffff' },
-                        }}
-                            renderInput={(params) => <TextField {...params}  />}
+                                disablePortal
+                                variant={"outlined"}
+                                id="officeSelector"
+                                value={location}
+                                options={offices}
+                                isOptionEqualToValue={(option, value) => option.value === value.value}
+                                /* Currently, value on console */
+                                onChange={handleAutoChange}
+                                sx={{
+                                    width: 320,
+                                    svg: {
+                                        color: '#ffffff'
+                                    },
+                                    input: {
+                                        color: '#ffffff'
+                                    },
+                                }}
+                                renderInput={(params) =>
+                                    <TextField {...params}  />}
                             />
                         }
                     </FormControl>
-                    <Divider  justifycontent="center" variant="middle" sx={{borderBottomWidth: 3}}/>
-
-                    <Button onClick={saveSettings} to="/main" sx={{ marginTop: 5, marginBottom: -25}}
-                            >Back to main page </Button>
+                    {offices &&
+                        <Button onClick={saveSettings} to="/main" >
+                        Save changes </Button>
+                    }
+                    <CenterDivider/>
+                    <Typography variant={"h5"}> User info: </Typography>
+                    <Typography variant={"subtitle1"}>
+                        <p>{userJson["name"]}</p>
+                        <p>{userJson["email"]}</p>
+                    </Typography>
                 </Box>
             </Container>
         </ThemeProvider>
