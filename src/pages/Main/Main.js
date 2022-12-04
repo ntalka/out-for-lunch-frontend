@@ -13,9 +13,8 @@ import {RenderDropDowns} from "../../components/GroupDropDown/GroupDropDown";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {useAuth} from "../../utils/Authenticate";
 import React from "react";
-import {postRequest} from "../../utils/RequestUtils";
+import {joinRandomGroup} from "../../utils/Groups";
 
 
 const theme = createTheme(themeOptions);
@@ -24,24 +23,12 @@ const theme = createTheme(themeOptions);
 
 // Main page for displaying the restaurants / locations
 export default function Main() {
-    const {user} = useAuth();
     const [start] = React.useState(sessionStorage.getItem("start"));
     const [end] = React.useState(sessionStorage.getItem("end"));
-
     const [expanded, setExpanded] = React.useState(true);
 
     const handleChange = () =>{
         setExpanded(!expanded);
-    }
-
-
-    const joinRandom = async () =>{
-        const body = {
-            "endTime": end,
-            "startTime": start}
-        postRequest("/join-random-group", body, String(user))
-            .then(() =>{
-            });
     }
 
     return(
@@ -67,7 +54,7 @@ export default function Main() {
                         <AccordionDetails>
                             <TimeSelector/>
                             <Button
-                                onClick={joinRandom}
+                                onClick={function(){joinRandomGroup(start, end)}}
                                 id={"JoinRandom"}
                                 style={{minWidth: 360}}
                                 >Join random suitable group</Button>
