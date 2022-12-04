@@ -65,7 +65,8 @@ const Login = () => {
         const userInfo =JSON.stringify({
             "name" : data["data"]["name"],
             "email" : data["data"]["email"],
-            "officeId" : data["data"]["officeId"]
+            "officeId" : data["data"]["officeId"],
+            "officeLocation" : data["data"]["location"],
         })
         setUser(authToken);
         sessionStorage.setItem("authToken", authToken);

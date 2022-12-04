@@ -39,7 +39,8 @@ function EmbedCoordinates(coordinates="61.449801,23.856506"){
 }
 
 function MapIframe({placeId, coordinates}){
-    if(!placeId===0) {
+    if(!(String(placeId)==="0")) {
+        console.log(true);
         return (
             <div align={"center"}>
                 <iframe
@@ -75,11 +76,14 @@ export function SingleGroupDropDown({groupData}){
     const [open, setOpen] = useState(groupData["joined"]);
     const [joined, setJoined] = useState(groupData["joined"]);
     const [color, setColor] = useState(joined ? null : "#e3dbd0");
-
+    const [userInfo] = React.useState(!sessionStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : sessionStorage.getItem("userInfo"))
     let restaurantName;
+    let officeLocation;
     const groupId = groupData["id"];
     //const officeId = groupData["officeId"];
     if(groupData["restaurant"] === null){
+
+        officeLocation = JSON.parse(userInfo)["officeLocation"]
         restaurantName = "office"
     }
     else{restaurantName = groupData["restaurant"]["name"];}
@@ -227,7 +231,7 @@ export function SingleGroupDropDown({groupData}){
                             backgroundColor: "#e3dbd0"}}/>
 
                         {/*Google Map Embed*/}
-                        <MapIframe placeId={restaurantId} />
+                        <MapIframe placeId={restaurantId} coordinates={officeLocation}  />
                         <Divider  variant={"middle"} sx={{
                             margin:1,
                             borderBottomWidth: 2,
