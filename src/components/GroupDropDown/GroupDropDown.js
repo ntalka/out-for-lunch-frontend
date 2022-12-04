@@ -11,9 +11,12 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import {ParticipantList} from "../ParticipantList/ParticipantList";
-import {GetAllGroups} from "../../utils/Groups";
-import {deleteRequest, postRequest} from "../../utils/RequestUtils";
-import {useAuth} from "../../utils/Authenticate";
+import {
+    deleteGroup,
+    GetAllGroups,
+    joinGroup,
+    leaveGroup
+} from "../../utils/Groups";
 import {ISOtoLocalHours} from "../../utils/TimeUtils";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -40,7 +43,6 @@ function EmbedCoordinates(coordinates="61.449801,23.856506"){
 
 function MapIframe({placeId, coordinates}){
     if(!(String(placeId)==="0")) {
-        console.log(true);
         return (
             <div align={"center"}>
                 <iframe
@@ -70,7 +72,6 @@ function MapIframe({placeId, coordinates}){
 // Returns single dropdownmenu component as a grid item xs=11. Requires vars defined.
 // - AK
 export function SingleGroupDropDown({groupData}){
-    const {user} = useAuth();
     const dropMenu = useRef(null)
     const dropMenuButton = useRef(null)
     const [open, setOpen] = useState(groupData["joined"]);
@@ -82,7 +83,6 @@ export function SingleGroupDropDown({groupData}){
     const groupId = groupData["id"];
     //const officeId = groupData["officeId"];
     if(groupData["restaurant"] === null){
-
         officeLocation = JSON.parse(userInfo)["officeLocation"]
         restaurantName = "office"
     }
@@ -113,7 +113,7 @@ export function SingleGroupDropDown({groupData}){
             });
         }
         else{
-            leaveGroup().then(() =>{
+            leaveGroup(groupId).then(() =>{
                 setJoined(false);
                 sessionStorage.removeItem("myGroup")
             })
@@ -123,27 +123,11 @@ export function SingleGroupDropDown({groupData}){
     }
 
     // Async func to communicate jjoining with the backend
-    const joinGroup = async () =>{
-        postRequest("/join-group/"+groupId, {}, String(user))
-            .then(() =>{
-            });
-    }
 
-    const leaveGroup = async () =>{
-        postRequest("/leave-group/"+groupId,{}, String(user))
-            .then(() =>{
-            });
-    }
 
-    const deleteGroup = async () =>{
-        await deleteRequest("/delete-group/"+groupId, String(user))
-            .then(()=>{
-                if(joined){
-                    sessionStorage.removeItem("myGroup")
-                }
-            window.location.reload();
-        });
-    }
+
+
+
 
 
     // sync joining switches and colours
@@ -217,7 +201,7 @@ export function SingleGroupDropDown({groupData}){
                                 >
                                 </Switch>
                                 <IconButton
-                                    onClick={deleteGroup}
+                                    onClick={function (){deleteGroup(groupId, joined)}}
                                     aria-label="delete" color="error" size={"large"}
                                              style={{  bottom: 1, right: -30 }}>
                                     <DeleteIcon />
@@ -252,13 +236,11 @@ export function SingleGroupDropDown({groupData}){
 // Dynamically create and return dropdown menus from map
 function AllGroupDropDown({groups}) {
     sessionStorage.removeItem("myGroup");
-
     return (
             groups.map((value) => {
                 const id = value["id"];
                 if(value["joined"]){
-                    sessionStorage.setItem("myGroup", JSON.stringify(value));
-                }
+                    sessionStorage.setItem("myGroup", JSON.stringify(value));}
 
                 return (
                     <SingleGroupDropDown
@@ -274,19 +256,18 @@ export function RenderDropDowns() {
     const [didMount, setDidMount] = useState(false);
     const [groups, setGroups] = useState();
 
-    useEffect(()=>{
+    useEffect(  ()=>{
         if(!didMount) {
-            GetAllGroups().then(() => {
-                    setGroups(JSON.parse(sessionStorage.getItem("groups")))
+              GetAllGroups().then(() => {
                     setDidMount(true);
+                    setGroups(JSON.parse(sessionStorage.getItem("groups")))
             })
         }
     })
 
     return (<>
         {groups &&
-        <AllGroupDropDown groups ={groups}/>
-}
+        <AllGroupDropDown groups ={groups}/>}
     </>);
 
 
