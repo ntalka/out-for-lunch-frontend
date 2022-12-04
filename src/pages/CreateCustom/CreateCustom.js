@@ -17,9 +17,10 @@ import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import {Link, useNavigate} from "react-router-dom";
 import {CenterDivider} from "../../components/StyledMui/CenterDivider";
-import {getRequest, postRequest} from "../../utils/RequestUtils";
+import {getRequest} from "../../utils/RequestUtils";
 import {useAuth} from "../../utils/Authenticate";
 import {useEffect} from "react";
+import {createGroup, createEatAtOffice} from "../../utils/Groups";
 
 
 
@@ -79,12 +80,11 @@ const marks = [
 const CreateCustom = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(11).minute(0));
+    const [tValue, tSetValue] = React.useState(dayjs(new Date()).hour(23).minute(0));
     const [sliderValue, setSliderValue] = React.useState(660);
     const [autoValue, setAutoValue] = React.useState("Restaurant");
     const [restaurants, setRestaurants] = React.useState();
     const [eatAtOffice, setEatAtOffice] = React.useState(false);
-
 
     // handle autocomplete change to get value
     const handleAutoChange = (event, value) => setAutoValue(value);
@@ -107,38 +107,18 @@ const CreateCustom = () => {
     // currently, printing time and restaurant on console
     const handleOk = async() => {
         if (eatAtOffice) {
-            await createAtOffice().then(() => {
-                navigate("/main")
-            })
+            await createEatAtOffice(tValue).then(() => {
+                navigate("/main")})
 
             // custom restaurant choices
             if (autoValue === "Restaurant") {
-                return;
-            }
-
+                return;}
         }
-        await createGroup(autoValue["id"]).then(() => {
+        await createGroup(autoValue["id"], tValue).then(() => {
             navigate("/main")
         })
     }
 
-    const createGroup = async (targetId) =>{
-        const body = {
-            "time": tValue,
-            "restaurantId": targetId}
-        await postRequest("/create-custom-group", body, String(user))
-            .then(() =>{
-
-            });
-    }
-    const createAtOffice = async () =>{
-        const body = {
-            "time": tValue
-        }
-        await postRequest("/eat-at-office", body, String(user))
-            .then(() =>{
-        });
-    }
 
     const pickForMe = () =>{
         const size = (restaurants).length;
@@ -148,7 +128,7 @@ const CreateCustom = () => {
     }
 
 
-    useEffect(()=>{
+    useEffect( ()=>{
         if(!restaurants) {
             getRequest("/get-restaurant-list-office", String(user))
                 .then((resJSON) =>{
