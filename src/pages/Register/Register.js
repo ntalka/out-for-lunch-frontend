@@ -13,27 +13,15 @@ import Typography from "@mui/material/Typography";
 import {themeOptions} from "../../utils/ThemeOptions";
 import {useState} from "react";
 import {PopUp} from "../../components/StyledMui/PopUp";
-import {postRequest} from "../../utils/RequestUtils";
+import {SignUpUser} from "../../utils/User";
 const theme = createTheme(themeOptions);
 
 /*
 Register for the website
 Button elements for submitting, forgetting password and registering
-TODO: actual register, currently just grabs data and logs on console,
-TODO: quicksand is not correct one, more styling
-
  */
 
-
-
-
-
-
-
-
-
 const Register = () => {
-    const host = process.env.REACT_APP_SERVER;
     const  registerText = "Check your email after registration to finalize the process! \n";
     const [resMessage, setResMessage] = useState()
     const [openPopUp, setOpenPopUp] = useState(false)
@@ -62,26 +50,15 @@ const Register = () => {
 
 
     // handle registration submit
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const res = signUp(data.get("email"), data.get("password"));
-        console.log(res);
+        const message = await SignUpUser(data.get("email"), data.get("password"))
+        setResMessage(message)
+        setOpenPopUp(true);
     };
 
-    // Async function to post signup data to server
-    const signUp = async (email, password) => {
-        const body = {
-            "email": email,
-            "password": password
-        }
-        postRequest("/signup", body, null)
-            .then((resJSON) =>{
-                // Setting up popup message
-                setResMessage(resJSON.message);
-                setOpenPopUp(true);
-            });
-    };
+
 
     return (
         <ThemeProvider theme={theme}>
