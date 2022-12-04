@@ -1,4 +1,5 @@
-import {postRequest} from "./RequestUtils";
+import {postRequest, putRequest} from "./RequestUtils";
+import {getUser} from "./Authenticate";
 
 
 function SaveUserInfo(dataJSON, toLocal = Boolean(localStorage.getItem("authToken")))  {
@@ -56,7 +57,7 @@ export async function changeLocation (officeId, coordinates)  {
     const body = {
         "officeId": officeId,
     }
-    await postRequest("/update-user", body, null)
+    await putRequest("/update-user", body, String(getUser()))
         .then(() =>{
             const userdata = JSON.parse(sessionStorage.getItem("userInfo"));
             userdata["officeId"] = officeId;
