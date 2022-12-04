@@ -46,3 +46,19 @@ export const deleteRequest = async(url, auth) =>{
     console.log(resJSON);
     return resJSON;
 }
+
+export const putRequest = async(url, body = {}, auth) =>{
+    const method = 'PUT';
+    const res = await fetch(host + url,{
+        method,
+        redirect: 'follow',
+        credentials: 'same-origin',
+        headers:{
+            Authorization: auth
+        },
+        body: JSON.stringify(body)
+    });
+    const resJSON = await res.json()
+    console.log(resJSON);
+    return resJSON;
+}
