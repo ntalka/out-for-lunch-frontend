@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import './Login.css'
 import {
     Box, Button,
@@ -16,7 +16,7 @@ import {
     useNavigate
 } from "react-router-dom";
 import {useAuth} from "../../utils/Authenticate";
-import {postRequest} from "../../utils/RequestUtils";
+import {LoginUser} from "../../utils/User";
 
 
 const theme = createTheme(themeOptions);
@@ -25,57 +25,22 @@ const theme = createTheme(themeOptions);
 /*
 Login for the website. Contains elements for email and password submission
 Button elements for submitting, forgetting password and registering
-TODO: async function to call backend for login -AK
-
  */
 const Login = () => {
     const {user, setUser} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const host = process.env.REACT_APP_SERVER;
+    const textWidth = String(window.innerWidth/4)+"px"
 
     // Login submit for the user, provides it to the authenticator
-    // TODO: async call for backend for checking actual login - AK
-
-    const submit = useCallback(
-        (event) => {
-            event.preventDefault();
+    async function handleSubmit(event) {
+            event.preventDefault()
             const data = new FormData(event.currentTarget);
-            const res = login(data.get('email'), data.get('password'), data.get("remember") !== null)
-
-        },
-    );
-    const login = async (email, password, remember) => {
-            const body ={
-                "email": email,
-                "password": password
-            }
-            postRequest('/login', body, null)
-                .then((resJSON) =>{
-                    console.log(resJSON);
-                    if(resJSON.status === 200){
-                        saveUserInfo(resJSON, remember)
-                        navigate("/main");
-                    }
-                });
-    };
-
-    function saveUserInfo(data, remember){
-        const authToken = String(data["authToken"]);
-        const userInfo =JSON.stringify({
-            "name" : data["data"]["name"],
-            "email" : data["data"]["email"],
-            "officeId" : data["data"]["officeId"],
-            "officeLocation" : data["data"]["location"],
-        })
-        setUser(authToken);
-        sessionStorage.setItem("authToken", authToken);
-        sessionStorage.setItem("userInfo", userInfo);
-        if(remember){
-            localStorage.setItem("authToken", authToken)
-            localStorage.setItem("userInfo", userInfo);
+            await LoginUser(data.get('email'), data.get('password'), data.get("remember") !== null)
+            setUser(sessionStorage.getItem("authToken"))
+            if(user){navigate("/main")}
         }
-    }
+
 
     if (user) {
         return (<Navigate
@@ -88,7 +53,9 @@ const Login = () => {
                     <CssBaseline/>
 
                     <FormLabel  style={{
-                        marginLeft: "110px",
+                        marginLeft: textWidth,
+                        marginRight: textWidth,
+                        maxWidth: "50%",
                         marginTop: "-20px",
                         paddingLeft: "5px",
                         paddingRight: "5px",
@@ -110,7 +77,7 @@ const Login = () => {
                         border={1}
                     >
 
-                        <Box component="form" onSubmit={submit} noValidate
+                        <Box component="form" onSubmit={handleSubmit} noValidate
                              sx={{mt: 1}}
                              textAlign='center'>
                             <TextField
@@ -149,8 +116,7 @@ const Login = () => {
                                     <Button
                                         style={{minWidth: '180px'}}
                                         type="submit"
-                                        variant="contained"
-                                    >
+                                        variant="contained">
                                         Log In
                                     </Button>
                                 </Grid>
