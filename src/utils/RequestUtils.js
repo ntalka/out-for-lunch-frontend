@@ -49,14 +49,14 @@ export const deleteRequest = async(url, auth) =>{
 
 export const putRequest = async(url, body = {}, auth) =>{
     const method = 'PUT';
-    const res = await fetch(host + url,{
+    const res = await fetch(host+url, {
         method,
-        redirect: 'follow',
         credentials: 'same-origin',
+        body: JSON.stringify(body),
         headers:{
+            'Content-Type': 'application/json',
             Authorization: auth
         },
-        body: JSON.stringify(body)
     });
     const resJSON = await res.json()
     console.log(resJSON);
