@@ -55,7 +55,7 @@ export async function SignUpUser (email, password)  {
 
 export async function changeLocation (officeId, coordinates)  {
     const body = {
-        "officeId": officeId,
+        "officeId": officeId
     }
     await putRequest("/update-user", body, String(getUser()))
         .then(() =>{
