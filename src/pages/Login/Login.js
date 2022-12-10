@@ -53,9 +53,7 @@ const Login = () => {
                     <CssBaseline/>
 
                     <FormLabel  style={{
-                        marginLeft: textWidth,
-                        marginRight: textWidth,
-                        maxWidth: "50%",
+                        marginLeft: "110px",
                         marginTop: "-20px",
                         paddingLeft: "5px",
                         paddingRight: "5px",
