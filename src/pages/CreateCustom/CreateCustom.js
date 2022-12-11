@@ -30,8 +30,8 @@ const theme = createTheme(themeOptions);
 
 const pickerOptions = {
   //maxTime +1m but < step - AK
-  minTime: dayjs(new Date()).hour(10).minute(0).second(0).millisecond(0),
-  maxTime: dayjs(new Date()).hour(14).minute(1).second(0).millisecond(0),
+  minTime: dayjs(new Date()).hour(0).minute(0).second(0).millisecond(0),
+  maxTime: dayjs(new Date()).hour(23).minute(59).second(59).millisecond(99),
   minStep: 15,
 };
 
@@ -190,7 +190,7 @@ const CreateCustom = () => {
               </Grid>
 
               <Grid item alignItems={'center'} xs={8}>
-                <Slider
+                {/* <Slider
                   sx={{ marginTop: 2 }}
                   id='timeSlider'
                   value={sliderValue}
@@ -203,7 +203,7 @@ const CreateCustom = () => {
                   marks={marks}
                   min={sliderOptions.minTime}
                   max={sliderOptions.maxTime}
-                />
+                /> */}
               </Grid>
             </Grid>
             <CenterDivider />
