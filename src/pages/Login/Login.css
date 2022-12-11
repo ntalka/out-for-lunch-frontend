@@ -1,5 +1,14 @@
 /* Don't transition to autofill stylesheet */
 input:-webkit-autofill {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: white !important;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white !important;
+}
+.loginText {
+  padding: 0 5px !important;
+  background-color: #00173a;
+  position: absolute;
+  font-size: 28px !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
