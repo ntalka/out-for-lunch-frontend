@@ -6,11 +6,39 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import './TimeSelector.css';
+const date = new Date();
+const getTime = () => {
+  let hour = date.getHours();
+  let minutes = date.getMinutes();
+  // dayjs(new Date()).hour(23).minute(59).second(59).millisecond(99)
+  if (hour === 23 && minutes > 45)
+    return {
+      minTime: dayjs(date).hour(0).minute(0).second(0).millisecond(0),
+      maxTime: dayjs(date).hour(0).minute(0).second(0).millisecond(0),
+    };
+  else if (minutes > 45) {
+    minutes = 0;
+    hour += 1;
+  } else if (minutes > 30) {
+    minutes = 45;
+  } else if (minutes > 15) {
+    minutes = 30;
+  } else if (minutes > 0) {
+    minutes = 15;
+  } else {
+    minutes = 0;
+  }
 
+  return {
+    minTime: dayjs(date).hour(hour).minute(minutes).second(0).millisecond(0),
+    maxTime: dayjs(date).hour(23).minute(45).second(0).millisecond(0),
+  };
+};
+const { minTime, maxTime } = getTime();
 const pickerOptions = {
   //maxTime +1m but < step - AK
-  minTime: dayjs(new Date()).hour(0).minute(0).second(0).millisecond(0),
-  maxTime: dayjs(new Date()).hour(23).minute(59).second(59).millisecond(99),
+  minTime,
+  maxTime,
   minStep: 15,
 };
 
@@ -59,6 +87,7 @@ function TimeSelector() {
   // calls slider changes with null event to distinguish
   // TODO: remove duplicate code, add handling for start later than end etc
   const handleTimer1Change = (newValue) => {
+    console.log(newValue, new Date().getHours(), new Date().getMinutes());
     let newDate = dayjs(newValue);
     const mins = newDate.minute() + newDate.hour() * 60;
     t1SetValue(newDate);
