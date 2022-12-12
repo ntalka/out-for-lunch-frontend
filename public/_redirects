@@ -1,2 +1,2 @@
-/verify /verify 200
+/verify /index.html 200
 /main /main 200
