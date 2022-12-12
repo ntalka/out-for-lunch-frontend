@@ -5,7 +5,7 @@ Out for lunch application – Organizing office lunch breaks and making hard dec
 # Getting Started with the App
 
 1. Copy .env.example file and save it as .env
-2. add backend server url to connect backend with the App
+2. Add backend server url to connect backend with the App
 3. Add Google Maps API Key
 
 ## Available Scripts
