@@ -1,4 +1,3 @@
-import React from 'react';
 import { getUser } from './Authenticate';
 import { deleteRequest, getRequest, postRequest } from './RequestUtils';
 
@@ -21,6 +20,7 @@ export async function GetAllGroups() {
 // Get specified group from the current sessionStorage
 export function GetGroup(groupId) {
   // Finding the exact group
+  // eslint-disable-next-line array-callback-return
   const group = JSON.parse(sessionStorage.getItem('groups')).find(function (i) {
     if (i.id === groupId) {
       return i;

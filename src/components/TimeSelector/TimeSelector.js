@@ -1,48 +1,16 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { Grid, Slider, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import './TimeSelector.css';
 
-// Marks for the slider
-const marks = [
-  {
-    value: 600,
-    label: '10:00',
-  },
-  {
-    value: 660,
-    label: '11:00',
-  },
-  {
-    value: 720,
-    label: '12:00',
-  },
-  {
-    value: 780,
-    label: '13:00',
-  },
-
-  {
-    value: 840,
-    label: '14:00',
-  },
-];
-
 const pickerOptions = {
   //maxTime +1m but < step - AK
   minTime: dayjs(new Date()).hour(0).minute(0).second(0).millisecond(0),
   maxTime: dayjs(new Date()).hour(23).minute(59).second(59).millisecond(99),
-  minStep: 15,
-};
-
-const sliderOptions = {
-  // Slider works in minutes, count starts from 00:00 -AK
-  minTime: 0,
-  maxTime: 1440,
   minStep: 15,
 };
 

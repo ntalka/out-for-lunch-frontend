@@ -8,7 +8,6 @@ import {
   CssBaseline,
   FormControlLabel,
   Grid,
-  Slider,
   Switch,
   ThemeProvider,
 } from '@mui/material';
@@ -35,48 +34,12 @@ const pickerOptions = {
   minStep: 15,
 };
 
-const sliderOptions = {
-  // Slider works in minutes, count starts from 00:00 -AK
-  minTime: 600,
-  maxTime: 840,
-  minStep: 15,
-};
-
-function valuetext(value) {
-  return value.toString().slice(0, 2) + ':' + value.toString().slice(3);
-}
-
-const marks = [
-  {
-    value: 600,
-    label: '10:00',
-  },
-  {
-    value: 660,
-    label: '11:00',
-  },
-  {
-    value: 720,
-    label: '12:00',
-  },
-  {
-    value: 780,
-    label: '13:00',
-  },
-
-  {
-    value: 840,
-    label: '14:00',
-  },
-];
-
 const CreateCustom = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [tValue, tSetValue] = React.useState(
     dayjs(new Date()).hour(11).minute(0)
   );
-  const [sliderValue, setSliderValue] = React.useState(660);
   const [autoValue, setAutoValue] = React.useState('Restaurant');
   const [restaurants, setRestaurants] = React.useState();
   const [eatAtOffice, setEatAtOffice] = React.useState(false);
@@ -87,7 +50,6 @@ const CreateCustom = () => {
   //handle slider change
   const handleSliderChange = (event, newValue) => {
     let newDate = dayjs(new Date()).hour(0).minute(newValue);
-    setSliderValue(newValue);
     tSetValue(newDate);
   };
 
