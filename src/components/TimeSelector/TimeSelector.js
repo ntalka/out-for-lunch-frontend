@@ -31,7 +31,7 @@ const getTime = () => {
 
   return {
     minTime: dayjs(date).hour(hour).minute(minutes).second(0).millisecond(0),
-    maxTime: dayjs(date).hour(23).minute(45).second(0).millisecond(0),
+    maxTime: dayjs(date).hour(23).minute(59).second(0).millisecond(0),
   };
 };
 const { minTime, maxTime } = getTime();
