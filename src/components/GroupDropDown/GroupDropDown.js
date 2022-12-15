@@ -129,6 +129,7 @@ export function SingleGroupDropDown({ groupData }) {
         setJoined(false);
         sessionStorage.removeItem('myGroup');
       });
+      navigate('/');
     }
     setJoined(!joined);
   }

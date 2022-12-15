@@ -66,7 +66,7 @@ const CreateCustom = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [tValue, tSetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0)
+    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
   );
   const [autoValue, setAutoValue] = React.useState('Restaurant');
   const [restaurants, setRestaurants] = React.useState();
@@ -77,13 +77,17 @@ const CreateCustom = () => {
 
   //handle slider change
   const handleSliderChange = (event, newValue) => {
-    let newDate = dayjs(new Date()).hour(0).minute(newValue);
+    let newDate = dayjs(new Date())
+      .hour(0)
+      .minute(newValue)
+      .second(0)
+      .millisecond(0);
     tSetValue(newDate);
   };
 
   //handle time change
   const handleTimerChange = (newValue) => {
-    let newDate = dayjs(newValue);
+    let newDate = dayjs(newValue).second(0).millisecond(0);
     const mins = newDate.minute() + newDate.hour() * 60;
     tSetValue(newDate);
     handleSliderChange(null, mins);

@@ -13,22 +13,24 @@ import {
   Grid,
   ThemeProvider,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { themeOptions } from '../../utils/ThemeOptions';
 import TimeSelector from '../../components/TimeSelector/TimeSelector';
 import { RenderDropDowns } from '../../components/GroupDropDown/GroupDropDown';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { PopUp } from '../../components/StyledMui/PopUp';
 import { joinRandomGroup } from '../../utils/Groups';
 
 const theme = createTheme(themeOptions);
 
 // Main page for displaying the restaurants / locations
 export default function Main() {
-  const [start] = useState(sessionStorage.getItem('start'));
-  const [end] = useState(sessionStorage.getItem('end'));
   const [expanded, setExpanded] = useState(true);
   const [groups, setGroups] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = () => {
     setExpanded(!expanded);
@@ -56,8 +58,16 @@ export default function Main() {
             <AccordionDetails>
               <TimeSelector />
               <Button
-                onClick={function () {
-                  joinRandomGroup(start, end);
+                onClick={async function () {
+                  const resp = await joinRandomGroup(
+                    sessionStorage.getItem('start'),
+                    sessionStorage.getItem('end')
+                  );
+                  if (resp && resp.message === 'No group to join') {
+                    setError(resp.message);
+                  } else {
+                    navigate('/');
+                  }
                 }}
                 disabled={groups.length === 0}
                 id={'JoinRandom'}
@@ -92,6 +102,13 @@ export default function Main() {
             </Button>
           </Grid>
         </Box>
+        {error && (
+          <PopUp
+            buttonText={'OK'}
+            displayText={error}
+            callback={() => setError(null)}
+          />
+        )}
       </Container>
     </ThemeProvider>
   );

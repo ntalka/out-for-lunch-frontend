@@ -53,12 +53,13 @@ export function deleteGroup(groupId, joined) {
   });
 }
 
-export function joinRandomGroup(startTime, endTime) {
+export async function joinRandomGroup(startTime, endTime) {
   const body = {
     endTime: endTime,
     startTime: startTime,
   };
-  postRequest('/join-random-group', body, String(getUser())).then(() => {});
+  const resp = await postRequest('/join-random-group', body, String(getUser()));
+  return resp;
 }
 
 export async function createEatAtOffice(startTime) {
