@@ -45,10 +45,10 @@ const pickerOptions = {
 function TimeSelector() {
   // State/value changes with initial times
   const [t1Value, t1SetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0)
+    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
   );
   const [t2Value, t2SetValue] = React.useState(
-    dayjs(new Date()).hour(12).minute(0)
+    dayjs(new Date()).hour(12).minute(0).second(0).millisecond(0)
   );
   const [sliderValue, setSliderValue] = React.useState([660, 720]);
   updateSessionsStorage();
@@ -87,8 +87,7 @@ function TimeSelector() {
   // calls slider changes with null event to distinguish
   // TODO: remove duplicate code, add handling for start later than end etc
   const handleTimer1Change = (newValue) => {
-    console.log(newValue, new Date().getHours(), new Date().getMinutes());
-    let newDate = dayjs(newValue);
+    let newDate = dayjs(newValue).second(0).millisecond(0);
     const mins = newDate.minute() + newDate.hour() * 60;
     t1SetValue(newDate);
     handleSliderChange(null, [mins, sliderValue[1]], 1);
@@ -96,7 +95,7 @@ function TimeSelector() {
   };
 
   const handleTimer2Change = (newValue) => {
-    let newDate = dayjs(newValue);
+    let newDate = dayjs(newValue).second(0).millisecond(0);
     const mins = newDate.minute() + newDate.hour() * 60;
     t2SetValue(newDate);
     handleSliderChange(null, [sliderValue[0], mins], 0);

@@ -129,6 +129,7 @@ export function SingleGroupDropDown({ groupData }) {
         setJoined(false);
         sessionStorage.removeItem('myGroup');
       });
+      navigate('/');
     }
     setJoined(!joined);
   }
@@ -270,9 +271,8 @@ function AllGroupDropDown({ groups }) {
 
 // function to render DropDowns so that data is fetched
 // and components are shown after loading
-export function RenderDropDowns() {
+export function RenderDropDowns({ groups, setGroups }) {
   const [didMount, setDidMount] = useState(false);
-  const [groups, setGroups] = useState();
 
   useEffect(() => {
     if (!didMount) {
