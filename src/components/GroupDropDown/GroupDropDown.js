@@ -123,13 +123,14 @@ export function SingleGroupDropDown({ groupData }) {
       joinGroup(groupId).then(() => {
         setJoined(true);
         sessionStorage.setItem('myGroup', JSON.stringify(groupData));
+        navigate('/');
       });
     } else {
       leaveGroup(groupId).then(() => {
         setJoined(false);
         sessionStorage.removeItem('myGroup');
+        navigate('/');
       });
-      navigate('/');
     }
     setJoined(!joined);
   }
