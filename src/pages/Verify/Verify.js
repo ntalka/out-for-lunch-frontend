@@ -20,32 +20,34 @@ export default function Verify() {
   const fullUrl = window.location.href;
 
   // response data to be used and response status for displaying popup
-  const [resMessage, setResMessage] = useState();
+  const [resMessage, setResMessage] = useState(null);
   const [resReceived, setResReceived] = useState(false);
 
-  // Async function to verify the actual token
-  const verifyToken = async () => {
-    try {
-      const requestOptions = {
-        method: 'POST',
-        url: fullUrl,
-      };
-      await (await fetch(host + tokenUrl, requestOptions))
-        .json()
-        .then((res) => {
-          console.log(res);
-          console.log(res.message);
-          setResMessage(res.message);
-          // setting received status for popup display
-          setResReceived(true);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
-    verifyToken();
-  });
+    // declare the async data fetching function
+    const verifyToken = async () => {
+      try {
+        const requestOptions = {
+          method: 'POST',
+          url: fullUrl,
+        };
+        await (await fetch(host + tokenUrl, requestOptions))
+          .json()
+          .then((res) => {
+            setResMessage(res.message);
+            // setting received status for popup display
+            setResReceived(true);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    // call the function
+    verifyToken()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [fullUrl, host, tokenUrl]);
 
   return (
     <div>
