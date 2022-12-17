@@ -83,6 +83,8 @@ const Profile = () => {
                                 variant={"outlined"}
                                 id="officeSelector"
                                 value={location}
+                                getOptionDisabled={(loc) =>
+                                    loc === location}
                                 options={offices}
                                 isOptionEqualToValue={(option, value) => option.value === value.value}
                                 /* Currently, value on console */

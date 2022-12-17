@@ -230,6 +230,8 @@ const CreateCustom = () => {
                     id='restaurantBar'
                     value={autoValue}
                     options={restaurants}
+                    getOptionDisabled={(option) =>
+                        option === autoValue}
                     isOptionEqualToValue={(option, value) =>
                       option.value === value.value
                     }
