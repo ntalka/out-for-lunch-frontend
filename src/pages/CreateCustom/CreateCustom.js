@@ -272,6 +272,7 @@ const CreateCustom = () => {
             <Grid container spacing={1} align='center' direction='row'>
               <Grid item xs={6}>
                 <Button
+                    disabled={tValue<minTime || (autoValue==="Restaurant" && !eatAtOffice)}
                   style={{ minWidth: 100 }}
                   id={'okButton'}
                   onClick={handleOk}
