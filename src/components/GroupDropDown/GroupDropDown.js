@@ -20,6 +20,7 @@ import {
 import { ISOtoLocalHours } from '../../utils/TimeUtils';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 function EmbedLink(placeId = 'ChIJuy6UbDjfjkYRmI04K3dwVcs') {
   return (
     'https://www.google.com/maps/embed/v1/place?' +
@@ -92,6 +93,9 @@ export function SingleGroupDropDown({ groupData }) {
       ? localStorage.getItem('userInfo')
       : sessionStorage.getItem('userInfo')
   );
+
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+
   let restaurantName;
   let officeLocation;
   const groupId = groupData['id'];
@@ -203,6 +207,7 @@ export function SingleGroupDropDown({ groupData }) {
       {/*Contents of the dropdown menu, hidden if !open */}
       {open && (
         <Box marginTop={2}>
+
           {/*Group Joining*/}
           <Stack direction={'row'} justifyContent='center'>
             <Typography variant={'h6'} align={'center'}>
@@ -210,8 +215,8 @@ export function SingleGroupDropDown({ groupData }) {
               <Switch checked={joined} onChange={handleJoin}></Switch>
               <IconButton
                 onClick={function () {
-                  deleteGroup(groupId, joined);
-                  navigate('/');
+                  setOpenConfirmation(true);
+
                 }}
                 aria-label='delete'
                 color='error'
@@ -220,8 +225,24 @@ export function SingleGroupDropDown({ groupData }) {
               >
                 <DeleteIcon />
               </IconButton>
+              {openConfirmation &&(
+                  <p>
+                    <Button
+                        onClick={function () {
+                          deleteGroup(groupId, joined);
+                           navigate('/');
+                        }}
+                        sx={{backgroundColor: "red"}}>
+                    {"DELETE"}
+                  </Button>
+                  <Button onClick={function () {
+                        setOpenConfirmation(false);}}>
+                    {"CANCEL"}
+                  </Button>
+                  </p>)}
             </Typography>
           </Stack>
+
 
           <Divider
             variant={'middle'}

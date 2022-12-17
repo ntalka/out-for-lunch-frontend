@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { themeOptions } from '../../utils/ThemeOptions';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 import { SignUpUser } from '../../utils/User';
 import './Register.css';
 const theme = createTheme(themeOptions);
@@ -175,7 +175,7 @@ const Register = () => {
             {/* Popup after submit, displaying after response received
                      from the server -AK*/}
             {openPopUp && (
-              <PopUp
+              <ReferPopUp
                 displayText={resMessage + '\n' + values.email}
                 buttonText={'OK'}
                 referTo={'/login'}

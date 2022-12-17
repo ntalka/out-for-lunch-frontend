@@ -2,6 +2,7 @@ import React from 'react';
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {GetGroup} from "../../utils/Groups";
+import {capitalizeName} from "../../utils/User";
 
 
 
@@ -18,7 +19,7 @@ export function ParticipantList(groupId) {
                         key={"typo"+value["userId"]}
                         align={"center"}
                         color={"white"}>
-                        {value.user.name}
+                        {capitalizeName(value["user"]["name"])}
                     </Typography>
                 </Grid>
             )

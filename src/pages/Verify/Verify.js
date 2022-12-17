@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { themeOptions } from '../../utils/ThemeOptions';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 
 const theme = createTheme(themeOptions);
 
@@ -55,7 +55,7 @@ export default function Verify() {
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
           {resReceived && (
-            <PopUp
+            <ReferPopUp
               buttonText={'OK'}
               displayText={resMessage}
               referTo={'/login'}

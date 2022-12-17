@@ -7,7 +7,7 @@ function SaveUserInfo(
 ) {
   const authToken = String(dataJSON['authToken']);
   const userInfo = JSON.stringify({
-    name: dataJSON['data']['name'],
+    name: capitalizeName(dataJSON['data']['name']),
     email: dataJSON['data']['email'],
     officeId: dataJSON['data']['officeId'],
     officeLocation: dataJSON['data']['location'],
@@ -66,4 +66,8 @@ export async function changeLocation(officeId, coordinates) {
     userdata['officeLocation'] = coordinates;
     UpdateUserInfo(userdata);
   });
+}
+
+export function capitalizeName(nameString){
+  return String(nameString).replace(/\b\w/g, (c) => c.toUpperCase())
 }

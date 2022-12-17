@@ -20,7 +20,7 @@ import { RenderDropDowns } from '../../components/GroupDropDown/GroupDropDown';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 import { joinRandomGroup } from '../../utils/Groups';
 
 const theme = createTheme(themeOptions);
@@ -103,7 +103,7 @@ export default function Main() {
           </Grid>
         </Box>
         {error && (
-          <PopUp
+          <ReferPopUp
             buttonText={'OK'}
             displayText={error}
             callback={() => setError(null)}
