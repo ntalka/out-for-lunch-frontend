@@ -8,7 +8,6 @@ import {
   CssBaseline,
   FormControlLabel,
   Grid,
-  Link,
   Switch,
   TextField,
   ThemeProvider,
@@ -137,13 +136,6 @@ const Login = () => {
                   >
                     Register
                   </Button>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs>
-                  <Link href='#' variant='body2'>
-                    Forgot password?
-                  </Link>
                 </Grid>
               </Grid>
             </Box>
