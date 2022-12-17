@@ -65,9 +65,7 @@ const pickerOptions = {
 const CreateCustom = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [tValue, tSetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
-  );
+  const [tValue, tSetValue] = React.useState(minTime);
   const [autoValue, setAutoValue] = React.useState('Restaurant');
   const [restaurants, setRestaurants] = React.useState();
   const [eatAtOffice, setEatAtOffice] = React.useState(false);

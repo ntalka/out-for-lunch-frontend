@@ -44,12 +44,8 @@ const pickerOptions = {
 
 function TimeSelector() {
   // State/value changes with initial times
-  const [t1Value, t1SetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
-  );
-  const [t2Value, t2SetValue] = React.useState(
-    dayjs(new Date()).hour(12).minute(0).second(0).millisecond(0)
-  );
+  const [t1Value, t1SetValue] = React.useState(minTime);
+  const [t2Value, t2SetValue] = React.useState(minTime.add(1, 'hour'));
   const [sliderValue, setSliderValue] = React.useState([660, 720]);
   updateSessionsStorage();
   //Handling Slider connecting it to the timepickers using activeThumb
