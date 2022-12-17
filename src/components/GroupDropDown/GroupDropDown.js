@@ -115,11 +115,11 @@ export function SingleGroupDropDown({ groupData }) {
   }
 
   // To close all other dropdown menus
-  const closeOpenDropDown = (e) => {
-    if (dropMenu.current && open && !dropMenu.current.contains(e.target)) {
-      setOpen(false);
-    }
-  };
+  // const closeOpenDropDown = (e) => {
+  //   if (dropMenu.current && open && !dropMenu.current.contains(e.target)) {
+  //     setOpen(false);
+  //   }
+  // };
 
   // Handling joining and leaving particular group
   function handleJoin() {
@@ -153,10 +153,10 @@ export function SingleGroupDropDown({ groupData }) {
   }, [joined]);
 
   // Closing dropdown menu on clicks outside / clicking other button
-  useEffect(() => {
-    document.addEventListener('mouseup', closeOpenDropDown);
-    return () => {};
-  });
+  // useEffect(() => {
+  //   document.addEventListener('mouseup', closeOpenDropDown);
+  //   return () => {};
+  // });
 
   return (
     <Grid item xs={11} marginBottom={0.5} ref={dropMenu}>
@@ -212,7 +212,7 @@ export function SingleGroupDropDown({ groupData }) {
           <Stack direction={'row'} justifyContent='center'>
             <Typography variant={'h6'} align={'center'}>
               Join this Group?
-              <Switch checked={joined} onChange={handleJoin}></Switch>
+              <Switch checked={joined} onChange={handleJoin}/>
               <IconButton
                 onClick={function () {
                   setOpenConfirmation(true);
