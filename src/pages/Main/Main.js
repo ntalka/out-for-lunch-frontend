@@ -30,6 +30,7 @@ export default function Main() {
   const [expanded, setExpanded] = useState(true);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = () => {
@@ -56,7 +57,7 @@ export default function Main() {
             </AccordionSummary>
 
             <AccordionDetails>
-              <TimeSelector />
+              <TimeSelector setDisabled={setDisabled} />
               <Button
                 onClick={async function () {
                   const resp = await joinRandomGroup(
@@ -69,7 +70,7 @@ export default function Main() {
                     navigate('/');
                   }
                 }}
-                disabled={groups.length === 0}
+                disabled={groups.length === 0 || disabled}
                 id={'JoinRandom'}
                 style={{ minWidth: 360 }}
               >
