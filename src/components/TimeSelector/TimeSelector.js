@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { Grid, TextField } from '@mui/material';
 import dayjs from 'dayjs';
@@ -42,16 +42,14 @@ const pickerOptions = {
   minStep: 15,
 };
 
-function TimeSelector() {
+function TimeSelector({ setDisabled }) {
   // State/value changes with initial times
-  const [t1Value, t1SetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
-  );
-  const [t2Value, t2SetValue] = React.useState(
-    dayjs(new Date()).hour(12).minute(0).second(0).millisecond(0)
-  );
-  const [sliderValue, setSliderValue] = React.useState([660, 720]);
+  const [t1Value, t1SetValue] = useState(minTime);
+  const [t2Value, t2SetValue] = useState(minTime.add(1, 'hour'));
+  const [sliderValue, setSliderValue] = useState([660, 720]);
   updateSessionsStorage();
+  const [t1Error, setT1Error] = useState(false);
+  const [t2Error, setT2Error] = useState(false);
   //Handling Slider connecting it to the timepickers using activeThumb
   const handleSliderChange = (event, newValue, activeThumb) => {
     let newDate = dayjs(new Date()).hour(0).minute(newValue[activeThumb]);
@@ -77,6 +75,7 @@ function TimeSelector() {
   };
 
   function updateSessionsStorage() {
+    if (!t1Value.isValid() || !t2Value.isValid()) return;
     // sessionStorage.setItem("start", t1Value.toISOString().slice(0,-1))
     // sessionStorage.setItem("end", t2Value.toISOString().slice(0,-1))
     sessionStorage.setItem('start', t1Value.toISOString().slice(0, -1));
@@ -85,7 +84,6 @@ function TimeSelector() {
 
   // Timer changes and slider linking
   // calls slider changes with null event to distinguish
-  // TODO: remove duplicate code, add handling for start later than end etc
   const handleTimer1Change = (newValue) => {
     let newDate = dayjs(newValue).second(0).millisecond(0);
     const mins = newDate.minute() + newDate.hour() * 60;
@@ -114,6 +112,10 @@ function TimeSelector() {
               closeOnSelect={true}
               minutesStep={pickerOptions.minStep}
               ampm={false}
+              onError={(reason) => {
+                setT1Error(!!reason);
+                setDisabled(!!reason || t2Error);
+              }}
               value={t1Value}
               onChange={handleTimer1Change}
               minTime={pickerOptions.minTime}
@@ -145,6 +147,10 @@ function TimeSelector() {
               ampm={false}
               value={t2Value}
               onChange={handleTimer2Change}
+              onError={(reason) => {
+                setT2Error(!!reason);
+                setDisabled(!!reason || t1Error);
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}

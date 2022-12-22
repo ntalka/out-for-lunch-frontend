@@ -141,6 +141,17 @@ export const themeOptions: ThemeOptions = {
 
                 }
             }
-        }
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                option: {
+                    "&:hover": {
+                        backgroundColor: "#0047f2 !important"
+                    }
+                },
+            },
+        },
+
+
     },
 };

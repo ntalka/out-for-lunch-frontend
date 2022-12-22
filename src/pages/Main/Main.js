@@ -20,7 +20,7 @@ import { RenderDropDowns } from '../../components/GroupDropDown/GroupDropDown';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 import { joinRandomGroup } from '../../utils/Groups';
 
 const theme = createTheme(themeOptions);
@@ -30,6 +30,7 @@ export default function Main() {
   const [expanded, setExpanded] = useState(true);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = () => {
@@ -56,7 +57,7 @@ export default function Main() {
             </AccordionSummary>
 
             <AccordionDetails>
-              <TimeSelector />
+              <TimeSelector setDisabled={setDisabled} />
               <Button
                 onClick={async function () {
                   const resp = await joinRandomGroup(
@@ -69,7 +70,7 @@ export default function Main() {
                     navigate('/');
                   }
                 }}
-                disabled={groups.length === 0}
+                disabled={groups.length === 0 || disabled}
                 id={'JoinRandom'}
                 style={{ minWidth: 360 }}
               >
@@ -103,7 +104,7 @@ export default function Main() {
           </Grid>
         </Box>
         {error && (
-          <PopUp
+          <ReferPopUp
             buttonText={'OK'}
             displayText={error}
             callback={() => setError(null)}

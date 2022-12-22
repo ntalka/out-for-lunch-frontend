@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Simple popup display with message with optional refer to another page on
 // site. -AK
-export function PopUp({ displayText, buttonText, referTo, callback }) {
+export function ReferPopUp({ displayText, buttonText, referTo, callback }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
