@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Autocomplete,
   Box,
@@ -65,12 +65,11 @@ const pickerOptions = {
 const CreateCustom = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [tValue, tSetValue] = React.useState(
-    dayjs(new Date()).hour(11).minute(0).second(0).millisecond(0)
-  );
-  const [autoValue, setAutoValue] = React.useState('Restaurant');
-  const [restaurants, setRestaurants] = React.useState();
-  const [eatAtOffice, setEatAtOffice] = React.useState(false);
+  const [tValue, tSetValue] = useState(minTime);
+  const [autoValue, setAutoValue] = useState('Restaurant');
+  const [restaurants, setRestaurants] = useState();
+  const [eatAtOffice, setEatAtOffice] = useState(false);
+  const [error, setError] = useState(false);
 
   // handle autocomplete change to get value
   const handleAutoChange = (event, value) => setAutoValue(value);
@@ -160,6 +159,9 @@ const CreateCustom = () => {
                   minutesStep={pickerOptions.minStep}
                   ampm={false}
                   value={tValue}
+                  onError={(reason) => {
+                    setError(!!reason);
+                  }}
                   onChange={handleTimerChange}
                   minTime={pickerOptions.minTime}
                   maxTime={pickerOptions.maxTime}
@@ -232,6 +234,7 @@ const CreateCustom = () => {
                     id='restaurantBar'
                     value={autoValue}
                     options={restaurants}
+                    getOptionDisabled={(option) => option === autoValue}
                     isOptionEqualToValue={(option, value) =>
                       option.value === value.value
                     }
@@ -272,6 +275,11 @@ const CreateCustom = () => {
             <Grid container spacing={1} align='center' direction='row'>
               <Grid item xs={6}>
                 <Button
+                  disabled={
+                    tValue < minTime ||
+                    (autoValue === 'Restaurant' && !eatAtOffice) ||
+                    error
+                  }
                   style={{ minWidth: 100 }}
                   id={'okButton'}
                   onClick={handleOk}

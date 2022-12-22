@@ -8,7 +8,6 @@ import {
   CssBaseline,
   FormControlLabel,
   Grid,
-  Link,
   Switch,
   TextField,
   ThemeProvider,
@@ -18,7 +17,7 @@ import { themeOptions } from '../../utils/ThemeOptions';
 // noinspection ES6CheckImport
 import { Link as Link2, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../utils/Authenticate';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 import { LoginUser } from '../../utils/User';
 
 const theme = createTheme(themeOptions);
@@ -139,17 +138,10 @@ const Login = () => {
                   </Button>
                 </Grid>
               </Grid>
-              <Grid container>
-                <Grid item xs>
-                  <Link href='#' variant='body2'>
-                    Forgot password?
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
           {error && (
-            <PopUp
+            <ReferPopUp
               buttonText={'OK'}
               displayText={error}
               callback={() => setError(null)}

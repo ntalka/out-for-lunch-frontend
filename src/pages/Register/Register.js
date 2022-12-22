@@ -1,4 +1,4 @@
-import './Register.css';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -8,12 +8,13 @@ import {
   TextField,
   ThemeProvider,
   FormLabel,
+  Link,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { themeOptions } from '../../utils/ThemeOptions';
-import { useState } from 'react';
-import { PopUp } from '../../components/StyledMui/PopUp';
+import { ReferPopUp } from '../../components/StyledMui/PopUp';
 import { SignUpUser } from '../../utils/User';
+import './Register.css';
 const theme = createTheme(themeOptions);
 
 /*
@@ -167,11 +168,14 @@ const Register = () => {
               {' '}
               Register
             </Button>
+            <Link href='/' variant='body2' style={{ marginTop: 15 }}>
+              Back to Login
+            </Link>
 
             {/* Popup after submit, displaying after response received
                      from the server -AK*/}
             {openPopUp && (
-              <PopUp
+              <ReferPopUp
                 displayText={resMessage + '\n' + values.email}
                 buttonText={'OK'}
                 referTo={'/login'}

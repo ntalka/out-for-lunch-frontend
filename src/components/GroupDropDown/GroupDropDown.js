@@ -20,6 +20,7 @@ import {
 import { ISOtoLocalHours } from '../../utils/TimeUtils';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 function EmbedLink(placeId = 'ChIJuy6UbDjfjkYRmI04K3dwVcs') {
   return (
     'https://www.google.com/maps/embed/v1/place?' +
@@ -92,6 +93,9 @@ export function SingleGroupDropDown({ groupData }) {
       ? localStorage.getItem('userInfo')
       : sessionStorage.getItem('userInfo')
   );
+
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+
   let restaurantName;
   let officeLocation;
   const groupId = groupData['id'];
@@ -111,11 +115,11 @@ export function SingleGroupDropDown({ groupData }) {
   }
 
   // To close all other dropdown menus
-  const closeOpenDropDown = (e) => {
-    if (dropMenu.current && open && !dropMenu.current.contains(e.target)) {
-      setOpen(false);
-    }
-  };
+  // const closeOpenDropDown = (e) => {
+  //   if (dropMenu.current && open && !dropMenu.current.contains(e.target)) {
+  //     setOpen(false);
+  //   }
+  // };
 
   // Handling joining and leaving particular group
   function handleJoin() {
@@ -123,13 +127,14 @@ export function SingleGroupDropDown({ groupData }) {
       joinGroup(groupId).then(() => {
         setJoined(true);
         sessionStorage.setItem('myGroup', JSON.stringify(groupData));
+        navigate('/');
       });
     } else {
       leaveGroup(groupId).then(() => {
         setJoined(false);
         sessionStorage.removeItem('myGroup');
+        navigate('/');
       });
-      navigate('/');
     }
     setJoined(!joined);
   }
@@ -148,10 +153,10 @@ export function SingleGroupDropDown({ groupData }) {
   }, [joined]);
 
   // Closing dropdown menu on clicks outside / clicking other button
-  useEffect(() => {
-    document.addEventListener('mouseup', closeOpenDropDown);
-    return () => {};
-  });
+  // useEffect(() => {
+  //   document.addEventListener('mouseup', closeOpenDropDown);
+  //   return () => {};
+  // });
 
   return (
     <Grid item xs={11} marginBottom={0.5} ref={dropMenu}>
@@ -202,15 +207,16 @@ export function SingleGroupDropDown({ groupData }) {
       {/*Contents of the dropdown menu, hidden if !open */}
       {open && (
         <Box marginTop={2}>
+
           {/*Group Joining*/}
           <Stack direction={'row'} justifyContent='center'>
             <Typography variant={'h6'} align={'center'}>
               Join this Group?
-              <Switch checked={joined} onChange={handleJoin}></Switch>
+              <Switch checked={joined} onChange={handleJoin}/>
               <IconButton
                 onClick={function () {
-                  deleteGroup(groupId, joined);
-                  navigate('/');
+                  setOpenConfirmation(true);
+
                 }}
                 aria-label='delete'
                 color='error'
@@ -219,8 +225,24 @@ export function SingleGroupDropDown({ groupData }) {
               >
                 <DeleteIcon />
               </IconButton>
+              {openConfirmation &&(
+                  <p>
+                    <Button
+                        onClick={function () {
+                          deleteGroup(groupId, joined);
+                           navigate('/');
+                        }}
+                        sx={{backgroundColor: "red"}}>
+                    {"DELETE"}
+                  </Button>
+                  <Button onClick={function () {
+                        setOpenConfirmation(false);}}>
+                    {"CANCEL"}
+                  </Button>
+                  </p>)}
             </Typography>
           </Stack>
+
 
           <Divider
             variant={'middle'}
